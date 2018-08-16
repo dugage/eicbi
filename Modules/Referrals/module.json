@@ -1,0 +1,16 @@
+{
+    "name": "Referrals",
+    "alias": "referrals",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Referrals\\Providers\\ReferralsServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}

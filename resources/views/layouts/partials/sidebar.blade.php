@@ -18,8 +18,29 @@
 
         <li class="nav-item">
             <a class="nav-link" href="{{ route('home') }}">
-                <span class="menu-title">Dashboard</span>
+                <span class="menu-title">Home</span>
                 <i class="mdi mdi-home menu-icon"></i>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('users') }}">
+                <span class="menu-title">{{ trans('app.users.users') }}</span>
+                <i class="mdi mdi-account-multiple-outline menu-icon"></i>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('roles') }}">
+                <span class="menu-title">{{ trans('app.roles.roles') }}</span>
+                <i class=" mdi mdi-account-key menu-icon"></i>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('referrals') }}">
+                <span class="menu-title">{{ trans('app.referrals.referrals') }}</span>
+                <i class=" mdi mdi-link menu-icon"></i>
             </a>
         </li>
 

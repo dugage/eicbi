@@ -4,3 +4,5 @@
 <script src="{{asset('/js/off-canvas.js')}}"></script>
 <script src="{{asset('/js/misc.js')}}"></script>
 <script src="{{asset('/js/dashboard.js')}}"></script>
+
+<script src="{{asset('/js/app.js')}}"></script>

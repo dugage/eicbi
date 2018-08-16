@@ -1,9 +1,38 @@
 
 // Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+//@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 
 // Variables
-@import "variables";
+//@import "variables";
 
 // Bootstrap
-@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+//@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+.card{
+    .card-title{
+        text-transform: none;
+    }
+}
+a{
+    &.btn{
+        color:white;
+    }
+}
+//preloader
+#content-preloader {
+    
+	position: absolute;
+	width: 100%;
+	left: 0;
+	height: 100%;
+    top: 0;
+    z-index: 9;
+    background-color: white;
+    opacity: 0.8;
+    p{
+        text-align: center;
+        position: absolute;
+        top: 20%;
+        left: 47%;
+    }
+}
