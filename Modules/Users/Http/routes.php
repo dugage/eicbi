@@ -3,6 +3,7 @@
 Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'users', 'namespace' => 'Modules\Users\Http\Controllers'], function()
 {
     Route::get('/', 'UsersController@index')->name('users');
+    Route::get('/create', 'UsersController@create')->name('users.create');
 });
 
 // Rutas que serán invocadas con axios

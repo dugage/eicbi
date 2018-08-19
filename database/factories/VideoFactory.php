@@ -18,7 +18,7 @@ $factory->define(App\Models\Video::class, function (Faker $faker) {
 
         'video_category_id' => $faker->numberBetween($min = 1, $max = 5),
         'name' => $faker->text($maxNbChars = 75),
-        'category_name' => $faker->firstName,
+        'category_name' => $faker->randomElement(['Blockchain', 'Minería', 'Red P2P']),
         'code' => $faker->randomElement(['6k_nsEPhAo', 'bwVPQB2t-8g', 'Vg5sfCX8B8I']),
     ];
 });

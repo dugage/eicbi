@@ -14,8 +14,10 @@ return [
     'back'   => 'Volver',
     'loadData' => 'Cargando datos',
     'search'   => 'Buscar',
-    'noDataShow' => '<strong>Sin datos que mostrar</strong>.<br/> La consulta que intenta realizar no está arrojando datos.',
+    'noDataShow' => '<strong>Sin datos que mostrar</strong>. La consulta que intenta realizar no está arrojando datos.',
     'confirmDelete' => 'El registro seleccionado será borrado.',
+    'categories' => 'Categorías',
+    'category' => 'Categoría',
     //Módulo Usuarios
     'users' => [
 
@@ -35,6 +37,12 @@ return [
         'referredLink' => 'Link de Referido',
         'referrals' => 'Referidos',
         'referred' => 'Link  de Referido',
+    ],
+    //Módulo Videos
+    'videos' => [
+
+        'videos' => 'Vídeos',
+        'video' => 'Vídeo',
     ]
 
 ];

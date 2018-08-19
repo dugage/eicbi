@@ -21,7 +21,7 @@
                     
                     <th scope="row" v-text="row.id"></th>
 
-                    <td><a v-text="row.name" class="dropdown-item" :href="editUrl + row.id"></a></td>
+                    <td><a v-text="row.title" class="dropdown-item" :href="editUrl + row.id"></a></td>
 
                     <td v-text="row.created_at"></td>
 
@@ -57,11 +57,11 @@
 
     </div>
 
-    <div v-else class="alert alert-secondary">
+    <span v-else class="d-flex align-items-center purchase-popup col-12">
 
         {!! trans('app.noDataShow') !!}
-       
-    </div>
+        
+    </span>
 
 
 </template>

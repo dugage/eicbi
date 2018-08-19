@@ -31,7 +31,7 @@
                         </div>
                     </template>
 
-                    @include('users::partials/tables/index_table')
+                    @include('roles::partials/tables/index_table')
 
                 </div>
 

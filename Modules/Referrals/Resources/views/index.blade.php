@@ -31,7 +31,7 @@
                         </div>
                     </template>
 
-                    @include('users::partials/tables/index_table')
+                    @include('referrals::partials/tables/index_table')
 
                 </div>
 

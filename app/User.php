@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
@@ -28,4 +29,17 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    
+    //relaciones
+    public function medicalData()
+    {
+        return $this->hasMany('App\Models\Referral');
+    }
+    // Accesors
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->format('d/m/Y');
+    }
+
+
 }

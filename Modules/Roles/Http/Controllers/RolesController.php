@@ -86,4 +86,15 @@ class RolesController extends Controller
     public function destroy()
     {
     }
+
+    /**
+     * looking for data from param
+     * @return Response
+     */
+    public function search($query)
+    {
+        $roles = Role::Where('title','LIKE','%' . $query . '%')
+        ->paginate($this->paginate);
+        return response()->json($roles);
+    }
 }

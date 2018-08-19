@@ -60,11 +60,11 @@
 
     </div>
 
-    <div v-else class="alert alert-secondary">
+    <span v-else class="d-flex align-items-center purchase-popup col-12">
 
         {!! trans('app.noDataShow') !!}
-       
-    </div>
+        
+    </span>
 
 
 </template>

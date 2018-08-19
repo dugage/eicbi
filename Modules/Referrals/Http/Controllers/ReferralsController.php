@@ -23,7 +23,7 @@ class ReferralsController extends Controller
     {
         if( request()->ajax() ) {
 
-            $referrals = Referral::paginate($this->paginate);
+            $referrals = Referral::with('user')->paginate($this->paginate);
             return response()->json($referrals);
 
         }else{
@@ -83,5 +83,18 @@ class ReferralsController extends Controller
      */
     public function destroy()
     {
+    }
+    /**
+     * looking for data from param
+     * @return Response
+     */
+    public function search($query)
+    {
+        $referral = Referral::with('user')
+        ->whereHas('user', function ($q) use ($query) {
+            $q->where('name', 'LIKE', '%'.$query.'%');
+        })
+        ->paginate($this->paginate);
+        return response()->json($referral);
     }
 }

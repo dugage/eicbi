@@ -138,3 +138,10 @@ if (document.querySelector('#table-data')) {
     });
 
 }
+
+/**
+ * ---componente para interactuar con los formularios---
+*/
+if (document.querySelector('#form-data')) {
+alert();
+}
