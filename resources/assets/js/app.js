@@ -5,6 +5,7 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+
 require('./bootstrap');
 
 window.Vue = require('vue');
@@ -20,15 +21,23 @@ Vue.use(VuejsDialog, {
     cancelText: 'Cancelar',
     animation: 'bounce'
 });
-
-
+//VeeValidate para lña validación de campos
+import VeeValidate from 'vee-validate';
+const VueValidationEs = require('vee-validate/dist/locale/es');
+const config = {
+    locale: 'es',
+    events: 'blur',
+    dictionary: { es: VueValidationEs }
+};
+Vue.use(VeeValidate,config);
+//constantes con las URL de la app
+const SITE_URL = document.head.querySelector('meta[name="site-url"]').content;
+const MODULE_URL = document.head.querySelector('meta[name="module-url"]').content;
+const METHOD = document.head.querySelector('meta[name="method"]').content;
 /**
  * ---componente la tabla con listados de candidates---
 */
 if (document.querySelector('#table-data')) {
-
-    const SITE_URL = document.head.querySelector('meta[name="site-url"]').content;
-    const MODULE_URL = document.head.querySelector('meta[name="module-url"]').content;
    
     var table_managers = new Vue({
 
@@ -143,5 +152,128 @@ if (document.querySelector('#table-data')) {
  * ---componente para interactuar con los formularios---
 */
 if (document.querySelector('#form-data')) {
-alert();
+
+    var form_data = new Vue({
+
+        el: '#form-data',
+        data: {
+
+            password: null,
+            preloader: false,
+            errorCode: null,
+            showModal: false,
+            urlEdit: null,
+            formFields: [],
+            itemId: document.querySelector('#item_id').value,
+            method: METHOD,
+            erroValidate: false,
+
+        },
+        methods: {
+
+            setData : function() {
+                //url del método
+                let url = '/'+MODULE_URL+'/store';
+                //si el id > 0 sobreescribimos la url
+                if( this.itemId > 0 )
+                    url = '/'+MODULE_URL+'/update/' + this.itemId;
+                //capturamos todos los campos de formulario
+                const formData = new FormData(this.$refs['formMain']);
+                const data = {};
+                //recorremos y creamos el objeto data
+                for (let [key, val] of formData.entries()) {
+
+                    Object.assign(data, { [key]: val })
+                }
+                //comprobamos si la variable password es distinto de null
+                //en ese caso lo añadimos al data
+                if(this.password != null)
+                    Object.assign(data, { 'password': this.password })
+
+                //realizamos la consulta
+                this.$validator.validateAll().then(() => {
+
+                    if ( !this.errors.any() ) {
+
+                        this.preloader = true;
+                        this.errorCode = null;
+                        this.erroValidate = false;
+
+                        axios.post(SITE_URL + url,data).then((response) => {
+
+                            this.preloader = false;
+                            this.showModal = true;
+                            this.urlEdit = SITE_URL + '/'+MODULE_URL+'/edit/' + response.data.id;
+
+                        }).catch(error => {
+
+                            this.errorCode = error.response;
+                            this.preloader = false;
+                            this.showModal = true;
+                            
+                        });
+
+                    }else{
+
+                        this.erroValidate = true;
+                    }
+
+                });
+
+            },
+            generatePass : function() {
+                
+                //longitud de la contraseña, lista de caracteres y almacen pass generado
+                let long = 8;
+                let characters = "abcdefghijkmnpqrtuvwxyzABCDEFGHIJKLMNPQRTUVWXYZ2346789";
+                let _pass =  '';
+                //recorremos mediant loop hasta long y generamos la contraseña de forma aleatria
+                for ( let i = 0; i<long; i++ ) {
+                    _pass += characters.charAt(Math.floor(Math.random()*characters.length));
+                }
+                //pasamos al los campos correspondientes el pass generado
+                this.password = _pass;
+            },
+            togglePass() {
+
+                var passEle = document.getElementById('password');
+                var passIcoEle = document.getElementById('pass-ico');
+                var open = 'mdi-eye';
+                var closed = 'mdi-eye-off';
+                if ( passEle.type == 'password' ) {
+                    passEle.type = 'text';
+                    passIcoEle.classList.remove(open);
+                    passIcoEle.className += ' ' + closed;
+                } else {
+                    passEle.type = 'password';
+                    passIcoEle.classList.remove(closed);
+                    passIcoEle.className += ' ' + open;
+                }
+            },
+            _loadData() {
+
+                //consultamos y cargamos formFields con los datos devueltos 
+                axios.get(SITE_URL + '/'+this._clearModuleUrl(MODULE_URL)+'/edit/'+ this.itemId).then((response) => {
+
+                    let data = response.data;
+                    this.formFields = data;
+                    
+                }).catch(error => {
+
+                    this.errorCode = error.response;
+                });
+  
+            },
+            //limpia la url para los btn edit y delete
+            _clearModuleUrl(moduleUrl){
+
+                let module = moduleUrl.split('/');
+                (module.length > 1) ? module = module[1] : module = module[0];
+                return module;
+            },
+        },
+        mounted() {this._loadData();},
+
+    });
+
 }

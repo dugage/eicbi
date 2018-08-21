@@ -18,6 +18,12 @@ return [
     'confirmDelete' => 'El registro seleccionado será borrado.',
     'categories' => 'Categorías',
     'category' => 'Categoría',
+    'savingData' => 'Guardando datos',
+    'name' => 'Nombre',
+    'user' => 'Usuario',
+    'email' => 'Correo electrónico',
+    'password' => 'Contraseña',
+    'generatePassword' => 'Generar contraseña',
     //Módulo Usuarios
     'users' => [
 

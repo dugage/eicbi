@@ -24,3 +24,13 @@ a.btn {
   left: 47%;
 }
 
+.btn-inverse-dark.focus,
+.btn-inverse-dark:focus {
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+}
+
+.has-error input {
+  border: 1px solid #DCB6B9;
+}
+

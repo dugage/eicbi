@@ -49,6 +49,23 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
+        //validamos los datos
+        $data = $request->validate([
+
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+        //creamos el usuario
+        $user = User::create([
+
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),//encriptamos la contraseña
+
+        ]);
+        //devolvemos el usuario creado
+        return response()->json($user);
     }
 
     /**
@@ -64,9 +81,22 @@ class UsersController extends Controller
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit()
+    public function edit($id)
     {
-        return view('users::edit');
+        $user = User::find($id);
+
+        if( request()->ajax() ) {
+            
+            if( empty($user) )
+                $user = $this->_getDefaultResult();
+
+            return response()->json($user);
+
+        }else{
+
+            return view('users::edit',compact('user'));
+        }
+
     }
 
     /**
