@@ -17,7 +17,8 @@
     <div class="form-group" :class="{'has-error': errors.has('password') }">
         <label >{{ trans('app.password') }}</label>
         <div class="input-group">
-            <input v-validate="'required|min:8'" data-vv-as="{{ trans('app.password') }}" v-model="password" class="form-control" name="password" id="password" type="password">
+            <input v-if="method == 'create'" v-validate="'required|min:8'" data-vv-as="{{ trans('app.password') }}" v-model="password" class="form-control" name="password" id="password" type="password">
+            <input v-else v-validate="'min:8'" data-vv-as="{{ trans('app.password') }}" v-model="password" class="form-control" name="password" id="password" type="password">
             <button @click="togglePass" type="button" class="btn btn-inverse-dark btn-icon">
                 <i id="pass-ico" class="mdi mdi-eye"></i>
             </button>
@@ -46,3 +47,5 @@
     </div>
 
 </form>
+
+@include('users::partials/modals/main_modal')

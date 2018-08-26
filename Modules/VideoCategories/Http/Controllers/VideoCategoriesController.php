@@ -5,20 +5,23 @@ namespace Modules\VideoCategories\Http\Controllers;
 use App\Models\VideoCategory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Modules\VideoCategories\Http\Requests\VideoCategoryCreateRequest;
+use Modules\VideoCategories\Http\Requests\VideoCategoryEditRequest;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Routing\Controller;
 
 class VideoCategoriesController extends Controller
 {
-    private $paginate = 10;
+    private $paginate = 0;
 
     function __construct()
     {
-        $this->paginate = 10;
+        $this->paginate = Config::get('app.pagesNumber');
     }
     /**
      * Display a listing of the resource.
      * @return Response
-     */
+    */
     public function index()
     {
         if( request()->ajax() ) {
@@ -47,8 +50,16 @@ class VideoCategoriesController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(VideoCategoryCreateRequest $request)
     {
+        //instanciamos la entidad
+        $videoCategory = new VideoCategory;
+        //pasamos los datos
+        $videoCategory->name = $request->name;
+        //guardamos la categoría
+        $videoCategory->save();
+        //devolvemos el link referral creado
+        return response()->json($videoCategory);
     }
 
     /**
@@ -64,9 +75,24 @@ class VideoCategoriesController extends Controller
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit()
+    public function edit($id)
     {
-        return view('videocategories::edit');
+        $videoCategory = VideoCategory::find($id);
+
+        if( request()->ajax() ) {
+
+            //si videoCategory es vacío, entonces pasamos un vector con los datos
+            //campos igualados a vacío, para el vue.
+            if( empty($videoCategory) )
+                $videoCategory = $this->_getDefaultResult();
+            //devolvemos videoCategory y parseamos json
+            return response()->json($videoCategory);
+
+        }else{
+
+            return view('videocategories::edit');
+        }
+        
     }
 
     /**
@@ -95,5 +121,17 @@ class VideoCategoriesController extends Controller
         $categories = VideoCategory::Where('name','LIKE','%' . $query . '%')
         ->paginate($this->paginate);
         return response()->json($categories);
+    }
+    /**
+     * get default object if empty
+     * @return Response
+     */
+    private function _getDefaultResult() 
+    {
+        $obj =  [
+            'name' => '',
+        ];
+
+        return (object)$obj;
     }
 }

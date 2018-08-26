@@ -1013,6 +1013,8 @@ var config = {
     dictionary: { es: VueValidationEs }
 };
 Vue.use(__WEBPACK_IMPORTED_MODULE_3_vee_validate__["a" /* default */], config);
+//Modal component
+Vue.component('modal', { template: '#modal-template' });
 //constantes con las URL de la app
 var SITE_URL = document.head.querySelector('meta[name="site-url"]').content;
 var MODULE_URL = document.head.querySelector('meta[name="module-url"]').content;
@@ -1207,7 +1209,7 @@ if (document.querySelector('#form-data')) {
 
                             _this3.preloader = false;
                             _this3.showModal = true;
-                            _this3.urlEdit = SITE_URL + '/' + MODULE_URL + '/edit/' + response.data.id;
+                            _this3.urlEdit = SITE_URL + '/' + _this3._clearModuleUrl(MODULE_URL) + '/edit/' + response.data.id;
                         }).catch(function (error) {
 
                             _this3.errorCode = error.response;

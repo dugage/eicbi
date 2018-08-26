@@ -233,4 +233,15 @@ return [
 
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Pgination number
+    |--------------------------------------------------------------------------
+    |
+    |This variable sets the result number that can be displayed in each page.
+    |
+    */
+
+    'pagesNumber' => 10,
+
 ];

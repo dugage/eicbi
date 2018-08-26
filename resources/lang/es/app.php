@@ -24,11 +24,19 @@ return [
     'email' => 'Correo electrónico',
     'password' => 'Contraseña',
     'generatePassword' => 'Generar contraseña',
+    'returnList' => 'Volver al listado',
+    'dataUpdatedSuccessfully' => 'Los datos han sido actualizados con éxito.',
     //Módulo Usuarios
     'users' => [
 
         'users' => 'Usuarios',
         'user' => 'Usuario',
+        'modalNew' => 'Crear un Usuario',
+        'modalEdit' => 'Editar el Usuario creado',
+        'newOk' => 'Nuevo Usuario creado',
+        'editOk' => 'Usuario editado',
+
+
     ],
     //Módulo Roles
     'roles' => [
@@ -41,14 +49,27 @@ return [
 
         'referralsLink' => 'Link  de Referidos',
         'referredLink' => 'Link de Referido',
+        'modalNew' => 'Crear un Link  de Referidos',
+        'modalEdit' => 'Editar el Link  de Referidos creado',
         'referrals' => 'Referidos',
-        'referred' => 'Link  de Referido',
+        'referred' => 'Link de Referido',
+        'newOk' => 'Nuevo Link  de Referidos creado',
+        'editOk' => 'Link de Referidos editado',
     ],
     //Módulo Videos
     'videos' => [
 
         'videos' => 'Vídeos',
         'video' => 'Vídeo',
+    ],
+    //Módulo Videos
+    'videocategories' => [
+
+        'modalNew' => 'Crear una categoría',
+        'modalEdit' => 'Editar la categoría creada',
+        'newOk' => 'Nueva categoría creada',
+        'editOk' => 'Categoría editada',
+        
     ]
 
 ];

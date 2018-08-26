@@ -14,9 +14,9 @@
             <div class="card">
                 
                 <div id="table-data" class="card-body">
-
+                    
                     <h4 class="card-title">{{ trans('app.listOf') }} {{ trans('app.categories') }}</h4>
-                    <p class="card-description float-left"><a href="#" class="btn btn-primary btn-fw"><i class="mdi mdi-plus"></i>{{ trans('app.create') }}</a></p>
+                    <p class="card-description float-left"><a href="{{ route('videocategories.create') }}" class="btn btn-primary btn-fw"><i class="mdi mdi-plus"></i>{{ trans('app.create') }}</a></p>
                     
                     <div class="form-group col-md-4 float-right">
                         <input v-model="searchParam" @keyup="getDataBySearchParam" name="searchParam" class="form-control rounded-0 py-2" type="search" value="" placeholder="{{ trans('app.search') }}..." id="searchParam">

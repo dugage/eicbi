@@ -30,6 +30,8 @@ const config = {
     dictionary: { es: VueValidationEs }
 };
 Vue.use(VeeValidate,config);
+//Modal component
+Vue.component('modal', {template: '#modal-template'});
 //constantes con las URL de la app
 const SITE_URL = document.head.querySelector('meta[name="site-url"]').content;
 const MODULE_URL = document.head.querySelector('meta[name="module-url"]').content;
@@ -203,7 +205,7 @@ if (document.querySelector('#form-data')) {
 
                             this.preloader = false;
                             this.showModal = true;
-                            this.urlEdit = SITE_URL + '/'+MODULE_URL+'/edit/' + response.data.id;
+                            this.urlEdit = SITE_URL + '/'+this._clearModuleUrl(MODULE_URL)+'/edit/' + response.data.id;
 
                         }).catch(error => {
 

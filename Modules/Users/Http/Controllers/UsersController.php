@@ -6,14 +6,17 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use App\Http\Requests\UserCreateRequest;
+use App\Http\Requests\UserEditRequest;
+use Illuminate\Support\Facades\Config;
 
 class UsersController extends Controller
 {
-    private $paginate = 10;
+    private $paginate = 0;
 
     function __construct()
     {
-        $this->paginate = 10;
+        $this->paginate = Config::get('app.pagesNumber');
     }
 
     /**
@@ -47,23 +50,17 @@ class UsersController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(UserCreateRequest $request)
     {
-        //validamos los datos
-        $data = $request->validate([
-
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-        ]);
-        //creamos el usuario
-        $user = User::create([
-
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),//encriptamos la contraseña
-
-        ]);
+        //instanciamos la entidad
+        $user = new User;
+        //pasamos los datos
+        $user->name = $request->name;
+        $user->email = $request->email;
+        //encriptamos la contraseña
+        $user->password = bcrypt($request->password);
+        //guardamos el usuario
+        $user->save();
         //devolvemos el usuario creado
         return response()->json($user);
     }
@@ -86,10 +83,12 @@ class UsersController extends Controller
         $user = User::find($id);
 
         if( request()->ajax() ) {
-            
+
+            //si usuario es vacío, entonces pasamos un vector con los datos
+            //campos igualados a vacío, para el vue.
             if( empty($user) )
                 $user = $this->_getDefaultResult();
-
+            //devolvemos user y parseamos json
             return response()->json($user);
 
         }else{
@@ -104,8 +103,21 @@ class UsersController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request)
+    public function update(UserEditRequest $request,$id)
     {
+        //buscamos el usuario desde su id
+        $user = User::find($id);
+        //editamos los datos
+        $user->name = $request->name;
+        $user->email = $request->email;
+        //si password es distinto de vacío, entonces actualizamos 
+        if( $request->password )
+            //encriptamos la contraseña
+            $user->password = bcrypt($request->password);
+        
+        //actualizamos el usuario
+        $user->save();
+
     }
 
     /**
@@ -126,5 +138,18 @@ class UsersController extends Controller
         ->paginate($this->paginate);
         return response()->json($users);
     }
+    /**
+     * get default object if empty
+     * @return Response
+     */
+    private function _getDefaultResult() 
+    {
+        $obj =  [
+            'user' => '',
+            'password' => '',
+            'email' => '',
+        ];
 
+        return (object)$obj;
+    }
 }

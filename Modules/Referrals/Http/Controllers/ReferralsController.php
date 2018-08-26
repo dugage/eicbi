@@ -6,14 +6,17 @@ use App\Models\Referral;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\Referrals\Http\Requests\ReferralCreateRequest;
+use Modules\Referrals\Http\Requests\ReferralEditRequest;
+use Illuminate\Support\Facades\Config;
 
 class ReferralsController extends Controller
 {
-    private $paginate = 10;
+    private $paginate = 0;
 
     function __construct()
     {
-        $this->paginate = 10;
+        $this->paginate = Config::get('app.pagesNumber');
     }
     /**
      * Display a listing of the resource.
@@ -36,7 +39,7 @@ class ReferralsController extends Controller
      * Show the form for creating a new resource.
      * @return Response
      */
-    public function create()
+    public function create(Request $request)
     {
         return view('referrals::create');
     }
@@ -46,8 +49,17 @@ class ReferralsController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(ReferralCreateRequest $request)
     {
+        //instanciamos la entidad
+        $referral = new Referral;
+        //pasamos los datos
+        $referral->user_id = $request->user()->id;
+        $referral->url = $request->url;
+        //guardamos el link referral
+        $referral->save();
+        //devolvemos el link referral creado
+        return response()->json($referral);
     }
 
     /**
@@ -63,9 +75,23 @@ class ReferralsController extends Controller
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit()
+    public function edit($id)
     {
-        return view('referrals::edit');
+        $referral = Referral::find($id);
+
+        if( request()->ajax() ) {
+
+            //si referrals es vacío, entonces pasamos un vector con los datos
+            //campos igualados a vacío, para el vue.
+            if( empty($referral) )
+                $referral = $this->_getDefaultResult();
+            //devolvemos referrals y parseamos json
+            return response()->json($referral);
+
+        }else{
+
+            return view('referrals::edit',compact('referral'));
+        }
     }
 
     /**
@@ -73,8 +99,14 @@ class ReferralsController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request)
+    public function update(ReferralEditRequest $request,$id)
     {
+        //buscamos el referral desde su id
+        $referral = Referral::find($id);
+        //editamos los datos
+        $referral->url = $request->url;
+        //actualizamos el referral
+        $referral->save();
     }
 
     /**
@@ -96,5 +128,18 @@ class ReferralsController extends Controller
         })
         ->paginate($this->paginate);
         return response()->json($referral);
+    }
+
+    /**
+     * get default object if empty
+     * @return Response
+     */
+    private function _getDefaultResult() 
+    {
+        $obj =  [
+            'url' => '',
+        ];
+
+        return (object)$obj;
     }
 }
