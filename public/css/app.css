@@ -92,3 +92,12 @@ a.btn {
   float: right;
 }
 
+.btn-group .dropdown-toggle:hover {
+  background-color: #e6dee8;
+}
+
+.table .btn.btn-icon {
+  width: 27px;
+  height: 27px;
+}
+

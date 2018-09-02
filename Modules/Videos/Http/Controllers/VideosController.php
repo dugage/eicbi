@@ -3,17 +3,21 @@
 namespace Modules\Videos\Http\Controllers;
 
 use App\Models\Video;
+use App\Models\VideoCategory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Modules\Videos\Http\Requests\VideoCreateRequest;
+use Modules\Videos\Http\Requests\VideoEditRequest;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Routing\Controller;
 
 class VideosController extends Controller
 {
-    private $paginate = 10;
+    private $paginate = 0;
 
     function __construct()
     {
-        $this->paginate = 10;
+        $this->paginate = Config::get('app.pagesNumber');
     }
     /**
      * Display a listing of the resource.
@@ -38,7 +42,8 @@ class VideosController extends Controller
      */
     public function create()
     {
-        return view('videos::create');
+        $videosCategories = VideoCategory::all();
+        return view('videos::create',compact('videosCategories'));
     }
 
     /**
@@ -46,8 +51,21 @@ class VideosController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(VideoCreateRequest $request)
     {
+        //instanciamos la entidad
+        $video = new Video;
+        //obtenemos la categoría seleccionada
+        $videoCategory = VideoCategory::findOrFail($request->video_category_id);
+        //pasamos los datos
+        $video->video_category_id = $videoCategory->id;
+        $video->name = $request->name;
+        $video->code = $request->code;
+        $video->category_name = $videoCategory->name;
+        //guardamos la categoría
+        $video->save();
+        //devolvemos el link referral creado
+        return response()->json($video);
     }
 
     /**
@@ -63,9 +81,23 @@ class VideosController extends Controller
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit()
+    public function edit($id)
     {
-        return view('videos::edit');
+        $video = Video::findOrFail($id);
+        if( request()->ajax() ) {
+
+            //si video es vacío, entonces pasamos un vector con los datos
+            //campos igualados a vacío, para el vue.
+            if( empty($video) )
+                $video = $this->_getDefaultResult();
+            //devolvemos videoCategory y parseamos json
+            return response()->json($video);
+
+        }else{
+
+            $videosCategories = VideoCategory::all();
+            return view('videos::edit',compact('video','videosCategories'));
+        }
     }
 
     /**
@@ -73,8 +105,18 @@ class VideosController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request)
+    public function update(VideoEditRequest $request,$id)
     {
+        $video = Video::find($id);
+        //obtenemos la categoría seleccionada
+        $videoCategory = VideoCategory::findOrFail($request->video_category_id);
+        //pasamos los datos
+        $video->video_category_id = $videoCategory->id;
+        $video->name = $request->name;
+        $video->code = $request->code;
+        $video->category_name = $videoCategory->name;
+        //guardamos la categoría
+        $video->save();
     }
 
     /**

@@ -26,6 +26,15 @@ return [
     'generatePassword' => 'Generar contraseña',
     'returnList' => 'Volver al listado',
     'dataUpdatedSuccessfully' => 'Los datos han sido actualizados con éxito.',
+    'able' => 'Habilitar',
+    'disable' => 'Deshabilitar',
+    'cardNumber' => 'Tarjeta de crédito',
+    'city' => 'Ciudad',
+    'country' => 'País',
+    'telephone' => 'Teléfono',
+    'prefix' => 'Prefijo',
+    'address' => 'Dirección',
+    'state' => 'Estado',
     //Módulo Usuarios
     'users' => [
 
@@ -35,7 +44,7 @@ return [
         'modalEdit' => 'Editar el Usuario creado',
         'newOk' => 'Nuevo Usuario creado',
         'editOk' => 'Usuario editado',
-
+        'userData' => 'Datos del usuario'
 
     ],
     //Módulo Roles
@@ -61,6 +70,11 @@ return [
 
         'videos' => 'Vídeos',
         'video' => 'Vídeo',
+        'code' => 'Código',
+        'modalNew' => 'Crear un vídeo',
+        'modalEdit' => 'Editar el vídeo creado',
+        'newOk' => 'Nuevo vídeo creado',
+        'editOk' => 'Vídeo editado',
     ],
     //Módulo Videos
     'videocategories' => [

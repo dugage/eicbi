@@ -11,5 +11,6 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'api/videocategories'
 {
     Route::get('/', 'VideoCategoriesController@index');
     Route::post('/store', 'VideoCategoriesController@store');
+    Route::post('/update/{id}', 'VideoCategoriesController@update')->where('id', '[0-9]+');
     Route::get('/search/{query}', 'VideoCategoriesController@search');
 });

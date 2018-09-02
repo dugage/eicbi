@@ -18,16 +18,27 @@ class DemoDataSeeder extends Seeder
     {
         // Creamos 1 administrador
         factory(\App\User::class, 1)->create()->each(function ($user){
-            \Silber\Bouncer\BouncerFacade::assign('admin')->to($user);
+            \Silber\Bouncer\BouncerFacade::assign('Admin')->to($user);
         });
-        // Creamos 15 usuarios
+        // Creamos 15 Cliente
         factory(\App\User::class, 15)->create()->each(function ($user){
-            \Silber\Bouncer\BouncerFacade::assign('user')->to($user);
+            \Silber\Bouncer\BouncerFacade::assign('Customer')->to($user);
         });
+        // Creamos un usuario asignado al usuario rol customer id 2
+        $user = \App\User::create([
+            'name' => 'Benjamín',
+            'email' => str_random(10).'@gmail.com',
+            'password' => bcrypt('secret'),
+            'parent' => 2,
+            'card_number' => '6501764780286896',
+            'country' => 'ESPAÑA',
+            'city' => 'SEVILLA',
+            'address' => 'Calle Burgos 32',
+            'prefix' => 34,
+            'telephone' => 666666666
+        ]);
+        \Silber\Bouncer\BouncerFacade::assign('User')->to($user);
         // Creamos 5 categorías para vídeos
-        //factory(\App\Models\VideoCategory::class, 5)->create()->each(function ($videoCategory){
-           
-        //});
         $categories = [
             ['name'=>'Blockchain'],
             ['name'=>'Minería'],

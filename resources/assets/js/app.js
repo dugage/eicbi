@@ -95,6 +95,22 @@ if (document.querySelector('#table-data')) {
 
                 });
             },
+            disabledButton(id){
+
+                this.preloader = true;
+                let url = '/'+MODULE_URL+'/disabled/' + id;
+
+                axios.post(SITE_URL + url).then((response) => {
+
+                    this.preloader = false;
+                    this.rows.data[ id - 1 ].deleted_at = response.data.deleted_at;
+
+                }).catch(error => {
+
+                    this.errorCode = error.response;
+                    this.preloader = false;
+                });
+            },
             //limpia la url para los btn edit y delete
             _clearModuleUrl(moduleUrl){
 
@@ -161,6 +177,7 @@ if (document.querySelector('#form-data')) {
         data: {
 
             password: null,
+            rol: null,
             preloader: false,
             errorCode: null,
             showModal: false,
@@ -169,7 +186,6 @@ if (document.querySelector('#form-data')) {
             itemId: document.querySelector('#item_id').value,
             method: METHOD,
             erroValidate: false,
-
         },
         methods: {
 
@@ -223,6 +239,7 @@ if (document.querySelector('#form-data')) {
                 });
 
             },
+            
             generatePass : function() {
                 
                 //longitud de la contraseña, lista de caracteres y almacen pass generado
@@ -251,6 +268,9 @@ if (document.querySelector('#form-data')) {
                     passIcoEle.classList.remove(closed);
                     passIcoEle.className += ' ' + open;
                 }
+            },
+            getPrefix(){
+                alert(this.formFields.country);
             },
             _loadData() {
 

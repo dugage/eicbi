@@ -1,6 +1,9 @@
 <?php
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class DatabaseSeeder extends Seeder
 {
@@ -11,6 +14,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        //default data
+        //carga la lista de paises
+        Model::unguard();
+
+        DB::table('countries')->delete();
+        $json = File::get("database/data/countries.json");
+        $data = json_decode($json);
+        foreach ($data as $obj) {
+            \App\Models\Country::create(array(
+                'name' => $obj->name,
+                'code' => $obj->code,
+                'prefix' => $obj->prefix
+            ));
+        }
+
+        Model::reguard();
+
         $this->call(DemoDataSeeder::class);
     }
 }

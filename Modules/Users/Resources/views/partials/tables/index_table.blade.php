@@ -11,6 +11,7 @@
                     <th>Nombre</th>
                     <th>Rol</th>
                     <th>Alta</th>
+                    <th>Estado</th>
                     <th></th>
                 </tr>
 
@@ -28,6 +29,11 @@
 
                     <td v-text="row.created_at"></td>
 
+                    <td>
+                        <button v-if="row.deleted_at == null" type="button" class="btn btn-gradient-success btn-rounded btn-icon"></button>
+                        <button v-else type="button" class="btn btn-gradient-danger btn-rounded btn-icon"></button>
+                    </td>
+
                     <td style="text-align:center;">
 
                         <div class="btn-group" role="group">
@@ -37,6 +43,8 @@
                             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                                 <a class="dropdown-item" :href="editUrl + row.id">{{ trans('app.edit') }}</a>
                                 <a style="cursor: pointer;" class="dropdown-item" @click="confirmationDialog('{{ trans('app.confirmDelete') }}',deleteUrl + row.id)">{{ trans('app.delete') }}</a>
+                                <a style="cursor: pointer;" v-if="row.deleted_at == null" @click="disabledButton(row.id)" class="dropdown-item">{{ trans('app.disable') }}</a>
+                                <a style="cursor: pointer;" v-else class="dropdown-item" @click="disabledButton(row.id)">{{ trans('app.able') }}</a>
                             </div>
                         </div>
 
@@ -65,6 +73,5 @@
         {!! trans('app.noDataShow') !!}
         
     </span>
-
 
 </template>

@@ -9,6 +9,7 @@
 
 @section('js')
 
+    <script src="{{asset('/js/users.js')}}"></script>
     {{-- template for the modal component --}}
     <script type="text/x-template" id="modal-template">
 

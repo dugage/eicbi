@@ -1,6 +1,6 @@
 <form ref="formMain" class="forms-sample">
 
-        <input type="hidden" name="item_id" id="item_id" value="{{ $user->id ?? 0 }}">
+    <input type="hidden" name="item_id" id="item_id" value="{{ $user->id ?? 0 }}">
 
     <div class="form-group" :class="{'has-error': errors.has('name') }">
         <label>{{ trans('app.user') }}</label>
@@ -29,6 +29,29 @@
     <div class="form-group">
         <button @click="generatePass" type="button" class="btn btn-dark btn-fw">{{ trans('app.generatePassword') }}</button>
     </div>
+
+    <div class="form-group" :class="{'has-error': errors.has('rol') }">
+        <label>{{ trans('app.roles.rol') }}</label>
+        <select name="rol" data-vv-as="{{ trans('app.roles.rol') }}" v-validate="'required'" v-model="rol" class="form-control" id="video_category_id">
+            <option value=""></option>
+            @foreach(\App\Helpers\App::ROLES as $rol)
+                    <option value="{{ $rol }}">{{ $rol }}</option>
+            @endforeach
+        </select>
+        <span class="alert-danger" v-text="errors.first('video_category_id')"></span>
+    </div>
+
+    <template v-if="method == 'edit'">
+        <div class="form-group">
+            <label>{{ trans('app.state') }}</label>
+            <select name="deleted_at" v-model="formFields.deleted_at" class="form-control" id="deleted_at">
+                <option :value="null">{{ trans('app.able') }}</option>
+                <option :value="!null">{{ trans('app.disable') }}</option>
+            </select>
+        </div>
+    </template>
+
+    @include('users::partials/forms/user_data_form')
 
     <hr/>
     <div v-if="method != 'show'" class="form-group">

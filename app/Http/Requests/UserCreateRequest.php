@@ -28,6 +28,13 @@ class UserCreateRequest extends FormRequest
             'name' => 'required',
             'email' => 'required|unique:users,email',
             'password' => 'required',
+            'rol' => 'required',
+            'card_number' => '',
+            'country' => '',
+            'city' => '',
+            'address' => '',
+            'prefix' => '',
+            'telephone' => '',
         ];
     }
 }

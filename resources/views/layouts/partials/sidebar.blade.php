@@ -59,6 +59,13 @@
             </div>
         </li>
 
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('webminar') }}">
+                <span class="menu-title">Webminar</span>
+                <i class=" mdi mdi-at menu-icon"></i>
+            </a>
+        </li>
+
     </ul>
 
 </nav>

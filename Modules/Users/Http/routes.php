@@ -13,5 +13,6 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'api/users', 'namespa
     Route::get('/', 'UsersController@index');
     Route::post('/store', 'UsersController@store');
     Route::post('/update/{id}', 'UsersController@update')->where('id', '[0-9]+');
+    Route::post('/disabled/{id}', 'UsersController@disabled')->where('id', '[0-9]+');
     Route::get('/search/{query}', 'UsersController@search');
 });

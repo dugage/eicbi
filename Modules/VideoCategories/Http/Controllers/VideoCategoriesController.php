@@ -77,7 +77,7 @@ class VideoCategoriesController extends Controller
      */
     public function edit($id)
     {
-        $videoCategory = VideoCategory::find($id);
+        $videoCategory = VideoCategory::findOrFail($id);
 
         if( request()->ajax() ) {
 
@@ -90,7 +90,7 @@ class VideoCategoriesController extends Controller
 
         }else{
 
-            return view('videocategories::edit');
+            return view('videocategories::edit',compact('videoCategory'));
         }
         
     }
@@ -100,8 +100,14 @@ class VideoCategoriesController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request)
+    public function update(VideoCategoryEditRequest $request,$id)
     {
+        //buscamos el usuario desde su id
+        $videoCategory = VideoCategory::find($id);
+        //editamos los datos
+        $videoCategory->name = $request->name;
+        //actualizamos la categoría
+        $videoCategory->save();
     }
 
     /**
