@@ -12,3 +12,5 @@
 */
 
 Auth::routes();
+//rutas countries
+Route::post('countries/getPrefix', 'CountriesController@getPrefixByCountry');

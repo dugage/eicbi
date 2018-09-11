@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "vue": "^2.5.17",
+    "vue-inputmask": "^0.2.1",
     "vue-multiselect": "^2.1.0"
   }
 }

@@ -7,8 +7,8 @@ use App\Models\Country;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use App\Http\Requests\UserCreateRequest;
-use App\Http\Requests\UserEditRequest;
+use Modules\Users\Http\Requests\UserCreateRequest;
+use Modules\Users\Http\Requests\UserEditRequest;
 use Illuminate\Support\Facades\Config;
 use Bouncer;
 
@@ -65,6 +65,13 @@ class UsersController extends Controller
         $user->email = $request->email;
         //encriptamos la contraseña
         $user->password = bcrypt($request->password);
+        //seteamos el resto de datos
+        $user->card_number = $request->card_number;//pendiente de decidir si este dato se queda para encriptar
+        $user->country = $request->country;
+        $user->city = $request->city;
+        $user->address = $request->address;
+        $user->prefix = $request->prefix;
+        $user->telephone = $request->telephone;
         //guardamos el usuario
         $user->save();
         //el usuario se inicia como deshabilitado
@@ -93,7 +100,8 @@ class UsersController extends Controller
 
         if( request()->ajax() ) {
 
-            $user = User::with('roles')->find($id);
+            $user = User::withTrashed()
+            ->with('roles')->find($id);
             //si usuario es vacío, entonces pasamos un vector con los datos
             //campos igualados a vacío, para el vue.
             if( empty($user) )
@@ -103,8 +111,10 @@ class UsersController extends Controller
 
         }else{
 
-            $user = User::findOrFail($id);
-            return view('users::edit',compact('user'));
+            $countries = Country::all();
+            $user = User::withTrashed()
+            ->findOrFail($id);
+            return view('users::edit',compact('user','countries'));
         }
 
     }
@@ -195,7 +205,8 @@ class UsersController extends Controller
             'city' => '',
             'address' => '',
             'address' => '',
-            'telephone' => ''
+            'telephone' => '',
+            'prefix' => ''
         ];
 
         return (object)$obj;

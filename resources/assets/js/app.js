@@ -32,6 +32,9 @@ const config = {
 Vue.use(VeeValidate,config);
 //Modal component
 Vue.component('modal', {template: '#modal-template'});
+//vue mask
+const VueInputMask = require('vue-inputmask').default;
+ Vue.use(VueInputMask);
 //constantes con las URL de la app
 const SITE_URL = document.head.querySelector('meta[name="site-url"]').content;
 const MODULE_URL = document.head.querySelector('meta[name="module-url"]').content;
@@ -239,7 +242,6 @@ if (document.querySelector('#form-data')) {
                 });
 
             },
-            
             generatePass : function() {
                 
                 //longitud de la contraseña, lista de caracteres y almacen pass generado
@@ -270,7 +272,20 @@ if (document.querySelector('#form-data')) {
                 }
             },
             getPrefix(){
-                alert(this.formFields.country);
+                //url del método
+                let url = '/countries/getPrefix';
+                const data = {'country': this.formFields.country};
+
+                axios.post(SITE_URL + url,data).then((response) => {
+
+                    this.formFields.prefix = response.data.prefix;
+
+                }).catch(error => {
+
+                    this.errorCode = error.response;
+                    
+                });
+                
             },
             _loadData() {
 

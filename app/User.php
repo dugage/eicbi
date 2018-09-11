@@ -46,6 +46,16 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Referral');
     }
+    //Mutators
+    public function setTelephoneAttribute($value)
+    {
+        $this->attributes['telephone'] = str_replace(' ', '', $value);
+    }
+
+    public function setCardNumberAttribute($value)
+    {
+        $this->attributes['card_number'] = str_replace(' ', '', $value);
+    }
     // Accesors
     public function getCreatedAtAttribute($value)
     {
