@@ -60,9 +60,16 @@
         </li>
 
         <li class="nav-item">
+            <a class="nav-link" href="{{ route('courses') }}">
+                <span class="menu-title">Cursos</span>
+                <i class="mdi mdi-school menu-icon"></i>
+            </a>
+        </li>
+
+        <li class="nav-item">
             <a class="nav-link" href="{{ route('webminar') }}">
                 <span class="menu-title">Webminar</span>
-                <i class=" mdi mdi-at menu-icon"></i>
+                <i class="mdi mdi-at menu-icon"></i>
             </a>
         </li>
 

@@ -1,6 +1,38 @@
 @extends('layouts.app')
 
-@section('content')
+@section('main-content')
+
+<div class="col-lg-4 mx-auto">
+
+    <div class="auth-form-light text-left p-5">
+
+        <div class="brand-logo">
+            <img src="{{asset('/images/logo.svg')}}">
+        </div>
+
+        <h4>{{ trans('auth.wellcome') }}</h4>
+        <h6 class="font-weight-light">{{ trans('auth.signInTo') }}.</h6>
+
+        @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
+
+        <form class="pt-3" method="POST" action="{{ route('password.email') }}">
+
+            {{ csrf_field() }}
+
+            <div class="form-group">
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">

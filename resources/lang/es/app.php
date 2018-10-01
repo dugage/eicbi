@@ -8,6 +8,7 @@ return [
     'signout' => 'Salir',
     'create' => 'Crear',
     'edit'   => 'Editar',
+    'close'   => 'Cerrar',
     'edited'   => 'Editado',
     'delete'   => 'Borrar',
     'save'   => 'Guardar',
@@ -23,6 +24,7 @@ return [
     'user' => 'Usuario',
     'email' => 'Correo electrónico',
     'password' => 'Contraseña',
+    'repeat' => 'Repetir',
     'generatePassword' => 'Generar contraseña',
     'returnList' => 'Volver al listado',
     'dataUpdatedSuccessfully' => 'Los datos han sido actualizados con éxito.',
@@ -35,6 +37,8 @@ return [
     'prefix' => 'Prefijo',
     'address' => 'Dirección',
     'state' => 'Estado',
+    'endYourRegister' => 'Por favor, finaliza tu registro',
+    'createdAt' => 'Alta',
     //Módulo Usuarios
     'users' => [
 
@@ -84,6 +88,24 @@ return [
         'newOk' => 'Nueva categoría creada',
         'editOk' => 'Categoría editada',
         
+    ],
+    //Módulo Cursos
+    'courses' => [
+
+        'courses' => 'Cursos',
+        'course' => 'Curso',
+        'modalNew' => 'Crear un curso',
+        'modalEdit' => 'Editar el curso creado',
+        'newOk' => 'Nuevo curso creado',
+        'editOk' => 'Curso editado',
+        'chaptersList' => 'Listado de Capítulos',
+        'chapter' => 'Capítulo',
+        'newChapter' => 'Nuevo Capítulo',
+        'chapterName' => 'Nombre',
+        'chaptertext' => 'Texto',
+        'chapterCodeVideo' => 'Código del vídeo',
+        'chapterFile' => 'Documento',
+        'chapterAttachedFile' => 'Documento adjunto',
     ]
 
 ];

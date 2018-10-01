@@ -20,7 +20,7 @@ $brand-danger: #5E50F9;
 }
 a{
     &.btn{
-        color:white;
+        color:white!important;
     }
 }
 //preloader
@@ -77,6 +77,7 @@ a{
     transition: all .3s ease;
     font-family: Helvetica, Arial, sans-serif;
 }
+
 .modal-header h3 {
     margin-top: 0;
     color: $brand-primary;
@@ -99,6 +100,14 @@ a{
 }
 .modal-default-button {
     float: right;
+}
+#chapters{
+    .modal-container{
+        width: 750px;
+    }
+    .modal-body {
+        overflow-x: auto;
+    }
 }
 .btn-group{
     .dropdown-toggle:hover{

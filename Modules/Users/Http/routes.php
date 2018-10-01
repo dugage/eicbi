@@ -16,3 +16,8 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'api/users', 'namespa
     Route::post('/disabled/{id}', 'UsersController@disabled')->where('id', '[0-9]+');
     Route::get('/search/{query}', 'UsersController@search');
 });
+//rutas para el final del registro
+Route::group(['middleware' => 'web', 'prefix' => 'user', 'namespace' => 'Modules\Users\Http\Controllers'], function()
+{
+    Route::get('/end-register/{id}', 'UsersController@endRegister')->where('id', '[0-9]+');
+});

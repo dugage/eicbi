@@ -3,7 +3,7 @@
 }
 
 a.btn {
-  color: white;
+  color: white !important;
 }
 
 #content-preloader {
@@ -90,6 +90,14 @@ a.btn {
 
 .modal-default-button {
   float: right;
+}
+
+#chapters .modal-container {
+  width: 750px;
+}
+
+#chapters .modal-body {
+  overflow-x: auto;
 }
 
 .btn-group .dropdown-toggle:hover {

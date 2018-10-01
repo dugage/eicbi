@@ -65,6 +65,8 @@ class UsersController extends Controller
         $user->email = $request->email;
         //encriptamos la contraseña
         $user->password = bcrypt($request->password);
+        //generamos el token
+        $user->remember_token = str_random(60);
         //seteamos el resto de datos
         $user->card_number = $request->card_number;//pendiente de decidir si este dato se queda para encriptar
         $user->country = $request->country;
@@ -147,6 +149,21 @@ class UsersController extends Controller
      */
     public function destroy()
     {
+    }
+
+    /**
+     * It finish sign up process
+     *
+     * @return Response
+     */
+    public function endRegister($id) 
+    {
+        //listado de paises
+        $countries = Country::all();
+        //comnprobamos si existe mediante el token el usuario
+        $user = User::findOrFail($id);
+        //mostramos el formulario
+        return view('users::endregister',compact('user','countries'));
     }
 
     /**

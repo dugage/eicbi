@@ -1,6 +1,19 @@
 @extends('layouts.app')
 
-@section('content')
+@section('main-content')
+
+<div class="col-lg-4 mx-auto">
+sadsad
+    <div class="auth-form-light text-left p-5">
+
+        <div class="brand-logo">
+            <img src="{{asset('/images/logo.svg')}}">
+        </div>
+
+    </div>
+
+</div>
+
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
