@@ -7,6 +7,7 @@ use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class ChapterController extends Controller
 {
@@ -46,9 +47,26 @@ class ChapterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($id,Request $request)
     {
-        //
+        if( request()->ajax() ) {
+
+            $chapter = new CourseChapter;
+            //seteamos los datos
+            $chapter->course_id = $id;
+            $chapter->name = $request->name;
+            $chapter->text = $request->text;
+            $chapter->video = $request->video;
+            //guardamos
+            $chapter->save();
+            //devolvemos el item creado
+            return response()->json($chapter);
+
+        }else{
+
+            abort(404);
+        };
+
     }
 
     /**
@@ -77,15 +95,60 @@ class ChapterController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Chapter  $chapter
-     * @return \Illuminate\Http\Response
+     * @param  Request $request
+     * @return Response
      */
-    public function update(Request $request, Chapter $chapter)
+    public function update($id, Request $request)
     {
-        //
+        if( request()->ajax() ) {
+
+            $chapter = CourseChapter::findOrFail($id);
+            //seteamos los datos
+            $chapter->name = $request->name;
+            $chapter->text = $request->text;
+            $chapter->video = $request->video;
+            //guardamos
+            $chapter->save();
+            //devolvemos el item creado
+            return response()->json($chapter);
+
+        }else{
+
+            abort(404);
+        };
     }
+    //método para subir documentos y archivos
+    public function setFile( $id, Request $request ){
+
+        if( request()->ajax() ) {
+
+            //comprobamos si el campo contiene o no un archivo
+            if( $request->file('attached') ) {
+                //obtenemos el item
+                $document = CourseChapter::find($id);
+                //llamamos a _deleteFile para que en caso de existir docuemtno antiguo al editar elimine el otro y no dejar basura en la carpeta
+                $this->_deleteFile($document);
+                //almacenamos el documento
+                $doc = $request->file('attached');
+                $docname = time() . '.' . $doc->getClientOriginalExtension();
+                $doc->storeAs('documents', $docname);
+                //seteamos y guardamos
+                $document->update([ 'attached' => $docname]);
+                //devolvemos el item
+                return response()->json($document);
+            }
+
+        }else{
+            
+            abort(404);
+        }
+    }
+     //método privado, borra si existe el documento de la carpeta
+     private function _deleteFile($file)
+     {
+         //borramos el documento de la carpeta
+         Storage::delete('documents/'.$file->attached);
+     }
 
     /**
      * Remove the specified resource from storage.

@@ -106,6 +106,7 @@ return [
         'chapterCodeVideo' => 'Código del vídeo',
         'chapterFile' => 'Documento',
         'chapterAttachedFile' => 'Documento adjunto',
+        'myCourses' => 'Mis Cursos',
     ]
 
 ];

@@ -108,6 +108,15 @@ class CoursesController extends Controller
     }
 
     /**
+     * show coourse by id
+     * @return Response
+     */
+    public function show()
+    {
+        return view('courses::show_course');
+    }
+
+    /**
      * looking for data from param
      * @return Response
      */
@@ -117,6 +126,16 @@ class CoursesController extends Controller
         ->paginate($this->paginate);
         return response()->json($courses);
     }
+
+    /**
+     * getting courses by user
+     * @return Response
+     */
+    public function getCoursesByUser()
+    {
+        return view('courses::my_courses');
+    }
+
     /**
      * get default object if empty
      * @return Response

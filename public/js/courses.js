@@ -133,12 +133,14 @@ if (document.querySelector('#chapters')) {
         methods: {
 
             setData: function setData() {
-                //Url para la consutla
+                var _this = this;
+
+                //Url, consulta
                 var url = SITE_URL + '/' + MODULE_URL + '/chapter/store/' + COURSE_ID;
                 this.erroValidate = false;
                 this.errorCode = null;
                 //si id > 0 sobreescribimos url
-                if (this.formFields.candidate_id > 0) url = SITE_URL + '/' + MODULE_URL + '/chapter/update/' + this.formFields.id;
+                if (this.formFields.course_id > 0) url = SITE_URL + '/' + MODULE_URL + '/chapter/update/' + this.formFields.id;
                 //capturamos todos los campos de formulario
                 var formData = new FormData(this.$refs['formChapter']);
                 var data = {};
@@ -159,6 +161,7 @@ if (document.querySelector('#chapters')) {
 
                         Object.assign(data, _defineProperty({}, key, val));
                     }
+                    //validamos el formulario
                 } catch (err) {
                     _didIteratorError = true;
                     _iteratorError = err;
@@ -173,9 +176,36 @@ if (document.querySelector('#chapters')) {
                         }
                     }
                 }
+
+                this.$validator.validateAll().then(function () {
+
+                    if (!_this.errors.any()) {
+                        //mostramos el preloader
+                        _this.preloader = true;
+                        //enviamos los datos para el create or update
+                        axios.post(url, data).then(function (response) {
+                            //subimos la img si esta es dinstinta de null
+                            if (_this.selectedFile != null) _this._uploadFile(response.data.id);
+                            //ocultamos modal y preloader
+                            _this.showModal = false;
+                            //retrasamos la carga de datos
+                            _this.timeout = setTimeout(function () {
+                                //recargamos la tabla
+                                _this._loadData();
+                            }, 500);
+                        }).catch(function (error) {
+
+                            _this.errorCode = error.response;
+                            _this.preloader = false;
+                        });
+                    } else {
+
+                        _this.erroValidate = true;
+                    }
+                });
             },
             showForm: function showForm(id) {
-                var _this = this;
+                var _this2 = this;
 
                 //cargamos la url para la consulta
                 var url = SITE_URL + '/' + MODULE_URL + '/chapter/edit/' + id;
@@ -183,16 +213,35 @@ if (document.querySelector('#chapters')) {
                 axios.get(url).then(function (response) {
 
                     var data = response.data;
-                    _this.chapterData = data;
-                    _this.formFields = data;
-                    _this.showModal = true;
+                    _this2.chapterData = data;
+                    _this2.formFields = data;
+                    _this2.showModal = true;
                 }).catch(function (error) {
 
-                    _this.errorCode = error.response;
+                    _this2.errorCode = error.response;
+                });
+            },
+            onFileChanged: function onFileChanged(event) {
+                this.selectedFile = event.target.files[0];
+            },
+            _uploadFile: function _uploadFile(id) {
+                var _this3 = this;
+
+                var url = SITE_URL + '/' + MODULE_URL + '/chapter/set_file/' + id;
+                var formData = new FormData();
+                formData.append('attached', this.selectedFile, this.selectedFile.name);
+
+                axios.post(url, formData).then(function (response) {
+
+                    //console.log(response.data);
+                    _this3.formFields.image = response.data.image;
+                }).catch(function (error) {
+
+                    _this3.errorCode = error.response;
                 });
             },
             _loadData: function _loadData() {
-                var _this2 = this;
+                var _this4 = this;
 
                 //Url, consulta y carga la lista de capítulos del curso
                 var url = SITE_URL + '/' + MODULE_URL + '/chapters/' + COURSE_ID;
@@ -200,13 +249,13 @@ if (document.querySelector('#chapters')) {
 
                 axios.get(url).then(function (response) {
 
-                    _this2.preloader = false;
+                    _this4.preloader = false;
                     //pasamos los datos de la consulta
-                    _this2.chaptersData = response.data;
+                    _this4.chaptersData = response.data;
                 }).catch(function (error) {
 
-                    _this2.errorCode = error.response;
-                    _this2.preloader = false;
+                    _this4.errorCode = error.response;
+                    _this4.preloader = false;
                 });
             }
         },

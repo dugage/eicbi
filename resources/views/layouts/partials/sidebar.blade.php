@@ -1,5 +1,7 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     
+    @if (Auth::User()->isA('Admin'))
+
     <ul class="nav">
 
         <li class="nav-item nav-profile">
@@ -61,8 +63,38 @@
 
         <li class="nav-item">
             <a class="nav-link" href="{{ route('courses') }}">
-                <span class="menu-title">Cursos</span>
+                <span class="menu-title">{{ trans('app.courses.courses') }}</span>
                 <i class="mdi mdi-school menu-icon"></i>
+            </a>
+        </li>
+
+    </ul>
+
+    @endif
+
+    @if (Auth::User()->isA('User'))
+
+    <ul class="nav">
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('users') }}">
+                <span class="menu-title">Mi cuenta</span>
+                <i class="mdi mdi-account-multiple-outline menu-icon"></i>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('courses.mycourses') }}">
+                <span class="menu-title">{{ trans('app.courses.myCourses') }}</span>
+                <i class="mdi mdi-school menu-icon"></i>
+            </a>
+        </li>
+
+
+        <li class="nav-item"> 
+            <a class="nav-link" href="{{ route('videos') }}">
+                <span class="menu-title">{{ trans('app.videos.videos') }}</span>
+                <i class="mdi mdi-message-video menu-icon"></i>
             </a>
         </li>
 
@@ -74,5 +106,7 @@
         </li>
 
     </ul>
+
+    @endif
 
 </nav>

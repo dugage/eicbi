@@ -48,13 +48,14 @@ if (document.querySelector('#chapters')) {
         methods: {
 
             setData : function() {
+
                 //Url, consulta
-                let url = SITE_URL + '/' + MODULE_URL + '/update/store/'+ COURSE_ID;
+                let url = SITE_URL + '/' + MODULE_URL + '/chapter/store/'+ COURSE_ID;
                 this.erroValidate = false;
                 this.errorCode = null;
                 //si id > 0 sobreescribimos url
-                if( this.formFields.candidate_id > 0 )
-                    url = SITE_URL + '/' + MODULE_URL + '/update/update/'+ this.formFields.id;
+                if( this.formFields.course_id > 0 )
+                    url = SITE_URL + '/' + MODULE_URL + '/chapter/update/'+ this.formFields.id;
                 //capturamos todos los campos de formulario
                 const formData = new FormData(this.$refs['formChapter']);
                 const data = {};
@@ -111,6 +112,25 @@ if (document.querySelector('#chapters')) {
                     this.errorCode = error.response;
                 });
 
+            },
+            onFileChanged (event) {
+                this.selectedFile = event.target.files[0];
+            },
+            _uploadFile(id){
+                let url = SITE_URL + '/' + MODULE_URL + '/chapter/set_file/' + id;
+                const formData = new FormData();
+                formData.append('attached', this.selectedFile, this.selectedFile.name);
+                
+                axios.post(url, formData).then((response) => {
+                    
+                   //console.log(response.data);
+                   this.formFields.image = response.data.image;
+    
+                }).catch(error => {
+                
+                    this.errorCode = error.response;
+
+                });
             },
             _loadData(){
                 //Url, consulta y carga la lista de capítulos del curso

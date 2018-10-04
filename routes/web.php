@@ -14,3 +14,6 @@
 Auth::routes();
 //rutas countries
 Route::post('countries/getPrefix', 'CountriesController@getPrefixByCountry');
+//ruta que devuelve los tipos de documemtos
+Route::get('get-document-type/{id}', 'DocumentTypeController@index')->where('id', '[0-9]+');
+
