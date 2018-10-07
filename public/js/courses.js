@@ -240,8 +240,29 @@ if (document.querySelector('#chapters')) {
                     _this3.errorCode = error.response;
                 });
             },
-            _loadData: function _loadData() {
+
+            //método que borra el item seleccionado desde su id
+            deleteData: function deleteData(id) {
                 var _this4 = this;
+
+                //url del método
+                var url = SITE_URL + '/' + MODULE_URL + '/chapter/delete/' + id;
+
+                this.preloader = true;
+                this.errorCode = null;
+
+                axios.delete(url).then(function (response) {
+
+                    _this4.preloader = false;
+                    _this4._loadData();
+                }).catch(function (error) {
+
+                    _this4.errorCode = error.response;
+                    _this4.preloader = false;
+                });
+            },
+            _loadData: function _loadData() {
+                var _this5 = this;
 
                 //Url, consulta y carga la lista de capítulos del curso
                 var url = SITE_URL + '/' + MODULE_URL + '/chapters/' + COURSE_ID;
@@ -249,13 +270,13 @@ if (document.querySelector('#chapters')) {
 
                 axios.get(url).then(function (response) {
 
-                    _this4.preloader = false;
+                    _this5.preloader = false;
                     //pasamos los datos de la consulta
-                    _this4.chaptersData = response.data;
+                    _this5.chaptersData = response.data;
                 }).catch(function (error) {
 
-                    _this4.errorCode = error.response;
-                    _this4.preloader = false;
+                    _this5.errorCode = error.response;
+                    _this5.preloader = false;
                 });
             }
         },

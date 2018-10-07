@@ -49,7 +49,8 @@ class User extends Authenticatable
     //Mutators
     public function setTelephoneAttribute($value)
     {
-        $this->attributes['telephone'] = str_replace(' ', '', $value);
+        if( $value != '')
+            $this->attributes['telephone'] = str_replace(' ', '', $value);
     }
 
     public function setCardNumberAttribute($value)

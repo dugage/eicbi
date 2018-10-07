@@ -20,4 +20,5 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'api/courses', 'names
     Route::post('chapter/store/{id}', 'ChapterController@store')->where('id', '[0-9]+');
     Route::post('chapter/update/{id}', 'ChapterController@update')->where('id', '[0-9]+');
     Route::post('chapter/set_file/{id}', 'ChapterController@setFile')->where('id', '[0-9]+');
+    Route::delete('chapter/delete/{id}', 'ChapterController@destroy')->where('id', '[0-9]+');
 });

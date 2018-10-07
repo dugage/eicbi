@@ -41,7 +41,7 @@
                             <td v-text="row.name"></td>
                             <td v-text="row.created_at"></td>
                             <td style="text-align: center;" class="color-primary"><button @click="showForm(row.id)" type="button" class="btn btn-default m-b-10">{{ trans('app.edit') }}</button></td>
-                            <td style="text-align: center;" class="color-primary"><button @click="getEducation(row.id)" type="button" class="btn btn-default m-b-10">{{ trans('app.delete') }}</button></td>
+                            <td style="text-align: center;" class="color-primary"><button @click="deleteData(row.id)" type="button" class="btn btn-default m-b-10">{{ trans('app.delete') }}</button></td>
                         </tr>
 
                     </tbody>

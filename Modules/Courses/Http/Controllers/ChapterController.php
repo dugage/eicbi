@@ -143,23 +143,34 @@ class ChapterController extends Controller
             abort(404);
         }
     }
-     //método privado, borra si existe el documento de la carpeta
-     private function _deleteFile($file)
-     {
-         //borramos el documento de la carpeta
-         Storage::delete('documents/'.$file->attached);
-     }
 
-    /**
+     /**
      * Remove the specified resource from storage.
-     *
-     * @param  \App\Chapter  $chapter
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function destroy(Chapter $chapter)
+    public function destroy($id)
     {
-        //
+        if( request()->ajax() ) {
+            //Localizamos el item
+            $chapter = CourseChapter::find($id);
+            //borramos el documento de la carpeta
+            $this->_deleteFile($chapter);
+            //Booramos el item
+            $chapter->delete();
+            
+        }else{
+                
+            abort(404);
+        }
     }
+
+    //método privado, borra si existe el documento de la carpeta
+    private function _deleteFile($file)
+    {
+        //borramos el documento de la carpeta
+        Storage::delete('documents/'.$file->attached);
+    }
+
     /**
      * get default object if empty
      * @return Response

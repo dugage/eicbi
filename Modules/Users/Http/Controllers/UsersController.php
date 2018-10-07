@@ -156,7 +156,7 @@ class UsersController extends Controller
      *
      * @return Response
      */
-    public function endRegister($id) 
+    public function endRegister($token) 
     {
         //listado de paises
         $countries = Country::all();

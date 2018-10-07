@@ -132,6 +132,26 @@ if (document.querySelector('#chapters')) {
 
                 });
             },
+            //método que borra el item seleccionado desde su id
+            deleteData : function(id) {
+                //url del método
+                let url = SITE_URL + '/' + MODULE_URL + '/chapter/delete/' + id;
+
+                this.preloader = true;
+                this.errorCode = null;
+
+                axios.delete(url).then((response) => {
+
+                    this.preloader = false;
+                    this._loadData();
+
+                }).catch(error => {
+
+                    this.errorCode = error.response;
+                    this.preloader = false;
+                });
+                
+            },
             _loadData(){
                 //Url, consulta y carga la lista de capítulos del curso
                 let url = SITE_URL + '/' + MODULE_URL + '/chapters/' + COURSE_ID;
