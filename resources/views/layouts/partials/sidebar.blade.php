@@ -42,7 +42,7 @@
         <li class="nav-item">
             <a class="nav-link" href="{{ route('referrals') }}">
                 <span class="menu-title">{{ trans('app.referrals.referrals') }}</span>
-                <i class=" mdi mdi-link menu-icon"></i>
+                <i class="mdi mdi-link menu-icon"></i>
             </a>
         </li>
 
@@ -84,6 +84,42 @@
         </li>
 
         <li class="nav-item">
+            <a class="nav-link" href="#">
+                <span class="menu-title">Referidos</span>
+                <i class="mdi mdi-link menu-icon"></i>
+            </a>
+        </li>
+        
+
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <span class="menu-title">RED</span>
+                <i class=" mdi mdi-minus-network menu-icon"></i>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <span class="menu-title">Mensajería</span>
+                <i class=" mdi mdi-facebook-messenger menu-icon"></i>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <span class="menu-title">Señales</span>
+                <i class=" mdi mdi-signal menu-icon"></i>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <span class="menu-title">Documentación</span>
+                <i class=" mdi mdi-file-document menu-icon"></i>
+            </a>
+        </li>
+
+        <li class="nav-item">
             <a class="nav-link" href="{{ route('courses.mycourses') }}">
                 <span class="menu-title">{{ trans('app.courses.myCourses') }}</span>
                 <i class="mdi mdi-school menu-icon"></i>
@@ -102,6 +138,27 @@
             <a class="nav-link" href="{{ route('webminar') }}">
                 <span class="menu-title">Webminar</span>
                 <i class="mdi mdi-at menu-icon"></i>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <span class="menu-title">Intercambio monedas</span>
+                <i class="mdi mdi-stackexchange menu-icon"></i>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <span class="menu-title">Avisos</span>
+                <i class="mdi mdi-school menu-icon"></i>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <span class="menu-title">Soporte</span>
+                <i class=" mdi mdi-settings menu-icon"></i>
             </a>
         </li>
 
