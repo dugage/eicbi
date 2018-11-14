@@ -8,6 +8,12 @@
     <span class="alert-danger" v-text="errors.first('name')"></span>
 </div>
 
+<div class="form-group" :class="{'has-error': errors.has('amount') }">
+    <label>{{ trans('app.amount') }}</label>
+    <input class="form-control" v-validate="'required|numeric'" data-vv-as="{{ trans('app.amount') }}" v-model="formFields.amount" name="amount" id="amount" type="text">
+    <span class="alert-danger" v-text="errors.first('amount')"></span>
+</div>
+
 <hr/>
 <div v-if="method != 'show'" class="form-group">
 

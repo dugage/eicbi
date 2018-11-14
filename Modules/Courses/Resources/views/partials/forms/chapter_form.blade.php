@@ -8,7 +8,7 @@
 
     <div class="form-group">
         <label>{{ trans('app.courses.chaptertext') }}</label>
-        <textarea name="text" id="text" class="form-control" data-vv-as="{{ trans('app.courses.chapterText') }}" v-model="formFields.text" rows="4"></textarea>
+        <vue-editor name="text" id="text" v-model="editor"></vue-editor>
     </div>
 
     <div class="form-group">

@@ -53,11 +53,19 @@ class DemoDataSeeder extends Seeder
         factory(\App\Models\Video::class, 15)->create()->each(function ($video){
            
         });
-
         // Creamos 15 referral
         factory(\App\Models\Referral::class, 15)->create()->each(function ($referral){
            
         });
+        //creamos 5 cursos
+        factory(\App\Models\Course::class, 5)->create()->each(function ($course){
+           
+        });
+        //vinculamos un usuario a un curso
+        \App\Models\UserCourse::create([
+            'course_id' => 1,
+            'user_id' => 17,
+        ]);
 
     }
 }

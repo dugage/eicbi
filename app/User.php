@@ -21,7 +21,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name', 'email', 'password','card_number','country','city',
-        'address','prefix','telephone','parent'
+        'address','prefix','telephone','parent','remember_token'
     ];
 
     /**
@@ -30,7 +30,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token','parent'
+        'password','parent'
     ];
 
     protected $dates = ['deleted_at'];
@@ -46,6 +46,12 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Referral');
     }
+
+    public function userCourse()
+    {
+        return $this->hasMany('App\Models\UserCourse');
+    }
+
     //Mutators
     public function setTelephoneAttribute($value)
     {

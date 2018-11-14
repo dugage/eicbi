@@ -24,5 +24,6 @@ return [
     'dontcount' => '¿No tienes una cuenta?',
     'singuphere' => 'Crea una aquí',
     'signin' => 'Acceder',
+    'signUpForm' => 'Formulario de registro',
 
 ];

@@ -13,7 +13,7 @@
     <div class="container-scroller">
 
         @if( Request::segment(1) == 'login' OR Request::segment(1) == 'register' 
-        OR Request::segment(2) == 'end-register' OR Request::segment(1) == 'password')
+        OR Request::segment(1) == 'new-account' OR Request::segment(1) == 'password')
 
             <div class="container-fluid page-body-wrapper full-page-wrapper">
 

@@ -2,7 +2,7 @@
 
     <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
 
-        <a class="navbar-brand brand-logo" href="{{ route('home') }}"><img src="{{asset('/images/logo.svg')}}" alt="logo"/></a>
+        <a class="navbar-brand brand-logo" href="{{ route('home') }}"><img src="{{asset('/images/cabecera_web_eicbi-01.png')}}" alt="logo"/></a>
         
         <a class="navbar-brand brand-logo-mini" href="{{ route('home') }}"><img src="{{asset('/images/logo-mini.svg')}}" alt="logo"/></a>
     

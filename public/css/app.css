@@ -98,6 +98,7 @@ a.btn {
 
 #chapters .modal-body {
   overflow-x: auto;
+  height: 420px;
 }
 
 .btn-group .dropdown-toggle:hover {
@@ -107,5 +108,25 @@ a.btn {
 .table .btn.btn-icon {
   width: 27px;
   height: 27px;
+}
+
+.auth .brand-logo img {
+  width: 360px;
+}
+
+.btn-gradient-primary {
+  background: -webkit-gradient(linear, left top, right top, from(#D0C585), to(#82622C));
+  background: linear-gradient(to right, #D0C585, #82622C);
+}
+
+a.text-primary,
+a.text-primary:hover,
+a.text-primary:focus {
+  color: #82622C !important;
+}
+
+.navbar.default-layout-navbar .navbar-brand-wrapper .navbar-brand img {
+  width: calc(314px - 120px);
+  height: auto;
 }
 

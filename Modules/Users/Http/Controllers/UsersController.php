@@ -10,6 +10,8 @@ use Illuminate\Routing\Controller;
 use Modules\Users\Http\Requests\UserCreateRequest;
 use Modules\Users\Http\Requests\UserEditRequest;
 use Illuminate\Support\Facades\Config;
+use App\Mail\SendEmail;
+use Illuminate\Support\Facades\Mail;
 use Bouncer;
 
 class UsersController extends Controller
@@ -65,8 +67,6 @@ class UsersController extends Controller
         $user->email = $request->email;
         //encriptamos la contraseña
         $user->password = bcrypt($request->password);
-        //generamos el token
-        $user->remember_token = str_random(60);
         //seteamos el resto de datos
         $user->card_number = $request->card_number;//pendiente de decidir si este dato se queda para encriptar
         $user->country = $request->country;
@@ -80,17 +80,10 @@ class UsersController extends Controller
         $user->delete();
         //asignamos el rol
         Bouncer::assign($request->rol)->to($user);
+        //enviamos el email para confirmar su cuenta
+        Mail::to($user->email)->send(new SendEmail());
         //devolvemos el usuario creado
         return response()->json($user);
-    }
-
-    /**
-     * Show the specified resource.
-     * @return Response
-     */
-    public function show()
-    {
-        return view('users::show');
     }
 
     /**
@@ -140,7 +133,6 @@ class UsersController extends Controller
         
         //actualizamos el usuario
         $user->save();
-
     }
 
     /**
@@ -149,21 +141,6 @@ class UsersController extends Controller
      */
     public function destroy()
     {
-    }
-
-    /**
-     * It finish sign up process
-     *
-     * @return Response
-     */
-    public function endRegister($id) 
-    {
-        //listado de paises
-        $countries = Country::all();
-        //comnprobamos si existe mediante el token el usuario
-        $user = User::findOrFail($id);
-        //mostramos el formulario
-        return view('users::endregister',compact('user','countries'));
     }
 
     /**
@@ -205,6 +182,7 @@ class UsersController extends Controller
         ->paginate($this->paginate);
         return response()->json($users);
     }
+    
     /**
      * get default object if empty
      * @return Response
@@ -228,4 +206,20 @@ class UsersController extends Controller
 
         return (object)$obj;
     }
+
+    /**
+     * It finish sign up process
+     *
+     * @return Response
+     */
+    /*public function endRegister($id) 
+    {
+        //listado de paises
+        $countries = Country::all();
+        //comnprobamos si existe mediante el token el usuario
+        $user = User::findOrFail($id);
+        //mostramos el formulario
+        return view('users::endregister',compact('user','countries'));
+    }*/
+
 }

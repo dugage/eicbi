@@ -2,6 +2,8 @@
 
 namespace Modules\Courses\Http\Controllers;
 
+use Auth;
+use App\Models\UserCourse;
 use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -54,6 +56,7 @@ class CoursesController extends Controller
         $course = new Course;
         //pasamos los datos
         $course->name = $request->name;
+        $course->amount = $request->amount;
         //guardamos la categoría
         $course->save();
         //devolvemos el link referral creado
@@ -133,7 +136,11 @@ class CoursesController extends Controller
      */
     public function getCoursesByUser()
     {
-        return view('courses::my_courses');
+        $courses = UserCourse::with('course')
+        ->Where('user_id',Auth::user()->id)
+        ->get();
+        //dump($courses);
+        return view('courses::my_courses',compact('courses'));
     }
 
     /**
@@ -144,6 +151,7 @@ class CoursesController extends Controller
     {
         $obj =  [
             'name' => '',
+            'amount' => '',
         ];
 
         return (object)$obj;

@@ -1,0 +1,56 @@
+[
+    {
+        "course_id": 1,
+        "name": "Origen del dinero", 
+        "video": "96WXVamj9X8",
+        "attached": "MODULO_1_OrigenDinero.pdf"
+    },
+    {
+        "course_id": 1,
+        "name": "Blockchain", 
+        "video": "RN5kOMO1Z1E",
+        "attached": "MODULO_2_Blockchain.pdf"
+    },
+    {
+        "course_id": 1,
+        "name": "Minería", 
+        "video": "vR2LW3dRGnE",
+        "attached": "MODULO_3_ MINERIA.pdf"
+    },
+    {
+        "course_id": 1,
+        "name": "Cómo obtener BTC", 
+        "video": "7BlSz1E06CQ",
+        "attached": "MODULO_4_Como_obtener_BTC.pdf"
+    },
+    {
+        "course_id": 1,
+        "name": "ICOs", 
+        "video": "ybCxmL--WnY",
+        "attached": "MODULO_5_ICO.pdf"
+    },
+    {
+        "course_id": 1,
+        "name": "Trading Criptomonedas", 
+        "video": "rMM2gii4gcY",
+        "attached": "MODULO_6_TRADING.pdf"
+    },
+    {
+        "course_id": 1,
+        "name": "Legalidad", 
+        "video": "Ul-HvK3Mbz8",
+        "attached": "MODULO_7_Legalidad.pdf"
+    },
+    {
+        "course_id": 1,
+        "name": "Seguridad de las Criptomonedas", 
+        "video": "FdyXih0LVEU",
+        "attached": "MODULO_8_SEGURIDAD.pdf"
+    },
+    {
+        "course_id": 1,
+        "name": "Planificación Financiera", 
+        "video": "lHmuXmmc8UI",
+        "attached": "MODULO_9.pdf"
+    }
+]

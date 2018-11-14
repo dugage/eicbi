@@ -18,6 +18,8 @@ const COURSE_ID = document.querySelector('#course_id').value;
 Vue.use(VeeValidate,config);
 
 Vue.component('modal', {template: '#modal-template'});
+//text editor for vue
+import { VueEditor } from "vue2-editor";
 
 /**
  * ---componente para el Listado de practicas---
@@ -27,6 +29,7 @@ Vue.component('modal', {template: '#modal-template'});
  * @param showModal -- booleano que muestra y oculta el modal
  * @param formFields -- Datos del formulario
  * @param selectedFile -- contien la img seleccionada
+ * @param editor -- almacena el contenido del editor de texto
 
 */
 if (document.querySelector('#chapters')) {
@@ -34,6 +37,7 @@ if (document.querySelector('#chapters')) {
     var chapters = new Vue({
 
         el: '#chapters',
+        components: {VueEditor},
         data: {
 
             preloader: false,
@@ -44,6 +48,7 @@ if (document.querySelector('#chapters')) {
             showModal: false,
             formFields: [],
             selectedFile: null,
+            editor: null,
         },
         methods: {
 
@@ -64,6 +69,9 @@ if (document.querySelector('#chapters')) {
 
                     Object.assign(data, { [key]: val })
                 }
+                //pasamos manualmente el texto del editor
+                Object.assign(data, { 'text': this.editor });
+                console.log(data);
                 //validamos el formulario
                this.$validator.validateAll().then(() => {
 
@@ -105,6 +113,7 @@ if (document.querySelector('#chapters')) {
                     let data = response.data;
                     this.chapterData = data;
                     this.formFields = data;
+                    this.editor = this.formFields.text;
                     this.showModal = true;
 
                 }).catch(error => {

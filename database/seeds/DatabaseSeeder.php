@@ -30,7 +30,9 @@ class DatabaseSeeder extends Seeder
         }
 
         Model::reguard();
-
+        //cursos
+        $this->call(CoursesDataSeeder::class);
+        //datos demo
         $this->call(DemoDataSeeder::class);
     }
 }

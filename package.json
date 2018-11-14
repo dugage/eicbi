@@ -12,6 +12,8 @@
   "devDependencies": {
     "axios": "^0.17",
     "bootstrap-sass": "^3.3.7",
+    "bootstrap": "4.1.1",
+    "compass-mixins": "^0.12.10",
     "cross-env": "^5.1",
     "jquery": "^3.2",
     "laravel-mix": "^1.0",
@@ -21,6 +23,8 @@
   "dependencies": {
     "vue": "^2.5.17",
     "vue-inputmask": "^0.2.1",
-    "vue-multiselect": "^2.1.0"
+    "vue-multiselect": "^2.1.0",
+    "vue-trix": "^0.4.0",
+    "vue2-editor": "^2.6.6"
   }
 }

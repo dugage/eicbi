@@ -171,6 +171,7 @@ return [
         Nwidart\Modules\LaravelModulesServiceProvider::class,
         Laraveles\Spanish\SpanishServiceProvider::class,
         Silber\Bouncer\BouncerServiceProvider::class,
+        Ssheduardo\Redsys\RedsysServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -230,6 +231,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Bouncer' => Silber\Bouncer\BouncerFacade::class,
+        'Redsys' => Ssheduardo\Redsys\Facades\Redsys::class,
 
     ],
 

@@ -107,6 +107,7 @@ a{
     }
     .modal-body {
         overflow-x: auto;
+        height: 420px;
     }
 }
 .btn-group{
@@ -122,6 +123,20 @@ a{
         }
     }
 }
-
-
-
+.auth{
+    .brand-logo img {
+        width: 360px;
+    }
+} 
+.btn-gradient-primary {
+	background: linear-gradient(to right, #D0C585, #82622C);
+}
+a{
+    &.text-primary,&.text-primary:hover,&.text-primary:focus {
+        color: #82622C !important;
+    }
+}
+.navbar.default-layout-navbar .navbar-brand-wrapper .navbar-brand img {
+	width: calc(314px - 120px);
+	height: auto;
+}

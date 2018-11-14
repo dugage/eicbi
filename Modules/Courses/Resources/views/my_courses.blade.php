@@ -22,27 +22,31 @@
 
     <div class="row">
 
-        <div class="col-3 grid-margin stretch-card">
+        @foreach ($courses as $course)
 
-            <div class="card">
+            <div class="col-3 grid-margin stretch-card">
 
-                <div style="padding:0;" class="card-header">
+                <div class="card">
 
-                    <img width="100%" src="https://cnnespanol2.files.wordpress.com/2018/09/180619225021-cnnmoney-bitcoin-full-169.jpg?quality=100&strip=info&w=1024&strip=info" />
+                    <div style="padding:0;" class="card-header">
 
-                </div>
+                        <img width="100%" src="https://cnnespanol2.files.wordpress.com/2018/09/180619225021-cnnmoney-bitcoin-full-169.jpg?quality=100&strip=info&w=1024&strip=info" />
 
-                <div class="card-body">
+                    </div>
 
-                    <h4 class="card-title"><a href="{{ route('courses.showcourse') }}">Criptomonedas</a></h4>
-                    <p class="card-description">
-                        Aprende comprar y usar las Criptomonedas
-                    </p>
+                    <div class="card-body">
+
+                        <h4 class="card-title"><a href="{{ route('courses.showcourse') }}">{{ $course->course->name }}</a></h4>
+                        <p class="card-description">
+                            {{$course->course->short_description}}
+                        </p>
+                    </div>
+
                 </div>
 
             </div>
 
-        </div>
+        @endforeach
         
     </div>
 

@@ -151,7 +151,7 @@
         <li class="nav-item">
             <a class="nav-link" href="#">
                 <span class="menu-title">Avisos</span>
-                <i class="mdi mdi-school menu-icon"></i>
+                <i class=" mdi mdi-led-on menu-icon"></i>
             </a>
         </li>
 

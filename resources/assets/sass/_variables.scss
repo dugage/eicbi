@@ -3,7 +3,7 @@
 
 $blue:              #5E50F9;
 $indigo:            #6610f2;
-$purple:            #6a008a;
+$purple:            #82622C;
 $pink:              #E91E63;
 $red:               #f96868;
 $orange:            #f2a654;
@@ -14,7 +14,7 @@ $cyan:              #57c7d4;
 $black:             #000;
 $white:             #ffffff;
 $white-smoke:       #f2f7f8;
-$violet:            #41478a;
+$violet:            #000;
 $darkslategray :    #2e383e;
 $dodger-blue :      #3498db;
 
@@ -41,7 +41,7 @@ $colors: (
 
 
 $theme-colors: (
-  primary:         #b66dff,
+  primary:         #967034,
   secondary:       #d8d8d8,
   success:         #1bcfb4,
   info:            #198ae3,
@@ -52,7 +52,7 @@ $theme-colors: (
 );
 
 $theme-gradient-colors: (
-  primary:         linear-gradient(to right, #da8cff, #9a55ff),
+  primary:         linear-gradient(to right, #D0C585, #82622C),
   secondary:       linear-gradient(to right, #e7ebf0, #868e96),
   success:         linear-gradient(to right, #84d9d2, #07cdae),
   info:            linear-gradient(to right, #90caf9, #047edf 99%),
