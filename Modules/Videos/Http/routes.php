@@ -2,8 +2,9 @@
 
 Route::group(['middleware' => 'web', 'prefix' => 'videos', 'namespace' => 'Modules\Videos\Http\Controllers'], function()
 {
-    Route::get('/', 'VideosController@index')->name('videos');
+    Route::get('/', 'VideosController@index')->name('videos')->middleware('role:Admin');
     Route::get('/create', 'VideosController@create')->name('videos.create');
+    Route::get('/show', 'VideosController@show')->name('videos.show');
     Route::get('/edit/{id}', 'VideosController@edit')->name('videos.edit')->where('id', '[0-9]+');
 });
 // Rutas que serán invocadas con axios

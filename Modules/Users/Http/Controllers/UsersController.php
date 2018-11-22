@@ -194,8 +194,6 @@ class UsersController extends Controller
             'password' => '',
             'email' => '',
             'deleted_at' => null,
-            'card_number' => '',
-            'card_number' => '',
             'country' => '',
             'city' => '',
             'address' => '',

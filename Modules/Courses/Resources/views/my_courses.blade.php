@@ -36,7 +36,7 @@
 
                     <div class="card-body">
 
-                        <h4 class="card-title"><a href="{{ route('courses.showcourse') }}">{{ $course->course->name }}</a></h4>
+                        <h4 class="card-title"><a href="{{ route('courses.showcourse',$course->course->id) }}">{{ $course->course->name }}</a></h4>
                         <p class="card-description">
                             {{$course->course->short_description}}
                         </p>

@@ -8,6 +8,21 @@
         <span class="alert-danger" v-text="errors.first('name')"></span>
     </div>
 
+    @if (Auth::User()->isA('User'))
+
+    <div class="form-group">
+        <label>{{ trans('app.users.firstName') }}</label>
+        <input class="form-control" v-model="formFields.name" name="name" id="name" type="text">
+    </div>
+
+    <div class="form-group" :class="{'has-error': errors.has('name') }">
+        <label>{{ trans('app.users.lastName') }}</label>
+        <input class="form-control" v-validate="'required'" data-vv-as="{{ trans('app.user') }}" v-model="formFields.name" name="name" id="name" type="text">
+        <span class="alert-danger" v-text="errors.first('name')"></span>
+    </div>
+
+    @endif
+
     <div class="form-group" :class="{'has-error': errors.has('email') }">
         <label>{{ trans('app.email') }}</label>
         <input v-validate="'required|email'" data-vv-as="{{ trans('app.email') }}" class="form-control" v-model="formFields.email" name="email" id="email" type="text">
@@ -30,6 +45,8 @@
         <button @click="generatePass" type="button" class="btn btn-dark btn-fw">{{ trans('app.generatePassword') }}</button>
     </div>
 
+    @if (Auth::User()->isA('Admin'))
+
     <div class="form-group" :class="{'has-error': errors.has('rol') }">
         <label>{{ trans('app.roles.rol') }}</label>
         <select name="rol" data-vv-as="{{ trans('app.roles.rol') }}" v-validate="'required'" v-model="rol" class="form-control" id="video_category_id">
@@ -41,6 +58,10 @@
         <span class="alert-danger" v-text="errors.first('video_category_id')"></span>
     </div>
 
+    @endif
+
+    @if (Auth::User()->isA('Admin'))
+
     <template v-if="method == 'edit'">
         <div class="form-group">
             <label>{{ trans('app.state') }}</label>
@@ -51,15 +72,22 @@
         </div>
     </template>
 
-    @include('users::partials/forms/user_data_form')
+    @endif
+
+    @include('users::partials.forms.user_data_form')
 
     <hr/>
     <div v-if="method != 'show'" class="form-group">
 
         <template>
+            
+            @if (Auth::User()->isA('Admin'))
+
             <button v-if="method == 'edit'" type="button" class="btn btn-primary btn-fw">
                 <i class="mdi mdi-keyboard-backspace"></i> {{ trans('app.back') }}
             </button>
+
+            @endif
 
             <button v-if="preloader" type="button" class="btn btn-default m-b-10 m-l-5"><i class="mdi mdi-autorenew " aria-hidden="true"></i> {{ trans('app.savingData') }}</button>
             <button v-else @click="setData" type="button" class="btn btn-success btn-fw">

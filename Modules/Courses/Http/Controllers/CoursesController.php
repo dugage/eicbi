@@ -114,9 +114,21 @@ class CoursesController extends Controller
      * show coourse by id
      * @return Response
      */
-    public function show()
+    public function show($id)
     {
-        return view('courses::show_course');
+        //lo primero que hacemos es comprobar si el id del curso
+        //lo tiene o no asignado el usuario, de esta forma, evitamos 
+        //que se pueda acceder de forma manual cambiando el id en la url.
+        $isCourse = UserCourse::with('course')
+        ->Where('user_id',Auth::user()->id)
+        ->Where('course_id',$id)
+        ->firstOrFail();
+        //obtenemos el curso junto con la colección de capítulos del curso mediante su id
+        $course = Course::with('chapters')
+        ->findOrFail($id);
+        //Pasamos los datos a la vista
+        return view('courses::show_course',compact('course'));
+        
     }
 
     /**

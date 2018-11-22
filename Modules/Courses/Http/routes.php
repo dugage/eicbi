@@ -6,7 +6,7 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'courses', 'namespace
     Route::get('/create', 'CoursesController@create')->name('courses.create');
     Route::get('/edit/{id}', 'CoursesController@edit')->name('courses.edit')->where('id', '[0-9]+');
     Route::get('/my-courses', 'CoursesController@getCoursesByUser')->name('courses.mycourses');
-    Route::get('/show-course', 'CoursesController@show')->name('courses.showcourse');
+    Route::get('/show-course/{id}', 'CoursesController@show')->name('courses.showcourse')->where('id', '[0-9]+');
 });
 // Rutas que serán invocadas con axios
 Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'api/courses', 'namespace' => 'Modules\Courses\Http\Controllers'], function()

@@ -71,9 +71,12 @@ class UserCourseController extends Controller
             'remember_token' => (new Token())->Unique('users', 'remember_token', 60).$data['course_id'],
 
         ]);
-
+        //el usuario se inicia como deshabilitado
+        $user->delete();
+        //asignamos al usuario el rol
         Bouncer::assign('User')->to($user);
-
+        //Bouncer::allow($user)->toOwn(User::class)->to('index');
+        //devolvemos el usuario
         return response()->json($user);
     }
 
@@ -86,7 +89,9 @@ class UserCourseController extends Controller
     public function order($token)
     {
         //comprobamos si existe el usuario mediante el token
-        $user = User::where('remember_token',$token)->firstOrFail();
+        $user = User::withTrashed()
+        ->where('remember_token',$token)
+        ->firstOrFail();
         //recuperamos el id del curso
         $idCourse = substr($token, -1);
         //recuperamos los datos del curso
@@ -103,7 +108,9 @@ class UserCourseController extends Controller
     public function setRedsys($token,$display = false,$des = false)
     {
         //comprobamos si existe el usuario mediante el token
-        $user = User::where('remember_token',$token)->firstOrFail();
+        $user = User::withTrashed()
+        ->where('remember_token',$token)
+        ->firstOrFail();
         //recuperamos el id del curso
         $idCourse = substr($token, -1);
         //recuperamos los datos del curso
@@ -160,7 +167,9 @@ class UserCourseController extends Controller
     public function cancel($token)
     {
         //comprobamos si existe el usuario mediante el token
-        $user = User::where('remember_token',$token)->firstOrFail();
+        $user = User::withTrashed()
+        ->where('remember_token',$token)
+        ->firstOrFail();
         //borramos el token
         $this->_destroyToken($token);
         return view('users::cancel');
@@ -176,25 +185,32 @@ class UserCourseController extends Controller
     {
         //recuperamos el id del curso
         $idCourse = substr($token, -1);
+        //recuperamos los datos del curso
+        $course = Course::findOrFail($idCourse);
         //comprobamos si existe el usuario mediante el token
-        $user = User::where('remember_token',$token)->firstOrFail();
+        $user = User::withTrashed()
+        ->where('remember_token',$token)
+        ->firstOrFail();
         //habilitamos el curso al usuario
         $userCourse = new UserCourse;
         $userCourse->course_id = $idCourse;
         $userCourse->user_id = $user->id;
         $userCourse->save();
         //enviamos el email
-        Mail::to($user->email)->send(new SendEmail());
+        Mail::to($user->email)->send(new SendEmail($user,$course));
         //borramos el token, por seguridad, con esto nos aseguramos que no se pueda accceder a esta página
         //y que no se pueda recargar.
         $this->_destroyToken($token);
         return view('users::accept');
     }
-    //metodo que borra el token
+    //metodo que borra el token y activa el usuario
     private function _destroyToken($token)
     {
-        $user = User::where('remember_token',$token)->firstOrFail();
+        $user = User::withTrashed()
+        ->where('remember_token',$token)
+        ->firstOrFail();
         $user->remember_token = '';
+        $user->restore();
         $user->save();
     }
 }

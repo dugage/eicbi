@@ -20,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','card_number','country','city',
+        'name', 'email', 'password','country','city',
         'address','prefix','telephone','parent','remember_token'
     ];
 
@@ -50,6 +50,34 @@ class User extends Authenticatable
     public function userCourse()
     {
         return $this->hasMany('App\Models\UserCourse');
+    }
+    /**
+     * Este método es utilizado a nivel interno para comprobar si el usuario tiene o no asignado
+     * dicho rol. Es utilizado principalmente por el Middleware/CheckRole, que controla desde las rutas
+     * quien tiene o no permiso para acceder a dichas rutas.
+     * @param $result -- booleano, inicia false
+     * @param $roles -- alamcenamos la cadena con los roles que tienen permisos
+     * @param $rolesArray -- alamcenamos el istado de roles en formato de vector
+     * @param $myRoles -- alamcenamos los roles del usuario logado
+     * 
+    */
+    public function hasRole(string $roleSlug)
+    {
+        $result = false;
+        $roles = $roleSlug;
+        $rolesArray = explode(';',$roles);  
+        $myRoles = auth()->user()->roles;
+        //recorremos el vector y comprobramos si coinciden alguno
+        foreach ($myRoles as $key => $rol) {
+
+            if (in_array($rol->name, $rolesArray)) {
+                //si hay por lo menos una coincidencia, result = true y detemos
+                $result = true;
+                break;
+            }
+        }
+        //devolvemos el resultado
+        return $result;
     }
 
     //Mutators

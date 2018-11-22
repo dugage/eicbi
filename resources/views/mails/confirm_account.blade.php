@@ -303,15 +303,15 @@
             <!-- START CENTERED WHITE CONTAINER -->
             <span class="preheader">This is preheader text. Some clients will show this text as a preview.</span>
             <table role="presentation" class="main">
-
               <!-- START MAIN CONTENT AREA -->
               <tr>
                 <td class="wrapper">
                   <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                     <tr>
                       <td>
-                        <p>Hi there,</p>
-                        <p>Sometimes you just want to send a simple HTML email with a simple design and clear call to action. This is it.</p>
+                        <p>Hola!!, {{$userData->name}}</p>
+                        <p>Gracias por comprar {{$data->name}} por {{$data->amount}} €</p>
+                        <p>Tu cuenta ha sido activada y ya puedes acceder a tu panel de control.</p>
                         <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
                           <tbody>
                             <tr>
@@ -319,7 +319,7 @@
                                 <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                                   <tbody>
                                     <tr>
-                                      <td> <a href="http://htmlemail.io" target="_blank">Call To Action</a> </td>
+                                      <td> <a href="{{ route('home') }}" target="_blank">Ir a mi cuenta</a> </td>
                                     </tr>
                                   </tbody>
                                 </table>
@@ -327,8 +327,8 @@
                             </tr>
                           </tbody>
                         </table>
-                        <p>This is a really simple email template. Its sole purpose is to get the recipient to click the button with no distractions.</p>
-                        <p>Good luck! Hope it works.</p>
+                        <p>Recuerda contactar con nosotros si tienes alguna duda desde <a href="mailto:info@eicbi.com">info@eicbi.com</a></p>
+                        <p>Un cordial saludo desde el equipo de EICBI.</p>
                       </td>
                     </tr>
                   </table>

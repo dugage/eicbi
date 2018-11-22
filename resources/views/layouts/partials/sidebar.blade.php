@@ -77,13 +77,13 @@
     <ul class="nav">
 
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('users') }}">
+            <a class="nav-link" href="{{ route('users.edit',Auth::user()->id) }}">
                 <span class="menu-title">Mi cuenta</span>
                 <i class="mdi mdi-account-multiple-outline menu-icon"></i>
             </a>
         </li>
 
-        <li class="nav-item">
+        {{--<li class="nav-item">
             <a class="nav-link" href="#">
                 <span class="menu-title">Referidos</span>
                 <i class="mdi mdi-link menu-icon"></i>
@@ -117,7 +117,7 @@
                 <span class="menu-title">Documentación</span>
                 <i class=" mdi mdi-file-document menu-icon"></i>
             </a>
-        </li>
+        </li>--}}
 
         <li class="nav-item">
             <a class="nav-link" href="{{ route('courses.mycourses') }}">
@@ -128,7 +128,7 @@
 
 
         <li class="nav-item"> 
-            <a class="nav-link" href="{{ route('videos') }}">
+            <a class="nav-link" href="{{ route('videos.show') }}">
                 <span class="menu-title">{{ trans('app.videos.videos') }}</span>
                 <i class="mdi mdi-message-video menu-icon"></i>
             </a>

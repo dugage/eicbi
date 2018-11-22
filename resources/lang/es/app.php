@@ -50,6 +50,8 @@ return [
 
         'users' => 'Usuarios',
         'user' => 'Usuario',
+        'firstName' => '1º apellido',
+        'lastName' => '2º apellido',
         'modalNew' => 'Crear un Usuario',
         'modalEdit' => 'Editar el Usuario creado',
         'newOk' => 'Nuevo Usuario creado',

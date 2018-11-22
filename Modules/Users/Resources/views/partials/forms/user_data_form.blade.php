@@ -2,12 +2,6 @@
 
     <h4 class="card-title">{{ trans('app.users.userData') }}</h4>
 
-    <div class="form-group" :class="{'has-error': errors.has('card_number') }">
-        <label>{{ trans('app.cardNumber') }}</label>
-        <input class="form-control" v-mask="{mask: '9999 9999 9999 9999', autoUnmask: true}" v-validate="'numeric|min:16|max:16'" data-vv-as="{{ trans('app.cardNumber') }}" v-model="formFields.card_number" name="card_number" id="card_number" type="text">
-        <span class="alert-danger" v-text="errors.first('card_number')"></span>
-    </div>
-
     <div class="form-group" :class="{'has-error': errors.has('country') }">
         <label>{{ trans('app.country') }}</label>
         <select @change="getPrefix" name="country" data-vv-as="{{ trans('app.country') }}" v-model="formFields.country" class="form-control" id="country">

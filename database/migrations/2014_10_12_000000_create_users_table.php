@@ -22,7 +22,6 @@ class CreateUsersTable extends Migration
             $table->integer('parent')->nullable()->default(0)->index();
             $table->boolean('send_email')->default(false);
             //user data all nullable
-            $table->string('card_number')->nullable();
             $table->string('country')->nullable();
             $table->string('city')->nullable();
             $table->string('address')->nullable();

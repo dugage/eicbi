@@ -30,7 +30,6 @@ class DemoDataSeeder extends Seeder
             'email' => str_random(10).'@gmail.com',
             'password' => bcrypt('secret'),
             'parent' => 2,
-            'card_number' => '6501764780286896',
             'country' => 'ESPAÑA',
             'city' => 'SEVILLA',
             'address' => 'Calle Burgos 32',

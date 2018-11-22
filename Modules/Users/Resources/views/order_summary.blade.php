@@ -13,7 +13,7 @@
             <h4>{{ trans('app.users.orderSummary') }}</h4>
             <h6 class="font-weight-light">{{ trans('app.users.msnOrderSummary') }}</h6>
 
-            @include('users::partials/miscellaneous/order')
+            @include('users::partials.miscellaneous.order')
 
         </div>
 

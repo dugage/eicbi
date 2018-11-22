@@ -17,8 +17,8 @@ class CoursesDataSeeder extends Seeder
     {
         //Curso Bitcoin
         Course::create(array(
-            'name' => 'Bitcoin',
-            'amount' => 54.99,
+            'name' => 'Economía Digital y Planificación Financiera',
+            'amount' => 59,
             'short_description' => 'Aprende comprar y usar las Criptomonedas'
         ));
         //creamos los capítulos del curso de Bitcoin
