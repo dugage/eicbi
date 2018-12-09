@@ -135,7 +135,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('webminar') }}">
+            <a class="nav-link" href="{{ route('webminar.show') }}">
                 <span class="menu-title">Webminar</span>
                 <i class="mdi mdi-at menu-icon"></i>
             </a>

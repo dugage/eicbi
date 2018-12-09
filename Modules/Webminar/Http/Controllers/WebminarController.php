@@ -5,6 +5,7 @@ namespace Modules\Webminar\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use App\Models\Webminar;
 
 class WebminarController extends Controller
 {
@@ -41,7 +42,12 @@ class WebminarController extends Controller
      */
     public function show()
     {
-        return view('webminar::show');
+        //obtenemos la colección de Webinar, siempre tomando que la 
+        //fecha y la hora sea igual o menor a la actual.
+        $webminars = Webminar::where('start_date','<=',date('dmY'))
+        ->where( 'start_hour','>',date('Hi'))
+        ->get();
+        return view('webminar::show',compact('webminars'));
     }
 
     /**

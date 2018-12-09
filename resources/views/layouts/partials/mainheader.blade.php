@@ -42,6 +42,17 @@
                 </div>
 
             </li>
+            
+            @if ( App\Helpers\Alerts::getAlert('Webminar') )
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                      <i class="mdi mdi-at"></i>
+                      <span class="count-symbol bg-danger"></span>
+                    </a>
+                </li>
+            
+            @endif
 
         </ul>
 

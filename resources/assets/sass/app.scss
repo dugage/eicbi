@@ -140,3 +140,22 @@ a{
 	width: calc(314px - 120px);
 	height: auto;
 }
+//accordion
+.md-accordion .card:first-of-type, .md-accordion .card:not(:first-of-type):not(:last-of-type) {
+    border-bottom: 1px solid #e0e0e0;
+}
+.md-accordion .card .card-header {
+    border-bottom: 0;
+    padding: 1rem 1.5rem;
+    background: 0 0;
+}
+.md-accordion .card .card-header a {
+    -webkit-transition: ease-in-out .3s;
+    -o-transition: ease-in-out .3s;
+    transition: ease-in-out .3s;
+}
+.mb-0, .my-0 {
+    margin-bottom: 0 !important;
+    font-weight: 300;
+    font-size: 1.25rem;
+}

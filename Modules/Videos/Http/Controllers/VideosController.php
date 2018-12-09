@@ -74,7 +74,10 @@ class VideosController extends Controller
      */
     public function show()
     {
-        return view('videos::show');
+        //obtenemos la colección de todos los vídeos
+        $videos = Video::all();
+        //los pasamos a la vista
+        return view('videos::show',compact('videos'));
     }
 
     /**

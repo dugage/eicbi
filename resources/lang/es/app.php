@@ -126,6 +126,12 @@ return [
         'acceptedTitle' => 'Pago realizado con éxito',
         'acceptedMsn' => 'El pago ha sido realizado con éxito, y tu cuenta activada. Hemos enviado un correo electrónico con el resumen de tu pago.',
         'acceptedBtn' => 'Ir a mi panel',
-    ]
+    ],
+    //Módulo Webinars
+    'webminar' => [
+
+        'webminar' => 'Webminar',
+        'noDataShow' => 'Actualmente no tenemos Webminars programados'
+    ],
 
 ];
