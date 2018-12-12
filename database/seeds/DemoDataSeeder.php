@@ -65,6 +65,10 @@ class DemoDataSeeder extends Seeder
             'course_id' => 1,
             'user_id' => 17,
         ]);
+        //creamos 5 webinars
+        factory(\App\Models\Webminar::class, 5)->create()->each(function ($webinar){
+           
+        });
 
     }
 }
