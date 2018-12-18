@@ -17,7 +17,7 @@
     </div>
 
     <div class="form-group">
-        <input name="attached" id="attached" data-vv-as="{{ trans('app.courses.chapterFile') }}" type="file" v-validate="'size:2048'" @change="onFileChanged" class="form-control-file" aria-describedby="fileHelp">
+        <input name="attached" id="attached" data-vv-as="{{ trans('app.courses.chapterFile') }}" type="file" v-validate="'size:10240'" @change="onFileChanged" class="form-control-file" aria-describedby="fileHelp">
         <span class="alert-danger" v-text="errors.first('attached')"></span>
     </div>
 
