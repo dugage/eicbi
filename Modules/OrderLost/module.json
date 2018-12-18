@@ -1,0 +1,16 @@
+{
+    "name": "OrderLost",
+    "alias": "orderlost",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\OrderLost\\Providers\\OrderLostServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}

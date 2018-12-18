@@ -6,6 +6,7 @@ use App\User;
 use App\Models\Country;
 use App\Models\UserCourse;
 use App\Models\Course;
+use App\Models\OrderLost;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Config;
 use Ssheduardo\Redsys\Facades\Redsys;
 use App\Mail\SendEmail;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Crypt;
 use Bouncer;
 
 class UserCourseController extends Controller
@@ -40,44 +42,27 @@ class UserCourseController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'name' => 'required',
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|unique:users,email',
-            'password' => 'required|min:8',
-            'country' => '',
-            'city' => '',
-            'address' => '',
-            'zip' => '',
-            'telephone' => '',
-            'prefix' => '',
-            'course_id' => 'required'
-        ]);
-
-        $user = User::create([
-
-            'name' => $data['name'],
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-            'country' => $data['country'],
-            'city' => $data['city'],
-            'address' => $data['address'],
-            'zip' => $data['zip'],
-            'telephone' => $data['telephone'],
-            'prefix' => $data['prefix'],
-            'remember_token' => (new Token())->Unique('users', 'remember_token', 60).$data['course_id'],
-
-        ]);
-        //el usuario se inicia como deshabilitado
-        $user->delete();
-        //asignamos al usuario el rol
-        Bouncer::assign('User')->to($user);
-        //Bouncer::allow($user)->toOwn(User::class)->to('index');
-        //devolvemos el usuario
-        return response()->json($user);
+        //donde recopilamos los datos del form
+        $data = null;
+        //montamos una traza con los datos enviados en el formulario
+        $data = $request->name.'_'.$request->first_name.'_'.$request->last_name.'_'.
+        $request->email.'_'.bcrypt($request->password).'_'.$request->country.'_'.$request->city.
+        '_'.$request->address.'_'.$request->zip.'_'.$request->telephone.'_'.$request->prefix;
+        //enciptamos la cadena obtenida
+        $data = Crypt::encryptString($data);
+        //iniciamos un carrito
+        $order = new OrderLost;
+        //setemos datos
+        $order->course_id = $request->course_id;
+        $order->name = $request->name.' '.$request->first_name.' '.$request->last_name;
+        $order->email = $request->email;
+        $order->data = $data;
+        $order->time_line = 'Formulario de compra';
+        $order->remember_token = (new Token())->Unique('order_losts', 'remember_token', 60);
+        //guardamos
+        $order->save();
+        //devolvemos los datos del order
+        return response()->json($order);
     }
 
     /**
@@ -88,14 +73,15 @@ class UserCourseController extends Controller
      */
     public function order($token)
     {
-        //comprobamos si existe el usuario mediante el token
-        $user = User::withTrashed()
-        ->where('remember_token',$token)
+        //comprobamos un carrito con el token indicado
+        $order = OrderLost::where('remember_token',$token)
         ->firstOrFail();
-        //recuperamos el id del curso
-        $idCourse = substr($token, -1);
+        //almacenamos el nuevo timeline
+        $order->time_line = $order->time_line.'_Resumen de la compra';
+        //guardamos
+        $order->save();
         //recuperamos los datos del curso
-        $course = Course::findOrFail($idCourse);
+        $course = Course::findOrFail($order->course_id);
         return view('users::order_summary',compact('course','token'));
     }
 
@@ -107,21 +93,22 @@ class UserCourseController extends Controller
      */
     public function setRedsys($token,$display = false,$des = false)
     {
-        //comprobamos si existe el usuario mediante el token
-        $user = User::withTrashed()
-        ->where('remember_token',$token)
+        //comprobamos si existe un carrito
+        $order = OrderLost::where('remember_token',$token)
         ->firstOrFail();
-        //recuperamos el id del curso
-        $idCourse = substr($token, -1);
+        //almacenamos el nuevo timeline
+        $order->time_line = $order->time_line.'_Pasarela de Pago';
+        //guardamos
+        $order->save();
         //recuperamos los datos del curso
-        $course = Course::findOrFail($idCourse);
+        $course = Course::findOrFail($order->course_id);
 
         try{
 
-            $order = $user->id.date('dmys');
-            $order = str_pad($order,12,0,STR_PAD_LEFT);
+            $orderRedsys = $order->id.date('dmys');
+            $orderRedsys = str_pad($orderRedsys,12,0,STR_PAD_LEFT);
             Redsys::setAmount($course->amount);
-            Redsys::setOrder($order);
+            Redsys::setOrder($orderRedsys);
             Redsys::setMerchantcode('061941670');
             Redsys::setCurrency('978');
             Redsys::setTransactiontype('0');
@@ -167,11 +154,14 @@ class UserCourseController extends Controller
     public function cancel($token)
     {
         //comprobamos si existe el usuario mediante el token
-        $user = User::withTrashed()
-        ->where('remember_token',$token)
+        $order = OrderLost::where('remember_token',$token)
         ->firstOrFail();
-        //borramos el token
-        $this->_destroyToken($token);
+        //almacenamos el nuevo timeline
+        $order->time_line = $order->time_line.'_Error en el pago';
+        $order->remember_token = null;
+        //guardamos
+        $order->save();
+
         return view('users::cancel');
     }
 
@@ -183,34 +173,49 @@ class UserCourseController extends Controller
      */
     public function accept($token)
     {
-        //recuperamos el id del curso
-        $idCourse = substr($token, -1);
-        //recuperamos los datos del curso
-        $course = Course::findOrFail($idCourse);
-        //comprobamos si existe el usuario mediante el token
-        $user = User::withTrashed()
-        ->where('remember_token',$token)
+        //comprobamos si existe carrito mediante el token
+        $order = OrderLost::where('remember_token',$token)
         ->firstOrFail();
+        //recuperamos los datos del curso
+        $course = Course::findOrFail($order->course_id);
+        //creamos el usuario a través de los datos del carrito
+        $data = explode('_',Crypt::decryptString($order->data));
+        //instanciamos usuario para new
+        $user = new User;
+        //seteamos los datos
+        $user->name = $data[0];
+        $user->first_name = $data[1];
+        $user->last_name = $data[2];
+        $user->email = $data[3];
+        $user->password = $data[4];
+        $user->country = $data[5];
+        $user->city = $data[6];
+        $user->address = $data[7];
+        $user->zip = $data[8];
+        $user->telephone = $data[9];
+        $user->prefix = $data[10];
+        $user->save();
+        //asignamos al usuario el rol
+        Bouncer::assign('User')->to($user);
+        //Bouncer::allow($user)->toOwn(User::class)->to('index');
         //habilitamos el curso al usuario
         $userCourse = new UserCourse;
-        $userCourse->course_id = $idCourse;
+        $userCourse->course_id = $order->course_id;
         $userCourse->user_id = $user->id;
         $userCourse->save();
+
         //enviamos el email
         Mail::to($user->email)->send(new SendEmail($user,$course));
-        //borramos el token, por seguridad, con esto nos aseguramos que no se pueda accceder a esta página
-        //y que no se pueda recargar.
-        $this->_destroyToken($token);
+        //Borramos de Order Lost la precompra y la convertimos en definitiva
+        //esta parte falta por terminar el order end tabla
+        $this->_setOrderEnd($token);
         return view('users::accept');
     }
     //metodo que borra el token y activa el usuario
-    private function _destroyToken($token)
+    private function _setOrderEnd($token)
     {
-        $user = User::withTrashed()
-        ->where('remember_token',$token)
+        $preOrder = OrderLost::where('remember_token',$token)
         ->firstOrFail();
-        $user->remember_token = '';
-        $user->restore();
-        $user->save();
+        $preOrder->forceDelete();
     }
 }

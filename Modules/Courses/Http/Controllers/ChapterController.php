@@ -27,8 +27,6 @@ class ChapterController extends Controller
 
             abort(404);
         }; 
-
-        
     }
 
     /**

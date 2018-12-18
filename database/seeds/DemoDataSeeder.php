@@ -69,6 +69,10 @@ class DemoDataSeeder extends Seeder
         factory(\App\Models\Webminar::class, 5)->create()->each(function ($webinar){
            
         });
+        //creamos 10 compras perdidas
+        factory(\App\Models\OrderLost::class, 10)->create()->each(function ($orderLost){
+           
+        });
 
     }
 }

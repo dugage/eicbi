@@ -59,7 +59,7 @@
                     
                     <div style="border: 1px solid #727272;" class="alert alert-secondary">
                         {{ trans('app.courses.chapterAttachedFile') }}<br/>
-                        <a href="http://www.pruebasdugage.es/eicbi_pdf/CursoCriptomonedasPDF/MODULO_1_OrigenDinero.pdf" target="_blank" class="alert-link">OrigenDinero.pdf</a>
+                        <a href="{{asset('/documents/'.$chapter->attached)}}" target="_blank" class="alert-link">{{$chapter->name}}.pdf</a>
                     </div>
 
                 </div>

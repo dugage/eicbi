@@ -22,10 +22,13 @@ class CreateUsersTable extends Migration
             $table->integer('parent')->nullable()->default(0)->index();
             $table->boolean('send_email')->default(false);
             //user data all nullable
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
             $table->string('country')->nullable();
             $table->string('city')->nullable();
             $table->string('address')->nullable();
             $table->integer('prefix')->nullable();
+            $table->integer('zip')->nullable();
             $table->integer('telephone')->nullable();
 
             $table->rememberToken();

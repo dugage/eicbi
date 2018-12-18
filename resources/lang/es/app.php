@@ -133,5 +133,17 @@ return [
         'webminar' => 'Webminar',
         'noDataShow' => 'Actualmente no tenemos Webminars programados'
     ],
+    //Módulo Pedidos
+    'orders'=> [
+
+        'lost'=> [
+
+            'ordersLost' => 'Pedidos perdidos',
+            'orderLost' => 'Pedido perdido'
+        ],
+
+        'orders' => 'Pedidos',
+        'order' => 'Pedido'
+    ],
 
 ];

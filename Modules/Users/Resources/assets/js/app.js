@@ -64,7 +64,7 @@ if (document.querySelector('#sign-up-form')) {
                             //dejamos un delay de medio 1/4 segundo
                             this.timeout = setTimeout( () => {
 
-                                window.location.href = SITE_URL + "/new-account/resume-buy/"+response.data.remember_token;;
+                                window.location.href = SITE_URL + "/new-account/resume-buy/"+response.data.remember_token;
                                 
                             }, 250);
 
