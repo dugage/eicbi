@@ -48,10 +48,6 @@ class DemoDataSeeder extends Seeder
         foreach($categories as $category){
             VideoCategory::create($category);
         }
-        // Creamos 15 vídeos
-        factory(\App\Models\Video::class, 15)->create()->each(function ($video){
-           
-        });
         // Creamos 15 referral
         factory(\App\Models\Referral::class, 15)->create()->each(function ($referral){
            

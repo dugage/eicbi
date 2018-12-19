@@ -22,7 +22,7 @@ class CreateOrderLostsTable extends Migration
             $table->string('name');
             $table->string('email');
             $table->text('data');
-            $table->string('time_line');
+            $table->text('time_line');
             $table->rememberToken();
 
             $table->timestamps();
