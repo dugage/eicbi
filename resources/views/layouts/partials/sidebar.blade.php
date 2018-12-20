@@ -127,8 +127,8 @@
             </a>
         </li>
 
-        <li style="opacity: 0.6;" class="nav-item">
-            <a class="nav-link">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('referrals') }}">
                 <span class="menu-title">Referidos</span>
                 <i class="mdi mdi-link menu-icon"></i>
             </a>

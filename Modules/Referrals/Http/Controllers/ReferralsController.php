@@ -9,6 +9,7 @@ use Illuminate\Routing\Controller;
 use Modules\Referrals\Http\Requests\ReferralCreateRequest;
 use Modules\Referrals\Http\Requests\ReferralEditRequest;
 use Illuminate\Support\Facades\Config;
+use Auth;
 
 class ReferralsController extends Controller
 {
@@ -25,8 +26,19 @@ class ReferralsController extends Controller
     public function index()
     {
         if( request()->ajax() ) {
-
-            $referrals = Referral::with('user')->paginate($this->paginate);
+            /**
+             * consultamos el rol de usuario, si es de tipo User
+             * Obtenemos sus referidos, en caso de ser de tipo
+             * Admin, la consutla es abierta
+             */
+            if( Auth::User()->isA('User') ) {
+                $referrals = Referral::with('user')
+                ->where('user_id',Auth::User()->id)
+                ->paginate($this->paginate);
+            }else{
+                $referrals = Referral::with('user')->paginate($this->paginate);
+            }
+            
             return response()->json($referrals);
 
         }else{

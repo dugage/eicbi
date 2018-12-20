@@ -44,10 +44,10 @@ class WebminarController extends Controller
     {
         //obtenemos la colección de Webinar, siempre tomando que la 
         //fecha y la hora sea igual o menor a la actual.
-        $webminars = Webminar::where('start_date','<=',date('dmY'))
+        $webminars = Webminar::where('start_date','>=',date('dmY'))
         ->where( 'start_hour','>',date('Hi'))
         ->get();
-        return view('webminar::show',compact('webminars'));
+        return view('webminar::show',compact('webminars','hour'));
     }
 
     /**

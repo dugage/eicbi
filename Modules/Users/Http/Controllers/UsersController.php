@@ -191,13 +191,15 @@ class UsersController extends Controller
     {
         $obj =  [
             'user' => '',
+            'first_name' => '',
+            'last_name' => '',
             'password' => '',
             'email' => '',
             'deleted_at' => null,
             'country' => '',
             'city' => '',
             'address' => '',
-            'address' => '',
+            'zip' => '',
             'telephone' => '',
             'prefix' => ''
         ];

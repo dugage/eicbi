@@ -48,7 +48,7 @@
                     <div id="{{$key}}" class="collapse" role="tabpanel" aria-labelledby="headingOne1" data-parent="#accordionEx">
                       <div class="card-body">
                         <p>Fecha: {{$webminar->start}}</p>
-                        <p>Hora: {{$webminar->start_hour}}</p>
+                        <p>Hora: {{$webminar->start_hour[0].$webminar->start_hour[1]}}:{{$webminar->start_hour[2].$webminar->start_hour[3]}}</p>
                         <p><a target="_blank" class="btn btn-gradient-primary btn-lg font-weight-medium auth-form-btn" href="{{$webminar->url}}">Ir al Webminar</a></p>
                         <p>{{$webminar->text}}</p>
                       </div>

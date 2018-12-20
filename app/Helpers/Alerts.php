@@ -17,7 +17,7 @@ class Alerts
 			case 'Webminar':
 
 				$query = DB::table('webminars')
-				->where('start_date','<=',date('dmY'))
+				->where('start_date','>=',date('dmY'))
         		->where( 'start_hour','>',date('Hi'))
         		->count();
 

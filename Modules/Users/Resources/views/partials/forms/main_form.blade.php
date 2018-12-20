@@ -12,13 +12,13 @@
 
     <div class="form-group">
         <label>{{ trans('app.users.firstName') }}</label>
-        <input class="form-control" v-model="formFields.name" name="name" id="name" type="text">
+        <input class="form-control" v-model="formFields.first_name" name="first_name" id="first_name" type="text">
     </div>
 
-    <div class="form-group" :class="{'has-error': errors.has('name') }">
+    <div class="form-group" :class="{'has-error': errors.has('last_name') }">
         <label>{{ trans('app.users.lastName') }}</label>
-        <input class="form-control" v-validate="'required'" data-vv-as="{{ trans('app.user') }}" v-model="formFields.name" name="name" id="name" type="text">
-        <span class="alert-danger" v-text="errors.first('name')"></span>
+        <input class="form-control" data-vv-as="{{ trans('app.users.lastName') }}" v-model="formFields.last_name" name="last_name" id="last_name" type="text">
+        <span class="alert-danger" v-text="errors.first('last_name')"></span>
     </div>
 
     @endif
