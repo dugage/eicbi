@@ -146,4 +146,12 @@ return [
         'order' => 'Pedido'
     ],
 
+    //Módulo Soporte
+    'support' => [
+        
+        'support' => 'Soporte',
+        'ticketsOpen' => 'Tickets Abiertos',
+        'ticketsClosed' => 'Tickets Cerrados',
+    ],
+
 ];

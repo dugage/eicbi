@@ -69,6 +69,9 @@ class DemoDataSeeder extends Seeder
         factory(\App\Models\OrderLost::class, 10)->create()->each(function ($orderLost){
            
         });
-
+        //creamos 20 tickets de soporte
+        factory(\App\Models\Support::class, 20)->create()->each(function ($support){
+           
+        });
     }
 }

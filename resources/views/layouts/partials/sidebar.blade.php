@@ -177,8 +177,8 @@
             </a>
         </li>
 
-        <li style="opacity: 0.6;" class="nav-item">
-            <a class="nav-link">
+        <li class="nav-item">
+            <a href="{{ route('support') }}" class="nav-link">
                 <span class="menu-title">Soporte</span>
                 <i class=" mdi mdi-settings menu-icon"></i>
             </a>
