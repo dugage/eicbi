@@ -152,6 +152,9 @@ return [
         'support' => 'Soporte',
         'ticketsOpen' => 'Tickets Abiertos',
         'ticketsClosed' => 'Tickets Cerrados',
+        'subject' => 'Asunto',
+        'text' => 'Texto del ticket',
+
     ],
 
 ];

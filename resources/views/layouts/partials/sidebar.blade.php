@@ -83,6 +83,12 @@
             </div>
         </li>
 
+        <li class="nav-item sidebar-actions">
+
+        	<div class="border-bottom"></div>
+        	<a target="_blank" href="{{ url('callcenter/index.php/login?token=c9ed6c63f040f060e6733dbdb0bbdd99750e33472f6da4b2b9145843e4af80d0dfe9707b4739efab3fd9b4f5c919684cf1486cbe93c5cb42c3a8650ebd92baddyyAUocYuY0uUb8IhzdCf0QQN7lbFbfNQzQILhU3Lc1d3lCcshSQZKceX98wOKaNn') }}" class="btn btn-block btn-lg btn-gradient-primary mt-4">Call Center</a>
+        </li>
+
     </ul>
 
     @endif

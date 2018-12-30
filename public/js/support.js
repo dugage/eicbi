@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 56);
+/******/ 	return __webpack_require__(__webpack_require__.s = 58);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -7892,15 +7892,15 @@ var index_esm = {
 
 /***/ }),
 
-/***/ 56:
+/***/ 58:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(57);
+module.exports = __webpack_require__(59);
 
 
 /***/ }),
 
-/***/ 57:
+/***/ 59:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7908,10 +7908,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vee_validate__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue2_editor__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue2_editor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue2_editor__);
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 
 var VueValidationEs = __webpack_require__(2);
@@ -7927,7 +7923,7 @@ var config = {
 var SITE_URL = document.head.querySelector('meta[name="site-url"]').content;
 var MODULE_URL = document.head.querySelector('meta[name="module-url"]').content;
 var METHOD = document.head.querySelector('meta[name="method"]').content;
-var COURSE_ID = document.querySelector('#course_id').value;
+var SUPPORT_ID = document.querySelector('#support_id').value;
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vee_validate__["a" /* default */], config);
 
@@ -7935,101 +7931,44 @@ Vue.component('modal', { template: '#modal-template' });
 //text editor for vue
 
 
-/**
- * ---componente para el Listado de practicas---
- * @param preloader -- booleano que muestra u oculta el preload
- * @param chaptersData -- almacena el listado de Prácticas del candidato
- * @param errorCode -- recolecta errores
- * @param showModal -- booleano que muestra y oculta el modal
- * @param formFields -- Datos del formulario
- * @param selectedFile -- contien la img seleccionada
- * @param editor -- almacena el contenido del editor de texto
+if (document.querySelector('#form-support')) {
 
-*/
-if (document.querySelector('#chapters')) {
-
-    var chapters = new Vue({
-
-        el: '#chapters',
+    var form_support = new Vue({
+        el: '#form-support',
         components: { VueEditor: __WEBPACK_IMPORTED_MODULE_1_vue2_editor__["VueEditor"] },
         data: {
 
             preloader: false,
-            chaptersData: [],
-            chapterData: [],
             errorCode: null,
             erroValidate: false,
-            showModal: false,
-            formFields: [],
-            selectedFile: null,
-            editor: null
+            editor: null,
+            subject: null
         },
         methods: {
 
             setData: function setData() {
                 var _this = this;
 
-                //Url, consulta
-                var url = SITE_URL + '/' + MODULE_URL + '/chapter/store/' + COURSE_ID;
-                this.erroValidate = false;
-                this.errorCode = null;
-                //si id > 0 sobreescribimos url
-                if (this.formFields.course_id > 0) url = SITE_URL + '/' + MODULE_URL + '/chapter/update/' + this.formFields.id;
-                //capturamos todos los campos de formulario
-                var formData = new FormData(this.$refs['formChapter']);
+                //url del método
+                var url = '/api/support/store';
                 var data = {};
-
-                var _iteratorNormalCompletion = true;
-                var _didIteratorError = false;
-                var _iteratorError = undefined;
-
-                try {
-                    for (var _iterator = formData.entries()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                        var _ref = _step.value;
-
-                        var _ref2 = _slicedToArray(_ref, 2);
-
-                        var key = _ref2[0];
-                        var val = _ref2[1];
-
-
-                        Object.assign(data, _defineProperty({}, key, val));
-                    }
-                    //pasamos manualmente el texto del editor
-                } catch (err) {
-                    _didIteratorError = true;
-                    _iteratorError = err;
-                } finally {
-                    try {
-                        if (!_iteratorNormalCompletion && _iterator.return) {
-                            _iterator.return();
-                        }
-                    } finally {
-                        if (_didIteratorError) {
-                            throw _iteratorError;
-                        }
-                    }
-                }
-
+                //asignamos los datos de texto
                 Object.assign(data, { 'text': this.editor });
-                console.log(data);
-                //validamos el formulario
+                Object.assign(data, { 'subject': this.subject });
+
                 this.$validator.validateAll().then(function () {
 
                     if (!_this.errors.any()) {
-                        //mostramos el preloader
+
                         _this.preloader = true;
-                        //enviamos los datos para el create or update
-                        axios.post(url, data).then(function (response) {
-                            //subimos la img si esta es dinstinta de null
-                            if (_this.selectedFile != null) _this._uploadFile(response.data.id);
-                            //ocultamos modal y preloader
-                            _this.showModal = false;
-                            //retrasamos la carga de datos
-                            _this.timeout = setTimeout(function () {
-                                //recargamos la tabla
-                                _this._loadData();
-                            }, 500);
+                        _this.errorCode = null;
+                        _this.erroValidate = false;
+
+                        axios.post(SITE_URL + url, data).then(function (response) {
+
+                            _this.preloader = false;
+                            //this.urlEdit = SITE_URL + '/courses/edit/' + response.data.id;
+                            //console.log(response.data);
                         }).catch(function (error) {
 
                             _this.errorCode = error.response;
@@ -8040,87 +7979,9 @@ if (document.querySelector('#chapters')) {
                         _this.erroValidate = true;
                     }
                 });
-            },
-            showForm: function showForm(id) {
-                var _this2 = this;
-
-                //cargamos la url para la consulta
-                var url = SITE_URL + '/' + MODULE_URL + '/chapter/edit/' + id;
-                //realizamos la consulta
-                axios.get(url).then(function (response) {
-
-                    var data = response.data;
-                    _this2.chapterData = data;
-                    _this2.formFields = data;
-                    _this2.editor = _this2.formFields.text;
-                    _this2.showModal = true;
-                }).catch(function (error) {
-
-                    _this2.errorCode = error.response;
-                });
-            },
-            onFileChanged: function onFileChanged(event) {
-                this.selectedFile = event.target.files[0];
-            },
-            _uploadFile: function _uploadFile(id) {
-                var _this3 = this;
-
-                var url = SITE_URL + '/' + MODULE_URL + '/chapter/set_file/' + id;
-                var formData = new FormData();
-                formData.append('attached', this.selectedFile, this.selectedFile.name);
-
-                axios.post(url, formData).then(function (response) {
-
-                    //console.log(response.data);
-                    _this3.formFields.image = response.data.image;
-                }).catch(function (error) {
-
-                    _this3.errorCode = error.response;
-                });
-            },
-
-            //método que borra el item seleccionado desde su id
-            deleteData: function deleteData(id) {
-                var _this4 = this;
-
-                //url del método
-                var url = SITE_URL + '/' + MODULE_URL + '/chapter/delete/' + id;
-
-                this.preloader = true;
-                this.errorCode = null;
-
-                axios.delete(url).then(function (response) {
-
-                    _this4.preloader = false;
-                    _this4._loadData();
-                }).catch(function (error) {
-
-                    _this4.errorCode = error.response;
-                    _this4.preloader = false;
-                });
-            },
-            _loadData: function _loadData() {
-                var _this5 = this;
-
-                //Url, consulta y carga la lista de capítulos del curso
-                var url = SITE_URL + '/' + MODULE_URL + '/chapters/' + COURSE_ID;
-                this.preloader = true;
-
-                axios.get(url).then(function (response) {
-
-                    _this5.preloader = false;
-                    //pasamos los datos de la consulta
-                    _this5.chaptersData = response.data;
-                }).catch(function (error) {
-
-                    _this5.errorCode = error.response;
-                    _this5.preloader = false;
-                });
             }
-        },
-        mounted: function mounted() {
-            this._loadData();
         }
+
     });
 }
 

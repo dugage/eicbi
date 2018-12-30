@@ -18,7 +18,7 @@
                     
                     <h4 class="card-title">{{ trans('app.listOf') }} Tickets</h4>
                     <p class="card-description float-left">
-                        <a href="{{ route('support') }}" class="btn btn-primary btn-fw"><i class="mdi mdi-plus"></i>{{ trans('app.create') }}</a>
+                        <a href="{{ route('support.create') }}" class="btn btn-primary btn-fw"><i class="mdi mdi-plus"></i>{{ trans('app.create') }}</a>
                         <button type="button" class="btn btn-gradient-dark btn-fw">{{ trans('app.support.ticketsOpen') }}</button>
                         <button type="button" class="btn btn-gradient-light btn-fw">{{ trans('app.support.ticketsClosed') }}</button>
                     </p>
