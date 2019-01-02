@@ -7,6 +7,7 @@ use App\Models\Country;
 use App\Models\UserCourse;
 use App\Models\Course;
 use App\Models\OrderLost;
+use App\Models\Referral;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -197,6 +198,8 @@ class UserCourseController extends Controller
         $user->save();
         //asignamos al usuario el rol
         Bouncer::assign('User')->to($user);
+        //creamos la url referral
+        Referral::setReferralOwn('new-account/sign-up-form/1',$user->id);
         //Bouncer::allow($user)->toOwn(User::class)->to('index');
         //habilitamos el curso al usuario
         $userCourse = new UserCourse;

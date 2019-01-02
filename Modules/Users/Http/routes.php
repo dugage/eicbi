@@ -24,10 +24,10 @@ Route::group(['middleware' => 'web', 'prefix' => 'user', 'namespace' => 'Modules
 //rutas para el alta mediante la compra de un curso
 Route::group(['middleware' => 'web', 'prefix' => 'new-account', 'namespace' => 'Modules\Users\Http\Controllers'], function()
 {
-    Route::get('/sign-up-form/{id}', 'UserCourseController@index')->where('id', '[0-9]+');
+    Route::get('/sign-up-form/{id}/{referral?}', 'UserCourseController@index')->where('id', '[0-9]+')->where('referral', '[a-zA-Z0-9]+');
     Route::post('/store', 'UserCourseController@store');
-    Route::get('/resume-buy/{token}', 'UserCourseController@order')->where('token', '[a-zA-Z0-9]+');
+    Route::get('/resume-buy/{token}/{referral?}', 'UserCourseController@order')->where('token', '[a-zA-Z0-9]+')->where('referral', '[a-zA-Z0-9]+');
     Route::get('/cancelled-buy/{token}', 'UserCourseController@cancel')->name('new-account.cancelledbuy')->where('token', '[a-zA-Z0-9]+');
-    Route::get('/accepted-buy/{token}', 'UserCourseController@accept')->name('new-account.acceptedbuy')->where('token', '[a-zA-Z0-9]+');
-    Route::get('/set-redsys/{token}', 'UserCourseController@setRedsys')->name('new-account.setredsys')->where('token', '[a-zA-Z0-9]+');
+    Route::get('/accepted-buy/{token}/{referral?}', 'UserCourseController@accept')->name('new-account.acceptedbuy')->where('token', '[a-zA-Z0-9]+')->where('referral', '[a-zA-Z0-9]+');
+    Route::get('/set-redsys/{token}/{referral?}', 'UserCourseController@setRedsys')->name('new-account.setredsys')->where('token', '[a-zA-Z0-9]+')->where('referral', '[a-zA-Z0-9]+');
 });

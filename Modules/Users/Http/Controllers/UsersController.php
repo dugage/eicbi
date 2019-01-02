@@ -4,6 +4,7 @@ namespace Modules\Users\Http\Controllers;
 
 use App\User;
 use App\Models\Country;
+use App\Models\Referral;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -68,7 +69,7 @@ class UsersController extends Controller
         //encriptamos la contraseña
         $user->password = bcrypt($request->password);
         //seteamos el resto de datos
-        $user->card_number = $request->card_number;//pendiente de decidir si este dato se queda para encriptar
+        //$user->card_number = $request->card_number;//pendiente de decidir si este dato se queda para encriptar
         $user->country = $request->country;
         $user->city = $request->city;
         $user->address = $request->address;
@@ -81,7 +82,9 @@ class UsersController extends Controller
         //asignamos el rol
         Bouncer::assign($request->rol)->to($user);
         //enviamos el email para confirmar su cuenta
-        Mail::to($user->email)->send(new SendEmail());
+        //Mail::to($user->email)->send(new SendEmail());
+        //creamos la url referral
+        Referral::setReferralOwn('new-account/sign-up-form/1',$user->id);
         //devolvemos el usuario creado
         return response()->json($user);
     }

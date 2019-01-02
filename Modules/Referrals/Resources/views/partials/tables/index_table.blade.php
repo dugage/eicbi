@@ -24,13 +24,14 @@
 
                     <td><a v-text="row.user.name" class="dropdown-item" :href="editUrl + row.id"></a></td>
 
-                    <td v-text="row.url"></td>
-
+                    <td v-if="row.own == 0" v-text="row.url"></td>
+                    <td v-if="row.own == 1">{{ url('/') }}/@{{row.url}}</td>
+                    
                     <td v-text="row.created_at"></td>
 
                     <td style="text-align:center;">
 
-                        <div class="btn-group" role="group">
+                        <div v-if="row.own == 0" class="btn-group" role="group">
                             <button id="btnGroupDrop1" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Acciones
                             </button>
@@ -38,6 +39,10 @@
                                 <a class="dropdown-item" :href="editUrl + row.id">{{ trans('app.edit') }}</a>
                                 <a style="cursor: pointer;" class="dropdown-item" @click="confirmationDialog('{{ trans('app.confirmDelete') }}',deleteUrl + row.id)">{{ trans('app.delete') }}</a>
                             </div>
+                        </div>
+
+                        <div v-if="row.own == 1" class="btn-group" role="group">
+                            <button type="button" class="btn btn-gradient-light btn-fw">{{ trans('app.copy') }}</button>
                         </div>
 
                     </td>

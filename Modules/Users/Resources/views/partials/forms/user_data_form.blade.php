@@ -7,7 +7,13 @@
         <select @change="getPrefix" name="country" data-vv-as="{{ trans('app.country') }}" v-model="formFields.country" class="form-control" id="country">
             <option value=""></option>
             @foreach($countries as $country)
-                    <option @if( $user->country == $country->name ) selected @endif value="{{ $country->name }}">{{ $country->name }}</option>
+
+                    @isset( $user )
+                        <option @if( $user->country == $country->name ) selected @endif value="{{ $country->name }}">{{ $country->name }}</option>
+                    @else
+                        <option value="{{ $country->name }}">{{ $country->name }}</option>
+                    @endisset
+
             @endforeach
         </select>
         <span class="alert-danger" v-text="errors.first('video_category_id')"></span>

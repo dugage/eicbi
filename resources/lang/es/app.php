@@ -13,6 +13,7 @@ return [
     'delete'   => 'Borrar',
     'save'   => 'Guardar',
     'back'   => 'Volver',
+    'copy'   => 'Copiar',
     'loadData' => 'Cargando datos',
     'search'   => 'Buscar',
     'noDataShow' => '<strong>Sin datos que mostrar</strong>. La consulta que intenta realizar no está arrojando datos.',
