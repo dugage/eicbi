@@ -113,7 +113,7 @@
 
             <div class="collapse" id="ui-courses" style="">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="{{ route('courses') }}">{{ trans('app.listOf') }} {{ trans('app.courses.courses') }}</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('courses.coursescollection') }}">{{ trans('app.listOf') }} {{ trans('app.courses.courses') }}</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{ route('courses.mycourses') }}">{{ trans('app.courses.myCourses') }}</a></li>
                 </ul>
             </div>

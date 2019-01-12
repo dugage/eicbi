@@ -143,6 +143,17 @@ class CoursesController extends Controller
     }
 
     /**
+     * getting courses collection
+     * @return Response
+     */
+    public function getCoursesCollection()
+    {
+        $courses = Course::getCoursesCollection(Auth::user()->id);
+        //dump($courses);
+        return view('courses::courses_collection',compact('courses'));
+    }
+
+    /**
      * getting courses by user
      * @return Response
      */
