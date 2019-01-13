@@ -3,6 +3,7 @@
 namespace Modules\Courses\Http\Controllers;
 
 use Auth;
+use App\User;
 use App\Models\UserCourse;
 use App\Models\Course;
 use Illuminate\Http\Request;
@@ -148,9 +149,10 @@ class CoursesController extends Controller
      */
     public function getCoursesCollection()
     {
+        $user = User::findOrFail(Auth::user()->id);
         $courses = Course::getCoursesCollection(Auth::user()->id);
         //dump($courses);
-        return view('courses::courses_collection',compact('courses'));
+        return view('courses::courses_collection',compact('courses','user'));
     }
 
     /**

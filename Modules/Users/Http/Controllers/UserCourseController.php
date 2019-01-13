@@ -2,6 +2,7 @@
 
 namespace Modules\Users\Http\Controllers;
 
+use Auth;
 use App\User;
 use App\Models\Country;
 use App\Models\UserCourse;
@@ -62,8 +63,13 @@ class UserCourseController extends Controller
         $order->remember_token = (new Token())->Unique('order_losts', 'remember_token', 60);
         //guardamos
         $order->save();
-        //devolvemos los datos del order
-        return response()->json($order);
+        //actuamos según la respuesta trenga que ser asincrona o no
+        if( request()->ajax() ) {
+            //devolvemos los datos del order
+            return response()->json($order);
+        }else{
+            return redirect('new-buy/resume-buy/'.$order->remember_token);
+        }
     }
 
     /**
@@ -179,27 +185,33 @@ class UserCourseController extends Controller
         ->firstOrFail();
         //recuperamos los datos del curso
         $course = Course::findOrFail($order->course_id);
-        //creamos el usuario a través de los datos del carrito
-        $data = explode('_',Crypt::decryptString($order->data));
-        //instanciamos usuario para new
-        $user = new User;
-        //seteamos los datos
-        $user->name = $data[0];
-        $user->first_name = $data[1];
-        $user->last_name = $data[2];
-        $user->email = $data[3];
-        $user->password = $data[4];
-        $user->country = $data[5];
-        $user->city = $data[6];
-        $user->address = $data[7];
-        $user->zip = $data[8];
-        $user->telephone = $data[9];
-        $user->prefix = $data[10];
-        $user->save();
-        //asignamos al usuario el rol
-        Bouncer::assign('User')->to($user);
-        //creamos la url referral
-        Referral::setReferralOwn('new-account/sign-up-form/1',$user->id);
+        //comprobamos si hay o no usuario logado
+        if( !Auth::user() ) {
+            //creamos el usuario a través de los datos del carrito
+            $data = explode('_',Crypt::decryptString($order->data));
+            //instanciamos usuario para new
+            $user = new User;
+            //seteamos los datos
+            $user->name = $data[0];
+            $user->first_name = $data[1];
+            $user->last_name = $data[2];
+            $user->email = $data[3];
+            $user->password = $data[4];
+            $user->country = $data[5];
+            $user->city = $data[6];
+            $user->address = $data[7];
+            $user->zip = $data[8];
+            $user->telephone = $data[9];
+            $user->prefix = $data[10];
+            $user->save();
+            //asignamos al usuario el rol
+            Bouncer::assign('User')->to($user);
+            //creamos la url referral
+            Referral::setReferralOwn('new-account/sign-up-form/1',$user->id);
+        }else{
+
+            $user = User::findOrFail(Auth::user()->id);
+        }
         //Bouncer::allow($user)->toOwn(User::class)->to('index');
         //habilitamos el curso al usuario
         $userCourse = new UserCourse;
@@ -212,6 +224,7 @@ class UserCourseController extends Controller
         //Borramos de Order Lost la precompra y la convertimos en definitiva
         //esta parte falta por terminar el order end tabla
         $this->_setOrderEnd($token);
+        
         return view('users::accept');
     }
     //metodo que borra el token y activa el usuario

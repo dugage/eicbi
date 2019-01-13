@@ -40,6 +40,28 @@
                         <p class="card-description">
                             {{$course->short_description}}
                         </p>
+
+                        <form action="{{ route('newbuysotre') }}" method="post">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="course_id" id="course_id" value="{{$course->id}}">
+                            <input type="hidden" name="name" id="name" value="{{$user->name}}">
+                            <input type="hidden" name="first_name" id="first_name" value="{{$user->first_name}}">
+                            <input type="hidden" name="last_name" id="last_name" value="{{$user->last_name}}">
+                            <input type="hidden" name="email" id="email" value="{{$user->email}}">
+                            <input type="hidden" name="password" id="password" value="{{$user->password}}">
+                            <input type="hidden" name="country" id="country" value="{{$user->country}}">
+                            <input type="hidden" name="city" id="city" value="{{$user->city}}">
+                            <input type="hidden" name="address" id="address" value="{{$user->address}}">
+                            <input type="hidden" name="zip" id="zip" value="{{$user->zip}}">
+                            <input type="hidden" name="telephone" id="telephone" value="{{$user->telephone}}">
+                            <input type="hidden" name="prefix" id="prefix" value="{{$user->prefix}}">
+                            
+                            <div class="mt-3">
+                                <button type="submit" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">{{ trans('app.buy') }}</button>
+                            </div>
+
+                        </form>
+
                     </div>
 
                 </div>
