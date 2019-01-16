@@ -26,5 +26,8 @@
     "vue-multiselect": "^2.1.0",
     "vue-trix": "^0.4.0",
     "vue2-editor": "^2.6.6"
+  },
+  "bin": {
+    "cross-env": "dist/bin/cross-env.js"
   }
 }
