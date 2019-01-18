@@ -34,7 +34,8 @@ class DemoDataSeeder extends Seeder
             'city' => 'SEVILLA',
             'address' => 'Calle Burgos 32',
             'prefix' => 34,
-            'telephone' => 666666666
+            'telephone' => 666666666,
+            'credits' => 30
         ]);
         \Silber\Bouncer\BouncerFacade::assign('User')->to($user);
         // Creamos 5 categorías para vídeos
@@ -71,6 +72,17 @@ class DemoDataSeeder extends Seeder
         });
         //creamos 20 tickets de soporte
         factory(\App\Models\Support::class, 20)->create()->each(function ($support){
+           
+        });
+        //creamos una configuración inicial para el sistema de créditos
+        \App\Models\PointsByConcept::create([
+            'point' => 2,
+            'concept' => 'USER',
+        ]);
+        \App\Models\CreditsByPoint::create([
+        ]);
+        //creamos una colección de créditos al usuario 17
+        factory(\App\Models\CreditsCollection::class, 15)->create()->each(function ($creditsCollection){
            
         });
     }

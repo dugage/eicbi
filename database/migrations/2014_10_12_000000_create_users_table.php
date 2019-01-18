@@ -30,7 +30,7 @@ class CreateUsersTable extends Migration
             $table->integer('prefix')->nullable();
             $table->integer('zip')->nullable();
             $table->integer('telephone')->nullable();
-            $table->decimal('credit', 10, 2)->default(0);
+            $table->decimal('credits', 10, 2)->nullable()->default(0);
 
             $table->rememberToken();
             $table->timestamps();

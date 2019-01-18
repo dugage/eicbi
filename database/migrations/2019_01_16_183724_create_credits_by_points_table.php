@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMoneyByPointsTable extends Migration
+class CreateCreditsByPointsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class CreateMoneyByPointsTable extends Migration
      */
     public function up()
     {
-        Schema::create('money_by_points', function (Blueprint $table) {
-            $table->increments('id');
-            $table->decimal('money', 10, 2)->default(0);
-            $table->timestamps();
+        Schema::create('credits_by_points', function (Blueprint $table) {
+            $table->decimal('credit', 10, 2)->default(10);
         });
     }
 
@@ -27,6 +25,6 @@ class CreateMoneyByPointsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('money_by_points');
+        Schema::dropIfExists('credits_by_points');
     }
 }

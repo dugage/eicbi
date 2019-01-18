@@ -40,6 +40,7 @@
                         <p class="card-description">
                             {{$course->short_description}}
                         </p>
+                        <h5><strong>{{$course->amount}}€</strong></h5>
 
                         <form action="{{ route('newbuysotre') }}" method="post">
                             {{ csrf_field() }}

@@ -1,0 +1,16 @@
+{
+    "name": "MyCredits",
+    "alias": "mycredits",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\MyCredits\\Providers\\MyCreditsServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}

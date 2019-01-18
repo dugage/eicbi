@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePointByUsersTable extends Migration
+class CreatePointsByConceptsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreatePointByUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('point_by_users', function (Blueprint $table) {
+        Schema::create('points_by_concepts', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('point')->default(0);
+            $table->integer('point');
+            $table->string('concept');
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ class CreatePointByUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('point_by_users');
+        Schema::dropIfExists('points_by_concepts');
     }
 }

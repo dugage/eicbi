@@ -52,6 +52,8 @@ return [
 
         'users' => 'Usuarios',
         'user' => 'Usuario',
+        'myAccount' => 'Mi cuenta',
+        'myCredits' => 'Mis creditos',
         'firstName' => '1º apellido',
         'lastName' => '2º apellido',
         'modalNew' => 'Crear un Usuario',
@@ -157,6 +159,11 @@ return [
         'subject' => 'Asunto',
         'text' => 'Texto del ticket',
 
+    ],
+    //Módulo Mis créditos
+    'mycredits' => [
+
+        'mycredits' => 'Mis créditos',
     ],
 
 ];

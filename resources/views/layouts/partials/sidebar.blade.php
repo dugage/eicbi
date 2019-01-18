@@ -98,10 +98,18 @@
     <ul class="nav">
 
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('users.edit',Auth::user()->id) }}">
-                <span class="menu-title">Mi cuenta</span>
+            <a class="nav-link collapsed" data-toggle="collapse" href="#ui-myaccount" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title">{{ trans('app.users.myAccount') }}</span>
+                <i class="menu-arrow"></i>
                 <i class="mdi mdi-account-multiple-outline menu-icon"></i>
             </a>
+
+            <div class="collapse" id="ui-myaccount" style="">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('users.edit',Auth::user()->id) }}">{{ trans('app.users.myAccount') }}</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('mycredits') }}">{{ trans('app.users.myCredits') }}</a></li>
+                </ul>
+            </div>
         </li>
 
         <li class="nav-item">
