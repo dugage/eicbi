@@ -1,7 +1,8 @@
 <form style="margin-top: 35px;" ref="signUpForm" class="forms-sample">
-
+    
     <input  type="hidden" name="course_id"  id="course_id" value="{{$courseId}}" />
-
+    <input  type="hidden" name="referral"  id="referral" value="{{$referral}}" />
+    
     <div class="form-group" :class="{'has-error': errors.has('name') }">
         <label>{{ trans('app.user') }}</label>
         <input class="form-control" v-validate="'required|alpha_spaces'" data-vv-as="{{ trans('app.user') }}" v-model="formFields.name" name="name" id="name" type="text">

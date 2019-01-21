@@ -9,6 +9,8 @@ use App\Models\UserCourse;
 use App\Models\Course;
 use App\Models\OrderLost;
 use App\Models\Referral;
+use App\Models\CreditsByPoint;
+use App\Models\CreditsCollection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -28,12 +30,12 @@ class UserCourseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index($id,$referral = null)
     {
         //obtenemos el listado de paises
         $countries = Country::all();
         $courseId = $id;
-        return view('users::buycourse',compact('countries','courseId'));
+        return view('users::buycourse',compact('countries','courseId','referral'));
     }
 
     /**
@@ -49,7 +51,8 @@ class UserCourseController extends Controller
         //montamos una traza con los datos enviados en el formulario
         $data = $request->name.'_'.$request->first_name.'_'.$request->last_name.'_'.
         $request->email.'_'.bcrypt($request->password).'_'.$request->country.'_'.$request->city.
-        '_'.$request->address.'_'.$request->zip.'_'.$request->telephone.'_'.$request->prefix;
+        '_'.$request->address.'_'.$request->zip.'_'.$request->telephone.'_'.$request->prefix
+        .'_'.$request->referral;
         //enciptamos la cadena obtenida
         $data = Crypt::encryptString($data);
         //iniciamos un carrito
@@ -186,7 +189,7 @@ class UserCourseController extends Controller
         //recuperamos los datos del curso
         $course = Course::findOrFail($order->course_id);
         //comprobamos si hay o no usuario logado
-        if( !Auth::user() ) {
+        if( !Auth::check() ) {
             //creamos el usuario a través de los datos del carrito
             $data = explode('_',Crypt::decryptString($order->data));
             //instanciamos usuario para new
@@ -208,6 +211,12 @@ class UserCourseController extends Controller
             Bouncer::assign('User')->to($user);
             //creamos la url referral
             Referral::setReferralOwn('new-account/sign-up-form/1',$user->id);
+            //comprobamos si el item 11 que es igual a dato de referral_token es 
+            //distintio de vacío, si es así, instancioamos el méotodo privado
+            //que add los créditos correspondientes
+            if( !empty($data[11]) )
+                $this->_setCredits($data[11],$user);
+
         }else{
 
             $user = User::findOrFail(Auth::user()->id);
@@ -218,7 +227,6 @@ class UserCourseController extends Controller
         $userCourse->course_id = $order->course_id;
         $userCourse->user_id = $user->id;
         $userCourse->save();
-
         //enviamos el email
         Mail::to($user->email)->send(new SendEmail($user,$course));
         //Borramos de Order Lost la precompra y la convertimos en definitiva
@@ -233,5 +241,31 @@ class UserCourseController extends Controller
         $preOrder = OrderLost::where('remember_token',$token)
         ->firstOrFail();
         $preOrder->forceDelete();
+    }
+    //Mediante el referral_token, sumamos los créditos correspondientes y almacenamos
+    //estos en la collección de créditos obtenidos
+    private function _setCredits($referral,$data)
+    {
+        //almacenamos el total de creditos al final del add
+        $totalCredits = 0;
+        //realizar esto y refactorizar create referral para que se almacene el token en user
+        $user = User::where('referral_token',$referral)->firstOrFail();
+        //obtenemos los cretidos
+        $getCredits = CreditsByPoint::getCredits('COURSE');
+        //realizamos la suma de los creditos
+        $totalCredits = $user->credits + $getCredits;
+        //realizamos la actualización de estos
+        $user->credits = $totalCredits;
+        $user->save();
+        //terminamos almacenando en nuestra lista, el usuario referido 
+        //y los créditos obtenidos con el
+        $creditsCollection = new CreditsCollection;
+        $creditsCollection->user_id = $user->id;
+        $creditsCollection->row_id = $data->id;
+        $creditsCollection->full_name = $data->name.' '.$data->first_name.' '.$data->last_name;
+        $creditsCollection->Concept = 'COURSE';
+        $creditsCollection->credits = $getCredits;
+        $creditsCollection->save();
+        
     }
 }
