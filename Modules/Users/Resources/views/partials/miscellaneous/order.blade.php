@@ -12,12 +12,25 @@
         </thead>
 
         <tbody>
+
             <tr>
                 <td>{{ $course->name }}</td>
                 <td>1</td>
                 <td>{{ $course->amount }}€</td>
                 <td><strong>{{ $course->amount }}€</strong></td>
             </tr>
+
+            @if( $discount > 0 )
+
+                <tr>
+                    <td></td>
+                    <td><strong>Descuento:</strong></td>
+                    <td>{{$discount}}€</td>
+                    <td><strong>{{ $course->amount - $discount }}</strong>€</td>
+                </tr>
+
+            @endif
+
         </tbody>
 
     </table>

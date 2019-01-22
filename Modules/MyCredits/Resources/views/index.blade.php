@@ -16,7 +16,7 @@
                 <h4 class="font-weight-normal mb-3">Total de créditos disponibles
                 <i class="mdi mdi-chart-line mdi-24px float-right"></i>
                 </h4>
-                <h1 class="mb-5">30</h1>
+                <h1 class="mb-5">{{Auth::user()->credits}}</h1>
                 <!--<h6 class="card-text">Increased by 60%</h6>-->
             </div>
             </div>
@@ -29,7 +29,7 @@
                 <h4 class="font-weight-normal mb-3">Total de créditos obtenidos
                 <i class="mdi mdi-chart-line mdi-24px float-right"></i>
                 </h4>
-                <h1 class="mb-5">190</h1>
+                <h1 class="mb-5">{{$totalCreditsGot}}</h1>
                 <!--<h6 class="card-text">Increased by 60%</h6>-->
             </div>
             </div>

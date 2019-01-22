@@ -30,8 +30,10 @@ class MyCreditsController extends Controller
             return response()->json($credits);
 
         }else{
-
-            return view('mycredits::index');
+            $totalCreditsGot = CreditsCollection::select('credits')
+            ->where('user_id',Auth::User()->id)
+            ->sum('credits');
+            return view('mycredits::index',compact('totalCreditsGot'));
         }
 
     }

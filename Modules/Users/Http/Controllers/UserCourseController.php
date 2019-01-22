@@ -92,7 +92,9 @@ class UserCourseController extends Controller
         $order->save();
         //recuperamos los datos del curso
         $course = Course::findOrFail($order->course_id);
-        return view('users::order_summary',compact('course','token'));
+        //obtenemos el descuento
+        $discount = $this->_getDiscount($course->amount);
+        return view('users::order_summary',compact('course','token','discount'));
     }
 
      /**
@@ -112,45 +114,52 @@ class UserCourseController extends Controller
         $order->save();
         //recuperamos los datos del curso
         $course = Course::findOrFail($order->course_id);
+        //obtenemos el descuento
+        $discount = $this->_getDiscount($course->amount);
+        //comprobamos que el montante final no sea menor o igual a 0
+        if( $course->amount - $discount > 0 ) {
+            try{
 
-        try{
+                $orderRedsys = $order->id.date('dmys');
+                $orderRedsys = str_pad($orderRedsys,12,0,STR_PAD_LEFT);
+                Redsys::setAmount($course->amount - $discount);
+                Redsys::setOrder($orderRedsys);
+                Redsys::setMerchantcode('061941670');
+                Redsys::setCurrency('978');
+                Redsys::setTransactiontype('0');
+                Redsys::setTerminal('1');
+                Redsys::setMethod('T');
+                Redsys::setNotification(route('new-account.setredsys',$token));
+                Redsys::setUrlOk(route('new-account.acceptedbuy',$token));
+                Redsys::setUrlKo(route('new-account.cancelledbuy',$token));
+                Redsys::setVersion('HMAC_SHA256_V1');
+                Redsys::setTradeName('EICBI | Escuela Internacional de Criptomonedas Blockchain e Inversiones');
+                Redsys::setTitular('EICBI');
+                Redsys::setProductDescription($course->name);
+                Redsys::setEnviroment('test');
+                $signature = Redsys::generateMerchantSignature('sq7HjrUOBfKmC576ILgskD5srU870gJ7');
+                Redsys::setMerchantSignature($signature);
 
-            $orderRedsys = $order->id.date('dmys');
-            $orderRedsys = str_pad($orderRedsys,12,0,STR_PAD_LEFT);
-            Redsys::setAmount($course->amount);
-            Redsys::setOrder($orderRedsys);
-            Redsys::setMerchantcode('061941670');
-            Redsys::setCurrency('978');
-            Redsys::setTransactiontype('0');
-            Redsys::setTerminal('1');
-            Redsys::setMethod('T');
-            Redsys::setNotification(route('new-account.setredsys',$token));
-            Redsys::setUrlOk(route('new-account.acceptedbuy',$token));
-            Redsys::setUrlKo(route('new-account.cancelledbuy',$token));
-            Redsys::setVersion('HMAC_SHA256_V1');
-            Redsys::setTradeName('EICBI | Escuela Internacional de Criptomonedas Blockchain e Inversiones');
-            Redsys::setTitular('EICBI');
-            Redsys::setProductDescription($course->name);
-            Redsys::setEnviroment('test');
-            $signature = Redsys::generateMerchantSignature('sq7HjrUOBfKmC576ILgskD5srU870gJ7');
-            Redsys::setMerchantSignature($signature);
-
-            if($display==false){
-            
-                Redsys::setAttributesSubmit('btn_submit', 'btn_id', 'Enviar', 'display:none');
-                return Redsys::executeRedirection();
-            
-            }else{
-            
-                return Redsys::createForm();
+                if($display==false){
+                
+                    Redsys::setAttributesSubmit('btn_submit', 'btn_id', 'Enviar', 'display:none');
+                    return Redsys::executeRedirection();
+                
+                }else{
+                
+                    return Redsys::createForm();
+                
+                }
             
             }
-        
-        }
-        catch(Exception $e){
-        
-            echo $e->getMessage();
-        
+            catch(Exception $e){
+            
+                echo $e->getMessage();
+            
+            }
+        }else{
+
+            return redirect('new-buy/accepted-buy/'.$token);
         }
         //return view('users::order_summary',compact('course'));
     }
@@ -219,7 +228,13 @@ class UserCourseController extends Controller
 
         }else{
 
+            //obtenemos el descuento
+            $discount = $this->_getDiscount($course->amount);
             $user = User::findOrFail(Auth::user()->id);
+            //restamos los créditos usados a nuestra cuenta
+            $user->credits = $user->credits - $discount;
+            $user->save();
+
         }
         //Bouncer::allow($user)->toOwn(User::class)->to('index');
         //habilitamos el curso al usuario
@@ -267,5 +282,26 @@ class UserCourseController extends Controller
         $creditsCollection->credits = $getCredits;
         $creditsCollection->save();
         
+    }
+    //método que calcula el descuento
+    private function _getDiscount($coursePrice)
+    {
+        //guardamos el descuento
+        $discount = 0;
+
+        if( Auth::check() ) {
+            //comprobamos si el usuario tiene credito disponible
+            if( Auth::user()->credits > 0 ) {
+                //calculamos el descuento
+                $discount = $coursePrice - Auth::user()->credits;
+                //comprobamos el total de la operación
+                //si es menor de cero, el descuento es el total de la compra del curso
+                //en caso contrario, este será el total de los créditos
+                $discount < 0 ? $discount = $coursePrice : $discount = Auth::user()->credits;
+            }
+        }
+        //retornamos el descuento
+        return $discount;
+
     }
 }
