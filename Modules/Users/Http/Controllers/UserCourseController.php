@@ -18,6 +18,7 @@ use Dirape\Token\Token;
 use Illuminate\Support\Facades\Config;
 use Ssheduardo\Redsys\Facades\Redsys;
 use App\Mail\SendEmail;
+use UserCrm;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Crypt;
 use Bouncer;
@@ -217,14 +218,16 @@ class UserCourseController extends Controller
             $user->prefix = $data[10];
             $user->save();
             //asignamos al usuario el rol
-            Bouncer::assign('User')->to($user);
+            //Bouncer::assign('User')->to($user);
             //creamos la url referral
-            Referral::setReferralOwn('new-account/sign-up-form/1',$user->id);
+            //Referral::setReferralOwn('new-account/sign-up-form/1',$user->id);
             //comprobamos si el item 11 que es igual a dato de referral_token es 
             //distintio de vacío, si es así, instancioamos el méotodo privado
             //que add los créditos correspondientes
             if( !empty($data[11]) )
                 $this->_setCredits($data[11],$user);
+            //replicamos el usuario en el CRM, pasando el ID de este
+            UserCrm::serUserCrm($user->id);
 
         }else{
 
@@ -246,7 +249,7 @@ class UserCourseController extends Controller
         Mail::to($user->email)->send(new SendEmail($user,$course));
         //Borramos de Order Lost la precompra y la convertimos en definitiva
         //esta parte falta por terminar el order end tabla
-        $this->_setOrderEnd($token);
+        //$this->_setOrderEnd($token);
         
         return view('users::accept');
     }

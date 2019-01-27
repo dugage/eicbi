@@ -164,7 +164,6 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-
         /*
          * Package Service Providers...
          */
@@ -172,7 +171,6 @@ return [
         Laraveles\Spanish\SpanishServiceProvider::class,
         Silber\Bouncer\BouncerServiceProvider::class,
         Ssheduardo\Redsys\RedsysServiceProvider::class,
-
         /*
          * Application Service Providers...
          */
@@ -181,6 +179,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\UserCrmServiceProvider::class,
 
     ],
 
@@ -232,6 +231,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Bouncer' => Silber\Bouncer\BouncerFacade::class,
         'Redsys' => Ssheduardo\Redsys\Facades\Redsys::class,
+        'UserCrm' => App\Helpers\UserCrmService::class,
 
     ],
 
