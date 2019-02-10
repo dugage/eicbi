@@ -16,6 +16,11 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'api/users', 'namespa
     Route::post('/disabled/{id}', 'UsersController@disabled')->where('id', '[0-9]+');
     Route::get('/search/{query}', 'UsersController@search');
 });
+//rutas para el registro o alta de un usuario nuevo,!!sin compra
+Route::group(['middleware' => 'web', 'namespace' => 'Modules\Users\Http\Controllers'], function()
+{
+    Route::get('/register/{referral?}', 'UsersController@register')->where('referral', '[a-zA-Z0-9]+');
+});
 //rutas para el final del registro
 Route::group(['middleware' => 'web', 'prefix' => 'user', 'namespace' => 'Modules\Users\Http\Controllers'], function()
 {

@@ -218,9 +218,9 @@ class UserCourseController extends Controller
             $user->prefix = $data[10];
             $user->save();
             //asignamos al usuario el rol
-            //Bouncer::assign('User')->to($user);
-            //creamos la url referral
-            //Referral::setReferralOwn('new-account/sign-up-form/1',$user->id);
+            Bouncer::assign('User')->to($user);
+            //creamos las url referral
+            Referral::setReferralOwn($user->id);
             //comprobamos si el item 11 que es igual a dato de referral_token es 
             //distintio de vacío, si es así, instancioamos el méotodo privado
             //que add los créditos correspondientes

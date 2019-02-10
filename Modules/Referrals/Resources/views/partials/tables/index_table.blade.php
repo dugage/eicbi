@@ -8,8 +8,7 @@
 
                 <tr>
                     <th>#</th>
-                    <th>Usuario</th>
-                    <th>Url</th>
+                    <th>URL</th>
                     <th>Alta</th>
                     <th></th>
                 </tr>
@@ -22,10 +21,7 @@
                     
                     <th scope="row" v-text="row.id"></th>
 
-                    <td><a v-text="row.user.name" class="dropdown-item" :href="editUrl + row.id"></a></td>
-
-                    <td v-if="row.own == 0" v-text="row.url"></td>
-                    <td v-if="row.own == 1">{{ url('/') }}/@{{row.url}}</td>
+                    <td v-text="row.name"></td>
                     
                     <td v-text="row.created_at"></td>
 

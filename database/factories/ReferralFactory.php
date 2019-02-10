@@ -17,6 +17,7 @@ $factory->define(App\Models\Referral::class, function (Faker $faker) {
     return [
 
         'user_id' => $faker->numberBetween($min = 2, $max = 10),
+        'name' => 'name',
         'url' => $faker->url,
     ];
 });

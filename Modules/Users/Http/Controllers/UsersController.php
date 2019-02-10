@@ -83,8 +83,8 @@ class UsersController extends Controller
         Bouncer::assign($request->rol)->to($user);
         //enviamos el email para confirmar su cuenta
         //Mail::to($user->email)->send(new SendEmail());
-        //creamos la url referral
-        Referral::setReferralOwn('new-account/sign-up-form/1',$user->id);
+        //creamos las url referral
+        Referral::setReferralOwn($user->id);
         //devolvemos el usuario creado
         return response()->json($user);
     }
@@ -224,5 +224,17 @@ class UsersController extends Controller
         //mostramos el formulario
         return view('users::endregister',compact('user','countries'));
     }*/
+
+    /**
+     * acces point for register
+     * @return Response
+     */
+    public function register($referral = null) 
+    {
+        //listado de paises
+        $countries = Country::all();
+        //mostramos el formulario
+        return view('users::register',compact('user','countries','referral'));
+    }
 
 }

@@ -18,6 +18,7 @@ class CreateReferralsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('url');
+            $table->string('name');
             $table->boolean('own')->default(0);
             $table->timestamps();
         });

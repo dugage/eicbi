@@ -19,20 +19,34 @@ class Referral extends Model
         return Carbon::parse($value)->format('d/m/Y');
     }
     //metodo que crea url internas de referidos de cada usuario
-    static function setReferralOwn($url,$id)
+    static function setReferralOwn($userId)
     {
         //donde almacenamos el referral_token
-        $referral_token = Crypt::encryptString(str_random(10).$id);
-        //instanciamos
+        $referral_token = Crypt::encryptString(str_random(10).$userId);
+        //instanciamos y creamos la url para register
         $referral = new Referral;
         //seteamos los datos
-        $referral->user_id = $id;
-        $referral->url = $url.'/'.$referral_token;
+        $referral->user_id = $userId;
+        $referral->url = 'register/'.$referral_token;
+        $referral->name = 'Registro';
         $referral->own = 1;
-        //guardamos el link referral
+        //guardamos
         $referral->save();
+        //creamos todos las url rferral para el registro con compra de curso
+        $courses = Course::all();
+        foreach ($courses as $key => $course) {
+            
+            $referral = new Referral;
+            //seteamos los datos
+            $referral->user_id = $userId;
+            $referral->url = 'new-account/sign-up-form/'.$course->id.'/'.$referral_token;
+            $referral->name = 'Curso '.$course->name;
+            $referral->own = 1;
+            //guardamos
+            $referral->save();
+        }
         //guardamos el referral_token en el usuario
-        $user = User::findOrFail($id);
+        $user = User::withTrashed()->findOrFail($userId);
         $user->referral_token = $referral_token;
         $user->save();
     }
