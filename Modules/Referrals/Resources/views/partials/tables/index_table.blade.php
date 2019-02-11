@@ -38,7 +38,7 @@
                         </div>
 
                         <div v-if="row.own == 1" class="btn-group" role="group">
-                            <button type="button" class="btn btn-gradient-light btn-fw">{{ trans('app.copy') }}</button>
+                            <button v-clipboard:success="clipboardSuccessHandler" v-clipboard:error="clipboardErrorHandler" v-clipboard="siteUrl + '/' + row.url" type="button" class="btn btn-gradient-light btn-fw" v-text>{{ trans('app.copy') }}</button>
                         </div>
 
                     </td>

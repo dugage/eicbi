@@ -90,7 +90,7 @@
 
     <template v-else>
         <div class="mt-3">
-            <button @click="setData" type="button" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">{{ trans('app.continue') }}</button>
+            <button @click="setRegister" type="button" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">{{ trans('app.continue') }}</button>
         </div>
     </template>
 

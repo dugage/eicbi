@@ -35,6 +35,16 @@ Vue.component('modal', {template: '#modal-template'});
 //vue mask
 const VueInputMask = require('vue-inputmask').default;
  Vue.use(VueInputMask);
+ //clipBoard
+import Clipboard from 'v-clipboard'
+Vue.use(Clipboard)
+//alert mini
+import VueSweetalert2 from 'vue-sweetalert2';
+const options = {
+  confirmButtonColor: '#41b882',
+  cancelButtonColor: '#ff7674'
+}
+Vue.use(VueSweetalert2, options)
 //constantes con las URL de la app
 const SITE_URL = document.head.querySelector('meta[name="site-url"]').content;
 const MODULE_URL = document.head.querySelector('meta[name="module-url"]').content;
@@ -59,8 +69,18 @@ if (document.querySelector('#table-data')) {
             pageItem: null,
             searchParam:'',
             timeout: null,
+            siteUrl: SITE_URL,
         },
         methods: {
+            clipboardSuccessHandler ({ value, event }) {
+                console.log('success', value)
+                this.$swal('Copia realizada con éxtio!!!');
+            },
+           
+            clipboardErrorHandler ({ value, event }) {
+                console.log('error', value)
+                this.$swal('Problemas al copiar');
+            },
             //método para la búsqueda
             getDataBySearchParam : function() {
 

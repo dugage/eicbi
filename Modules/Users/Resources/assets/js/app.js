@@ -37,6 +37,7 @@ if (document.querySelector('#sign-up-form')) {
         methods: {
 
             setData : function() {
+                
                 //url del store
                 let url = '/new-account/store';
                 //capturamos todos los campos de formulario
@@ -84,6 +85,54 @@ if (document.querySelector('#sign-up-form')) {
 
                 });
 
+            },
+            setRegister: function() {
+                //url del store
+                let url = '/api/users/store';
+                //capturamos todos los campos de formulario
+                const formData = new FormData(this.$refs['signUpForm']);
+                const data = {};
+
+                for (let [key, val] of formData.entries()) {
+
+                    Object.assign(data, { [key]: val })
+                }
+                console.log(data);
+                //validamos el formulario
+                this.$validator.validateAll().then(() => {
+
+                    if ( !this.errors.any() ) {
+
+                        this.preloader = true;
+                        this.errorCode = null;
+                        this.erroValidate = false;
+
+                        axios.post(SITE_URL + url,data).then((response) => {
+                            //si se guarda correctamente el usuario
+                            //cerramos el preloader y lanzamos al usuario a la siguiente página
+                            this.preloader = false;
+                            //dejamos un delay de medio 1/4 segundo
+                            this.timeout = setTimeout( () => {
+                                alert();
+                                //window.location.href = SITE_URL + "/new-account/resume-buy/"+response.data.remember_token;
+                                
+                            }, 250);
+
+                            
+
+                        }).catch(error => {
+                            console.log(error);
+                            this.errorCode = error.response;
+                            this.preloader = false;
+                            
+                        });
+
+                    }else{
+
+                        this.erroValidate = true;
+                    }
+
+                });
             }
 
         }
