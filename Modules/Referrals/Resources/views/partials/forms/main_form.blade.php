@@ -4,7 +4,7 @@
 
     <div class="form-group" :class="{'has-error': errors.has('url') }">
         <label>{{ trans('app.referrals.referred') }}</label>
-        <input class="form-control" v-validate="'required|url'" data-vv-as="{{ trans('app.referrals.referred') }}" v-model="formFields.url" name="url" id="url" type="text">
+        <input class="form-control" v-validate="'required|url: require_protocol: true'" data-vv-as="{{ trans('app.referrals.referred') }}" v-model="formFields.url" name="url" id="url" type="text">
         <span class="alert-danger" v-text="errors.first('url')"></span>
     </div>
 
