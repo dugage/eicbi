@@ -10,11 +10,19 @@
 
 <div class="form-group" :class="{'has-error': errors.has('amount') }">
     <label>{{ trans('app.amount') }}</label>
-    <input class="form-control" v-validate="'required|numeric'" data-vv-as="{{ trans('app.amount') }}" v-model="formFields.amount" name="amount" id="amount" type="text">
+    <input class="form-control" v-validate="'required|decimal:2'" data-vv-as="{{ trans('app.amount') }}" v-model="formFields.amount" name="amount" id="amount" type="text">
     <span class="alert-danger" v-text="errors.first('amount')"></span>
 </div>
 
 <hr/>
+
+<div class="form-group">
+    <label>{{ trans('app.courses.chaptertext') }}</label>
+    <textarea class="form-control" rows="5" name="short_description" id="short_description" v-model="formFields.short_description"></textarea>
+</div>
+
+<hr/>
+
 <div v-if="method != 'show'" class="form-group">
 
     <template>

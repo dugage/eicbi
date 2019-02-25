@@ -58,6 +58,7 @@ class CoursesController extends Controller
         //pasamos los datos
         $course->name = $request->name;
         $course->amount = $request->amount;
+        $course->short_description = $request->short_description;
         //guardamos la categoría
         $course->save();
         //devolvemos el link referral creado
@@ -99,6 +100,7 @@ class CoursesController extends Controller
         $course = Course::find($id);
         //seteamos los datos
         $course->name = $request->name;
+        $course->short_description = $request->short_description;
         //actualizamos el curso
         $course->save();
     }

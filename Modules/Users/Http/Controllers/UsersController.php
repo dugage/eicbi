@@ -78,7 +78,7 @@ class UsersController extends Controller
         //guardamos el usuario
         $user->save();
         //el usuario se inicia como deshabilitado
-        $user->delete();
+        //$user->delete();
         //asignamos el rol
         Bouncer::assign($request->rol)->to($user);
         //enviamos el email para confirmar su cuenta

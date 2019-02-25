@@ -641,7 +641,7 @@ if (document.querySelector('#sign-up-form')) {
                 var _this2 = this;
 
                 //url del store
-                var url = '/users/store';
+                var url = '/api/users/store';
                 //capturamos todos los campos de formulario
                 var formData = new FormData(this.$refs['signUpForm']);
                 var data = {};

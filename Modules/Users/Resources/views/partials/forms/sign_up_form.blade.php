@@ -1,5 +1,5 @@
 <form style="margin-top: 35px;" ref="signUpForm" class="forms-sample">
-    
+
     @isset($courseId)
         <input  type="hidden" name="course_id"  id="course_id" value="{{$courseId}}" />
     @endisset
@@ -90,7 +90,11 @@
 
     <template v-else>
         <div class="mt-3">
-            <button @click="setRegister" type="button" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">{{ trans('app.continue') }}</button>
+            @isset($courseId)
+                <button @click="setData" type="button" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">{{ trans('app.continue') }}</button>
+            @else
+                <button @click="setRegister" type="button" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">{{ trans('app.continue') }}</button>
+            @endisset
         </div>
     </template>
 

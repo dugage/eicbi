@@ -131,8 +131,15 @@ class UserCourseController extends Controller
                 Redsys::setTerminal('1');
                 Redsys::setMethod('T');
                 Redsys::setNotification(route('new-account.setredsys',$token));
-                Redsys::setUrlOk(route('new-account.acceptedbuy',$token));
-                Redsys::setUrlKo(route('new-account.cancelledbuy',$token));
+                //url de ok y ko según usuario logado o no
+                if( !Auth::check() ) {
+                    Redsys::setUrlOk(route('new-account.acceptedbuy',$token));
+                    Redsys::setUrlKo(route('new-account.cancelledbuy',$token));
+                }else{
+                    Redsys::setUrlOk(route('new-buy.acceptedbuy',$token));
+                    Redsys::setUrlKo(route('new-buy.cancelledbuy',$token));
+                }
+
                 Redsys::setVersion('HMAC_SHA256_V1');
                 Redsys::setTradeName('EICBI | Escuela Internacional de Criptomonedas Blockchain e Inversiones');
                 Redsys::setTitular('EICBI');
@@ -191,7 +198,7 @@ class UserCourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function accept($token)
+    public function accept($token,$referral = null)
     {
         //comprobamos si existe carrito mediante el token
         $order = OrderLost::where('remember_token',$token)

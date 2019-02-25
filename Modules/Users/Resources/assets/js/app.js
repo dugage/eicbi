@@ -118,8 +118,6 @@ if (document.querySelector('#sign-up-form')) {
                                 
                             }, 250);
 
-                            
-
                         }).catch(error => {
                             console.log(error);
                             this.errorCode = error.response;
