@@ -260,7 +260,7 @@ class UsersController extends Controller
             //guardamos el usuario
             $user->save();
             //asignamos el rol
-            Bouncer::assign('user')->to($user);
+            Bouncer::assign('User')->to($user);
             //creamos las url referral
             Referral::setReferralOwn($user->id);
             //retornamos el usuario creado
