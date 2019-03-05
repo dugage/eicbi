@@ -63,7 +63,8 @@ return [
         'userData' => 'Datos del usuario',
         'msnByCourse' => 'Para finalizar la compra del curso y realizar el alta en la plataforma, es necesario completar el formulario.',
         'orderSummary' => 'Resumen de la compra',
-        'msnOrderSummary' => 'Este es un resumen de tu compra, al hacer click en finalizar, serás enviado a la pasarela de pago seguro, una vez realizado el pago, tu cuenta será creaday tendras acceso y a la plataforma.'
+        'msnOrderSummary' => 'Este es un resumen de tu compra, al hacer click en finalizar, serás enviado a la pasarela de pago seguro, una vez realizado el pago, tu cuenta será creaday tendras acceso y a la plataforma.',
+        'userOkMsn' => 'Tu cuenta ha sido creada con éxito. Ahora puedes acceder a tu espacio.'
     ],
     //Módulo Roles
     'roles' => [

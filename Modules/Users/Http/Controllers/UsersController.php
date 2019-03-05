@@ -236,5 +236,51 @@ class UsersController extends Controller
         //mostramos el formulario
         return view('users::register',compact('user','countries','referral'));
     }
+    /**
+     * Store para registro desde la página
+     */
+    public function registerStore(Request $request) 
+    {
+        if( request()->ajax() ) {
+            
+            //instanciamos la entidad
+            $user = new User;
+            //pasamos los datos
+            $user->name = $request->name;
+            $user->first_name = $request->first_name;
+            $user->last_name = $request->last_name;
+            $user->email = $request->email;
+            $user->password = bcrypt($request->password);
+            $user->city = $request->city;
+            $user->country = $request->country;
+            $user->prefix = $request->prefix;
+            $user->telephone = $request->telephone;
+            $user->zip = $request->zip;
+            $user->address = $request->address;
+            //guardamos el usuario
+            $user->save();
+            //asignamos el rol
+            Bouncer::assign('user')->to($user);
+            //creamos las url referral
+            Referral::setReferralOwn($user->id);
+            //retornamos el usuario creado
+            return response()->json($user);
 
+        }else{
+
+            abort('404');
+        }
+    }
+
+    public function registerEnd($id = 0)
+    {
+        if( $id > 0 ) {
+
+            return view('users::register_end');
+
+        }else{
+            return redirect('home');
+        }
+        
+    }
 }

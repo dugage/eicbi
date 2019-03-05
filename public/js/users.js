@@ -562,7 +562,8 @@ if (document.querySelector('#sign-up-form')) {
             preloader: false,
             errorCode: null,
             formFields: [],
-            erroValidate: false
+            erroValidate: false,
+            referral: document.querySelector("input[name=referral]").value
 
         },
         methods: {
@@ -641,7 +642,7 @@ if (document.querySelector('#sign-up-form')) {
                 var _this2 = this;
 
                 //url del store
-                var url = '/api/users/store';
+                var url = '/register-store';
                 //capturamos todos los campos de formulario
                 var formData = new FormData(this.$refs['signUpForm']);
                 var data = {};
@@ -662,6 +663,7 @@ if (document.querySelector('#sign-up-form')) {
 
                         Object.assign(data, _defineProperty({}, key, val));
                     }
+                    //add referral
                 } catch (err) {
                     _didIteratorError2 = true;
                     _iteratorError2 = err;
@@ -677,6 +679,7 @@ if (document.querySelector('#sign-up-form')) {
                     }
                 }
 
+                Object.assign(data, { 'referral': this.referral });
                 console.log(data);
                 //validamos el formulario
                 this.$validator.validateAll().then(function () {
@@ -693,8 +696,7 @@ if (document.querySelector('#sign-up-form')) {
                             _this2.preloader = false;
                             //dejamos un delay de medio 1/4 segundo
                             _this2.timeout = setTimeout(function () {
-                                alert();
-                                //window.location.href = SITE_URL + "/new-account/resume-buy/"+response.data.remember_token;
+                                window.location.href = SITE_URL + "/register-end/" + response.data.id;
                             }, 250);
                         }).catch(function (error) {
                             console.log(error);

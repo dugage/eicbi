@@ -4,7 +4,7 @@
         <input  type="hidden" name="course_id"  id="course_id" value="{{$courseId}}" />
     @endisset
     
-    <input  type="hidden" name="referral"  id="referral" value="{{$referral}}" />
+    <input  type="hidden" name="referral"  id="referral" v-model="referral" value="{{$referral}}" />
     
     <div class="form-group" :class="{'has-error': errors.has('name') }">
         <label>{{ trans('app.user') }}</label>

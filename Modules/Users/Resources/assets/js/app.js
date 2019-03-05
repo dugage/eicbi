@@ -32,6 +32,7 @@ if (document.querySelector('#sign-up-form')) {
             errorCode: null,
             formFields: [],
             erroValidate: false,
+            referral: document.querySelector("input[name=referral]").value,
 
         },
         methods: {
@@ -88,7 +89,7 @@ if (document.querySelector('#sign-up-form')) {
             },
             setRegister: function() {
                 //url del store
-                let url = '/api/users/store';
+                let url = '/register-store';
                 //capturamos todos los campos de formulario
                 const formData = new FormData(this.$refs['signUpForm']);
                 const data = {};
@@ -97,6 +98,8 @@ if (document.querySelector('#sign-up-form')) {
 
                     Object.assign(data, { [key]: val })
                 }
+                //add referral
+                Object.assign(data, { 'referral': this.referral });
                 console.log(data);
                 //validamos el formulario
                 this.$validator.validateAll().then(() => {
@@ -113,9 +116,7 @@ if (document.querySelector('#sign-up-form')) {
                             this.preloader = false;
                             //dejamos un delay de medio 1/4 segundo
                             this.timeout = setTimeout( () => {
-                                alert();
-                                //window.location.href = SITE_URL + "/new-account/resume-buy/"+response.data.remember_token;
-                                
+                                window.location.href = SITE_URL + "/register-end/" + response.data.id;
                             }, 250);
 
                         }).catch(error => {

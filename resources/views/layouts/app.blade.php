@@ -14,7 +14,7 @@
 
         @if( Request::segment(1) == 'login' OR Request::segment(1) == 'register' 
         OR Request::segment(1) == 'new-account' OR Request::segment(1) == 'password'
-        OR Request::segment(1) == 'new-buy')
+        OR Request::segment(1) == 'new-buy' OR Request::segment(1) == 'register-end')
 
             <div class="container-fluid page-body-wrapper full-page-wrapper">
 

@@ -21,6 +21,8 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'api/users', 'namespa
 Route::group(['middleware' => 'web', 'namespace' => 'Modules\Users\Http\Controllers'], function()
 {
     Route::get('/register/{referral?}', 'UsersController@register')->where('referral', '[a-zA-Z0-9]+');
+    Route::post('/register-store', 'UsersController@registerStore');
+    Route::get('/register-end/{id?}', 'UsersController@registerEnd')->where('id', '[0-9]+');
 });
 //rutas para el final del registro
 Route::group(['middleware' => 'web', 'prefix' => 'user', 'namespace' => 'Modules\Users\Http\Controllers'], function()
