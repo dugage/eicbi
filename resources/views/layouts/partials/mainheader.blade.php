@@ -4,7 +4,7 @@
 
         <a class="navbar-brand brand-logo" href="{{ route('home') }}"><img src="{{asset('/images/cabecera_web_eicbi-01.png')}}" alt="logo"/></a>
         
-        <a class="navbar-brand brand-logo-mini" href="{{ route('home') }}"><img src="{{asset('/images/logo-mini.svg')}}" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="{{ route('home') }}"><img src="{{asset('/images/cabecera_web_eicbi-01_mini.png')}}" alt="logo"/></a>
     
     </div>
 
@@ -55,6 +55,10 @@
             @endif
 
         </ul>
+
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="mdi mdi-menu"></span>
+        </button>
 
     </div>
 

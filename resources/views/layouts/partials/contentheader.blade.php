@@ -1,4 +1,4 @@
-<div class="page-header">
+<div class="row page-header">
 
     <h3 class="page-title"> @yield('contentheadertitle'){{ trans('app.dashboard') }}</h3>
     <nav aria-label="breadcrumb">

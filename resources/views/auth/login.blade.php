@@ -46,12 +46,15 @@
             </div>
 
             <div class="my-2 d-flex justify-content-between align-items-center">
-                <div class="form-check">
+                <div class="form-check col-12">
                 <label class="form-check-label text-muted">
                     <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }} class="form-check-input">
                     {{ trans('auth.remenber') }}
                 </label>
                 </div>
+            </div>
+
+            <div class="text-center mt-4 font-weight-light">
                 <a href="{{ route('password.request') }}" class="auth-link text-black">{{ trans('auth.forgottenpass') }}</a>
             </div>
 

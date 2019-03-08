@@ -297,3 +297,51 @@ button.btn {
   max-height: 40px;
 }
 
+@media screen and (max-width: 576px) {
+  .navbar .brand-logo-mini {
+    margin-left: 7px;
+  }
+
+  .modal-mask .modal-container {
+    width: 91%;
+  }
+
+  .content-wrapper.auth {
+    background: transparent !important;
+    padding: 0;
+  }
+
+  .content-wrapper.auth .brand-logo img {
+    width: 100%;
+  }
+
+  .content-wrapper .w-100 {
+    margin-left: 0;
+  }
+
+  .content-wrapper .page-header .page-title,
+  .content-wrapper .page-header .breadcrumb {
+    width: 100%;
+  }
+
+  #table-data {
+    overflow-y: scroll;
+  }
+
+  #table-data .card-description {
+    width: 100%;
+  }
+
+  #table-data .form-group {
+    padding: 0;
+  }
+
+  #table-data .pagination {
+    float: left !important;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}
+

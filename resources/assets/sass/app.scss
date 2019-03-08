@@ -281,3 +281,53 @@ button{
      min-height: 40px;
      max-height: 40px;
     }
+//responsive
+$extraSmall: 576px;
+
+@media screen and (max-width: $extraSmall) {
+    .navbar{
+        .brand-logo-mini{
+            margin-left: 7px;
+        }
+    }
+    .modal-mask{
+        .modal-container{
+            width: 91%;
+        }
+    }
+    .content-wrapper{
+        &.auth{
+            background: transparent !important;
+            padding: 0;
+            .brand-logo{
+                img{
+                    width:100%;
+                }
+            }
+        }
+        .w-100{
+            margin-left: 0;
+        }
+        .page-header{
+            .page-title,.breadcrumb{
+                width: 100%;
+            }
+        }
+    }
+
+    #table-data{
+        overflow-y: scroll;
+        .card-description{
+            width: 100%;
+        }
+        .form-group{
+            padding: 0;
+        }
+        .pagination{
+            float: left!important;
+        }
+    }
+    .btn{
+        width: 100%;
+    }
+}
