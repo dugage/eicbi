@@ -149,7 +149,8 @@
         </li>
 
         <li class="nav-item"> 
-            <a class="nav-link" href="{{ url('http://eicbicall.local/intranet/index.php/login?token='.UserCrm::getUserCrm()) }}">
+            <!--<a class="nav-link" href="{{ url('http://eicbicall.local/intranet/index.php/login?token='.UserCrm::getUserCrm()) }}"> -->
+            <a class="nav-link" href="{{ url('callcenter/intranet/index.php/login?token='.UserCrm::getUserCrm()) }}">
                 <span class="menu-title">CRM</span>
                 <i class="mdi mdi-call-made menu-icon"></i>
             </a>
