@@ -3,6 +3,7 @@
 namespace Modules\Users\Http\Controllers;
 
 use App\User;
+use UserCrm;
 use App\Models\Country;
 use App\Models\Referral;
 use Illuminate\Http\Request;
@@ -75,6 +76,7 @@ class UsersController extends Controller
         $user->address = $request->address;
         $user->prefix = $request->prefix;
         $user->telephone = $request->telephone;
+        $user->user_crm = base64_encode($request->email.'_'.$request->password);
         //guardamos el usuario
         $user->save();
         //el usuario se inicia como deshabilitado
@@ -85,6 +87,8 @@ class UsersController extends Controller
         //Mail::to($user->email)->send(new SendEmail());
         //creamos las url referral
         Referral::setReferralOwn($user->id);
+        //replicamos el usuario en el CRM, pasando el ID de este
+        UserCrm::serUserCrm($user->id);
         //devolvemos el usuario creado
         return response()->json($user);
     }
@@ -257,12 +261,15 @@ class UsersController extends Controller
             $user->telephone = $request->telephone;
             $user->zip = $request->zip;
             $user->address = $request->address;
+            $user->user_crm = base64_encode($request->email.'_'.$request->password);
             //guardamos el usuario
             $user->save();
             //asignamos el rol
             Bouncer::assign('User')->to($user);
             //creamos las url referral
             Referral::setReferralOwn($user->id);
+            //replicamos el usuario en el CRM, pasando el ID de este
+            UserCrm::serUserCrm($user->id);
             //retornamos el usuario creado
             return response()->json($user);
 

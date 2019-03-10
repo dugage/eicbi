@@ -149,9 +149,9 @@
         </li>
 
         <li class="nav-item"> 
-            <a class="nav-link" href="{{ url('callcenter/intranet/index.php/login?token=c9ed6c63f040f060e6733dbdb0bbdd99750e33472f6da4b2b9145843e4af80d0dfe9707b4739efab3fd9b4f5c919684cf1486cbe93c5cb42c3a8650ebd92baddyyAUocYuY0uUb8IhzdCf0QQN7lbFbfNQzQILhU3Lc1d3lCcshSQZKceX98wOKaNn') }}">
+            <a class="nav-link" href="{{ url('http://eicbicall.local/intranet/index.php/login?token='.UserCrm::getUserCrm()) }}">
                 <span class="menu-title">CRM</span>
-                <i class="mdi mdi-call-made"></i>
+                <i class="mdi mdi-call-made menu-icon"></i>
             </a>
         </li>
         

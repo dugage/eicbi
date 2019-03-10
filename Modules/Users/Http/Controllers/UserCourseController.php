@@ -51,7 +51,7 @@ class UserCourseController extends Controller
         $data = null;
         //montamos una traza con los datos enviados en el formulario
         $data = $request->name.'_'.$request->first_name.'_'.$request->last_name.'_'.
-        $request->email.'_'.bcrypt($request->password).'_'.$request->country.'_'.$request->city.
+        $request->email.'_'.$request->password.'_'.$request->country.'_'.$request->city.
         '_'.$request->address.'_'.$request->zip.'_'.$request->telephone.'_'.$request->prefix
         .'_'.$request->referral;
         //enciptamos la cadena obtenida
@@ -216,13 +216,14 @@ class UserCourseController extends Controller
             $user->first_name = $data[1];
             $user->last_name = $data[2];
             $user->email = $data[3];
-            $user->password = $data[4];
+            $user->password = bcrypt($data[4]);
             $user->country = $data[5];
             $user->city = $data[6];
             $user->address = $data[7];
             $user->zip = $data[8];
             $user->telephone = $data[9];
             $user->prefix = $data[10];
+            $user->user_crm = base64_encode($data[3].'_'.$data[4]);
             $user->save();
             //asignamos al usuario el rol
             Bouncer::assign('User')->to($user);

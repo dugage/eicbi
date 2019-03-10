@@ -1,6 +1,7 @@
 <?php
 namespace App\Helpers;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Models\UserCrm;
 
@@ -27,5 +28,14 @@ class UserCrmService
 		$userCrm->save();
 		return $userCrm;
 
+	}
+
+	public static function getUserCrm()
+	{
+		//alamcenamos el email y el pass separado por _
+		$tokenCrm = null;
+		$user = User::find(Auth::id());
+		$tokenCrm = $user->user_crm;
+		return $tokenCrm;
 	}
 }
