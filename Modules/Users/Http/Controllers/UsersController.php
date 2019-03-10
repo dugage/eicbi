@@ -88,7 +88,7 @@ class UsersController extends Controller
         //creamos las url referral
         Referral::setReferralOwn($user->id);
         //replicamos el usuario en el CRM, pasando el ID de este
-        UserCrm::serUserCrm($user->id);
+        UserCrm::setUserCrm($user->id);
         //devolvemos el usuario creado
         return response()->json($user);
     }
@@ -269,7 +269,7 @@ class UsersController extends Controller
             //creamos las url referral
             Referral::setReferralOwn($user->id);
             //replicamos el usuario en el CRM, pasando el ID de este
-            UserCrm::serUserCrm($user->id);
+            UserCrm::setUserCrm($user->id);
             //retornamos el usuario creado
             return response()->json($user);
 

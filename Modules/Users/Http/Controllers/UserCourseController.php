@@ -235,7 +235,7 @@ class UserCourseController extends Controller
             if( !empty($data[11]) )
                 $this->_setCredits($data[11],$user);
             //replicamos el usuario en el CRM, pasando el ID de este
-            UserCrm::serUserCrm($user->id);
+            UserCrm::setUserCrm($user->id);
 
         }else{
 

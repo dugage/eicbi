@@ -12,7 +12,7 @@ class UserCrmService
 	 * Con estos datos , creamos un usuario para el CRM, de en principio de tipo Teleoperador
 	 * NOTA: hay que ver como hacemos lo de los roles************************************
 	 */
-    public static function serUserCrm($userId)
+    public static function setUserCrm($userId)
 	{
 		//$user = DB::table('users')->findOrFail($userId);
 		//obtenemos los datos de usuario
