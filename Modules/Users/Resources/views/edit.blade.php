@@ -29,4 +29,41 @@
 
     </div>
 
+    @if ( $user->roles[0]->name == 'User' || $user->roles[0]->name == 'Curtomer' )
+
+        <div class="row">
+
+            <div class="col-12 grid-margin stretch-card">
+
+                <div class="card">
+
+                    <div id="course-collection" class="card-body">
+
+                        <h4 class="card-title">{{ trans('app.courses.courses') }}</h4>
+
+                        <p class="card-description float-right"><button class="btn btn-primary btn-fw"><i class="mdi mdi-link"></i> {{ trans('app.link') }}</button></p>
+
+                        <template v-if="preloader">
+                            <div id="content-preloader">
+                                <p>
+                                    <img src="{{asset('images/Eclipse-0.4s-108px.svg')}}" alt="preloader" class=""><br/>
+                                    <span>{{ trans('app.loadData') }}</span> 
+                                </p>
+                            </div>
+                        </template>
+
+                        <input type="hidden" id="iduser" name="iduser" value="{{$user->id}}">
+
+                        @include('users::partials.tables.courses_table')
+
+                    </div>
+
+                </div>
+            
+            </div>
+
+        </div>
+
+    @endif
+
 @stop

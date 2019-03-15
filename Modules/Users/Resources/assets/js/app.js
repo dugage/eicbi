@@ -139,3 +139,57 @@ if (document.querySelector('#sign-up-form')) {
     });
 }
 
+/**
+ * Componente para el listado de cursos del usuario
+ * vincular, eliminar y listar
+ * @param preloader --booleano, oculta o muestra el preload
+ * @param errorCode --almacena errores de la consutla si tiene
+ * @param erroValidate --booleano para la validación de campos de formulario
+ * @param idUser --id del usuario
+ * @param courses --vector, alamcena la colección de cursos
+ */
+if (document.querySelector('#course-collection')) {
+
+    var course_collection = new Vue({
+
+        el: '#course-collection',
+        data: {
+
+            preloader: false,
+            errorCode: null,
+            erroValidate: false,
+            idUser: document.querySelector("input[name=iduser]").value,
+            courses: [],
+        },
+        methods: {
+            /**
+             * consultamos si tiene cursos vinculados, y los cargamos
+             * @param url --url para la consulta
+             */
+            _loadData() {
+
+                this.preloader = true; 
+                let url = '/courses/my-courses/' + this.idUser;
+
+                axios.get(SITE_URL + url).then((response) => {
+                    
+                    this.preloader = false;
+                    this.courses = response.data;
+
+                }).catch(error => {
+                    console.log(error);
+                    this.errorCode = error.response;
+                    this.preloader = false;
+                    
+                });
+    
+            }
+
+        },
+        mounted() {
+            this._loadData();
+        }
+
+    });
+    
+}

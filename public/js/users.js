@@ -715,6 +715,56 @@ if (document.querySelector('#sign-up-form')) {
     });
 }
 
+/**
+ * Componente para el listado de cursos del usuario
+ * vincular, eliminar y listar
+ * @param preloader --booleano, oculta o muestra el preload
+ * @param errorCode --almacena errores de la consutla si tiene
+ * @param erroValidate --booleano para la validación de campos de formulario
+ * @param idUser --id del usuario
+ * @param courses --vector, alamcena la colección de cursos
+ */
+if (document.querySelector('#course-collection')) {
+
+    var course_collection = new Vue({
+
+        el: '#course-collection',
+        data: {
+
+            preloader: false,
+            errorCode: null,
+            erroValidate: false,
+            idUser: document.querySelector("input[name=iduser]").value,
+            courses: []
+        },
+        methods: {
+            /**
+             * consultamos si tiene cursos vinculados, y los cargamos
+             * @param url --url para la consulta
+             */
+            _loadData: function _loadData() {
+                var _this3 = this;
+
+                this.preloader = true;
+                var url = '/courses/my-courses/' + this.idUser;
+
+                axios.get(SITE_URL + url).then(function (response) {
+
+                    _this3.preloader = false;
+                    _this3.courses = response.data;
+                }).catch(function (error) {
+                    console.log(error);
+                    _this3.errorCode = error.response;
+                    _this3.preloader = false;
+                });
+            }
+        },
+        mounted: function mounted() {
+            this._loadData();
+        }
+    });
+}
+
 /***/ }),
 
 /***/ 58:

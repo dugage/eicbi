@@ -115,7 +115,7 @@ class UsersController extends Controller
 
             $countries = Country::all();
             $user = User::withTrashed()
-            ->findOrFail($id);
+            ->with('roles')->findOrFail($id);
             return view('users::edit',compact('user','countries'));
         }
 

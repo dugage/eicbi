@@ -161,13 +161,21 @@ class CoursesController extends Controller
      * getting courses by user
      * @return Response
      */
-    public function getCoursesByUser()
+    public function getCoursesByUser($idUser = null)
     {
+        $idUser == null? $idUser = Auth::user()->id : '';
         $courses = UserCourse::with('course')
-        ->Where('user_id',Auth::user()->id)
+        ->Where('user_id',$idUser)
         ->get();
-        //dump($courses);
-        return view('courses::my_courses',compact('courses'));
+        
+        if( request()->ajax() ) {
+            //retornamos la colección de cursos
+            return response()->json($courses);
+
+        }else{
+
+            return view('courses::my_courses',compact('courses'));
+        }
     }
 
     /**
