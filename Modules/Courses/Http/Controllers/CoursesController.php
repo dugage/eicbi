@@ -179,6 +179,23 @@ class CoursesController extends Controller
     }
 
     /**
+     * get course collection
+     * @return Response
+     */
+    public function getCourseCollection()
+    {
+        if( request()->ajax() ) {
+
+            $courses = Course::all();
+            return response()->json($courses);
+
+        }else{
+
+            abort(404);
+        }
+    }
+
+    /**
      * get default object if empty
      * @return Response
      */

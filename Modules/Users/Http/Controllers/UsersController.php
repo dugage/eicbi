@@ -5,6 +5,7 @@ namespace Modules\Users\Http\Controllers;
 use App\User;
 use UserCrm;
 use App\Models\Country;
+use App\Models\UserCourse;
 use App\Models\Referral;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -289,5 +290,39 @@ class UsersController extends Controller
             return redirect('home');
         }
         
+    }
+
+    /**
+     * Método que elimina un curso de la lista de cursos
+     * vinculados al usuario
+     */
+    public function deleteCourse($idCourse) 
+    {
+        if( request()->ajax() ) {
+
+            UserCourse::destroy($idCourse);
+
+        }else{
+
+            abort(404);
+        }
+    }
+
+    /**
+     * Vinculamos un curso a un usuario
+     */
+    public function setCourseToUser($idUser, Request $request)
+    {
+        if( request()->ajax() ) {
+
+            $userCourse = new UserCourse;
+            $userCourse->course_id = $request->courseId;
+            $userCourse->user_id = $idUser;
+            $userCourse->save();
+
+        }else{
+
+            abort(404);
+        }
     }
 }

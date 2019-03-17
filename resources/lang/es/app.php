@@ -124,6 +124,7 @@ return [
         'chapterFile' => 'Documento',
         'chapterAttachedFile' => 'Documento adjunto',
         'myCourses' => 'Mis Cursos',
+        'selectCourse' => 'Selecciona un curso',
     ],
     //páginas cancelled-buy y accepted-buy
     'resultBuy' => [

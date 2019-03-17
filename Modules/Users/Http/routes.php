@@ -15,7 +15,9 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'api/users', 'namespa
     Route::post('/store', 'UsersController@store');
     Route::post('/update/{id}', 'UsersController@update')->where('id', '[0-9]+');
     Route::post('/disabled/{id}', 'UsersController@disabled')->where('id', '[0-9]+');
+    Route::get('/delete-course/{idCourse}', 'UsersController@deleteCourse')->where('idCourse', '[0-9]+');
     Route::get('/search/{query}', 'UsersController@search');
+    Route::post('/set-course-to-user/{idUser}', 'UsersController@setCourseToUser')->where('idUser', '[0-9]+');
 });
 //rutas para el registro o alta de un usuario nuevo,!!sin compra
 Route::group(['middleware' => 'web', 'namespace' => 'Modules\Users\Http\Controllers'], function()

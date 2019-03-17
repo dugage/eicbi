@@ -41,7 +41,7 @@
 
                         <h4 class="card-title">{{ trans('app.courses.courses') }}</h4>
 
-                        <p class="card-description float-right"><button class="btn btn-primary btn-fw"><i class="mdi mdi-link"></i> {{ trans('app.link') }}</button></p>
+                        <p class="card-description float-right"><button @click="showModalLinkCoruse()" class="btn btn-primary btn-fw"><i class="mdi mdi-link"></i> {{ trans('app.link') }}</button></p>
 
                         <template v-if="preloader">
                             <div id="content-preloader">
@@ -55,7 +55,7 @@
                         <input type="hidden" id="iduser" name="iduser" value="{{$user->id}}">
 
                         @include('users::partials.tables.courses_table')
-
+                        @include('users::partials.modals.add_course_modal')
                     </div>
 
                 </div>

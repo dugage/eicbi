@@ -723,6 +723,9 @@ if (document.querySelector('#sign-up-form')) {
  * @param erroValidate --booleano para la validación de campos de formulario
  * @param idUser --id del usuario
  * @param courses --vector, alamcena la colección de cursos
+ * @param optSelectCourses --vector, alamcena los cursos para vincular, los nmostrará un slect
+ * @param showModal -- booleano que muestra y oculta el modal
+ * @param courseSelected -- almacena el curso seleccionado
  */
 if (document.querySelector('#course-collection')) {
 
@@ -735,27 +738,105 @@ if (document.querySelector('#course-collection')) {
             errorCode: null,
             erroValidate: false,
             idUser: document.querySelector("input[name=iduser]").value,
-            courses: []
+            courses: [],
+            optSelectCourses: [],
+            courseSelected: null,
+            showModal: false
         },
         methods: {
+            /**
+             * Vincula el curso al usuario, realiza un set
+             */
+            setData: function setData() {
+                var _this3 = this;
+
+                var url = '/api/users/set-course-to-user/' + this.idUser;
+                //donde almacenamos los datos del select
+                var data = {};
+                Object.assign(data, { 'courseId': this.courseSelected });
+                //realizamos el set
+                axios.post(SITE_URL + url, data).then(function (response) {
+                    //ocultamos el modal
+                    _this3.showModal = false;
+                    //recargamos la página
+                    _this3._loadData();
+                }).catch(function (error) {
+
+                    _this3.errorCode = error.response;
+                    _this3.preloader = false;
+                });
+            },
+
+            /**
+             * Elimina un curso de la lista de cursos vinculados
+             * @param url --url de la consutla para el delete
+             */
+            deleteCoruse: function deleteCoruse(idCourse) {
+                var _this4 = this;
+
+                //
+                var url = '/api/users/delete-course/' + idCourse;
+                //realizamos la cosnsulta para el borrado
+                axios.get(SITE_URL + url).then(function (response) {
+
+                    _this4._loadData();
+                }).catch(function (error) {
+
+                    _this4.errorCode = error.response;
+                    _this4.preloader = false;
+                });
+            },
+
+            /**
+             * Muestra el modal para vincular un curso al un usuario
+             */
+            showModalLinkCoruse: function showModalLinkCoruse() {
+                //reseteamos @param courseSelected
+                this.courseSelected = null;
+                //cargamos el select
+                this._getCoursesSelect();
+                //mostramos el modal
+                this.showModal = true;
+            },
+
             /**
              * consultamos si tiene cursos vinculados, y los cargamos
              * @param url --url para la consulta
              */
             _loadData: function _loadData() {
-                var _this3 = this;
+                var _this5 = this;
 
                 this.preloader = true;
                 var url = '/courses/my-courses/' + this.idUser;
 
                 axios.get(SITE_URL + url).then(function (response) {
 
-                    _this3.preloader = false;
-                    _this3.courses = response.data;
+                    _this5.preloader = false;
+                    _this5.courses = response.data;
                 }).catch(function (error) {
                     console.log(error);
-                    _this3.errorCode = error.response;
-                    _this3.preloader = false;
+                    _this5.errorCode = error.response;
+                    _this5.preloader = false;
+                });
+            },
+
+            /**
+             * Cargamos el listado de cursos que disponemos en cursos, para
+             * mostrarlos en el select
+             * @param url --url para la consulta
+             */
+            _getCoursesSelect: function _getCoursesSelect() {
+                var _this6 = this;
+
+                var url = '/api/courses/get-course-collection';
+                //realizamos la cosnsulta
+                axios.get(SITE_URL + url).then(function (response) {
+
+                    _this6.optSelectCourses = response.data;
+                }).catch(function (error) {
+
+                    _this6.errorCode = error.response;
+                    _this6.preloader = false;
                 });
             }
         },

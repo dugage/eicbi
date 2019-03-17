@@ -13,6 +13,7 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'courses', 'namespace
 Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'api/courses', 'namespace' => 'Modules\Courses\Http\Controllers'], function()
 {
     Route::get('/', 'CoursesController@index');
+    Route::get('/get-course-collection', 'CoursesController@getCourseCollection');
     Route::post('/store', 'CoursesController@store');
     Route::post('/update/{id}', 'CoursesController@update')->where('id', '[0-9]+');
     Route::get('/search/{query}', 'CoursesController@search');
