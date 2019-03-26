@@ -24,7 +24,7 @@
 
         @foreach ($courses as $course)
 
-            <div class="col-3 grid-margin stretch-card">
+            <div class="col-md-3 grid-margin stretch-card">
 
                 <div class="card">
 
