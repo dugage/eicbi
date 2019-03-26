@@ -54,8 +54,9 @@
 
                 <!-- Modal body -->
                 <div class="modal-body">
-                    
-                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/{{$chapter->video}}?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    @isset($chapter->video)
+                        <iframe width="100%" height="315" src="https://www.youtube.com/embed/{{$chapter->video}}?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    @endisset
                     
                     <div style="border: 1px solid #727272;" class="alert alert-secondary">
                         {{ trans('app.courses.chapterAttachedFile') }}<br/>
