@@ -185,8 +185,8 @@
             </a>
         </li>
 
-        <li style="opacity: 0.6;" class="nav-item">
-            <a class="nav-link">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('blockchain') }}">
                 <span class="menu-title">Blockchain</span>
                 <i class="mdi mdi-stackexchange menu-icon"></i>
             </a>

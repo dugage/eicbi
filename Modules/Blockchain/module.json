@@ -1,0 +1,16 @@
+{
+    "name": "Blockchain",
+    "alias": "blockchain",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Blockchain\\Providers\\BlockchainServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}
