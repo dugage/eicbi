@@ -16,7 +16,7 @@
                 <td>{{$chain->data}}-{{$chain->id}}</td>
                 <td>{{$chain->created_at}}</td>
                 <td>
-                    <a href="#" class="btn btn-gradient-success btn-fw">Ver</a>
+                    <a href="{{ route('blockchain.showblocks',$chain->hash) }}" class="btn btn-gradient-success btn-fw">Ver</a>
                 </td>
             </tr>
         @endforeach

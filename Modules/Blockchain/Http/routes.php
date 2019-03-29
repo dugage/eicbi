@@ -5,4 +5,5 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'blockchain', 'namesp
     Route::get('/', 'BlockchainController@index')->name('blockchain');
     Route::get('/create', 'BlockchainController@create')->name('blockchain.create');
     Route::post('/store', 'BlockchainController@store')->name('blockchain.store');
+    Route::get('/show-blocks/{hash}', 'BlockchainController@showBlocks')->name('blockchain.showblocks')->where('hash', '[a-zA-Z0-9]+');
 });

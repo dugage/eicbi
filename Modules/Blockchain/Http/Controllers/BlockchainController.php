@@ -73,7 +73,7 @@ class BlockchainController extends Controller
             $newBlock->save();
         }
 
-        //dump($block->chain[0]->index);
+        //dump($block);
         //echo $request->newChain;
         //echo $request->data;
         return redirect('blockchain/create');
@@ -83,34 +83,43 @@ class BlockchainController extends Controller
      * Show the specified resource.
      * @return Response
      */
-    public function show()
+    public function showBlocks($hash)
     {
-        return view('blockchain::show');
+        $blocks = $this->getBlocks($hash);
+        $verifityBlock = $this->verifyBlock($blocks);
+        return view('blockchain::show_blocks',compact('blocks','verifityBlock'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * montamos la cadena con sus bloques y lo retornamos 
      * @return Response
      */
-    public function edit()
+    private function getBlocks($hash,$blocks = array())
     {
-        return view('blockchain::edit');
+
+        $block = BlockChainModel::where('previous_hash',$hash)->first();
+
+        while ($block) {
+            array_push($blocks,$block);
+            $block = BlockChainModel::where('previous_hash',$block->hash)->first();
+        }
+        
+        return $blocks;
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
-    public function update(Request $request)
-    {
+    private function verifyBlock($blocks){
+
+        $verifyBlocks = [];
+        foreach ($blocks as $key => $block) {
+            
+            $verifyBlocks[$block->hash] = $block->hash == $this->getHash($block);
+        }
+
+        return $verifyBlocks;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @return Response
-     */
-    public function destroy()
-    {
+    private function getHash($block) {
+        $b = $block->index.$block->previous_hash.$block->timestamp.((string)$block->data);
+        return hash("sha256", $b);
     }
 }
