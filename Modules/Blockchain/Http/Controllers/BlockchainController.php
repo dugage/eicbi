@@ -80,7 +80,7 @@ class BlockchainController extends Controller
     }
 
     /**
-     * Show the specified resource.
+     * Show Blocks by chain.
      * @return Response
      */
     public function showBlocks($hash)
@@ -88,6 +88,16 @@ class BlockchainController extends Controller
         $blocks = $this->getBlocks($hash);
         $verifityBlock = $this->verifyBlock($blocks);
         return view('blockchain::show_blocks',compact('blocks','verifityBlock'));
+    }
+
+    /**
+     * Show Block data by id.
+     * @return Response
+     */
+    public function showBlock($id)
+    {
+        $block = BlockChainModel::find($id);
+        return view('blockchain::show_block',compact('block'));
     }
 
     /**
